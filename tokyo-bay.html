@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheraton Grand Tokyo Bay Hotel | Marriott Bonvoy</title>
+    <!-- Google Font Import -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    
+    <!-- CSS and Font Awesome -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="hotel-details-page">
+
+    <!-- PREMIUM NAVIGATION HEADER -->
+    <header class="header-component solid-header">
+        <!-- Top Utility Bar -->
+        <div class="nav-utility-bar">
+            <div class="utility-right">
+                <span class="utility-item"><i class="fa-solid fa-earth-americas"></i> ENGLISH <i class="fa-solid fa-chevron-down small-arrow"></i></span>
+                <span class="utility-item"><i class="fa-regular fa-user"></i> SIGN IN OR JOIN</span>
+                <span class="utility-brand">MARRIOTT <b>BONVOY</b></span>
+            </div>
+        </div>
+
+        <!-- Main Navigation Bar -->
+        <div class="nav-main-bar">
+            <div class="logo-area">
+                <svg class="sheraton-medallion" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="52" height="52" aria-label="Sheraton S emblem">
+                    <circle cx="30" cy="30" r="27.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                    <circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 1.6"/>
+                    <text x="30" y="39" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-size="23" font-weight="400" fill="currentColor">S</text>
+                </svg>
+                <span class="brand-name">SHERATON</span>
+            </div>
+            <nav class="nav-links" id="nav-menu">
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="destinations.html">DESTINATIONS</a></li>
+                    <li><a href="about.html">ABOUT US</a></li>
+                    <li><a href="#">STORE</a></li>
+                </ul>
+            </nav>
+            <div class="nav-right-action">
+                <button class="reserve-btn">RESERVE NOW</button>
+                <button class="mobile-menu-toggle" id="mobile-toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- BOOKING BAR -->
+    <div class="booking-bar-wrapper">
+        <div class="booking-bar-container">
+            <div class="booking-item">
+                <span class="booking-icon"><i class="fa-regular fa-calendar"></i></span>
+                <div class="booking-info">
+                    <span class="booking-label">DATES (1 NIGHT)</span>
+                    <span class="booking-value">Sat, Jul 18 <i class="fa-solid fa-arrow-right-long" style="margin: 0 10px;"></i> Sun, Jul 19</span>
+                </div>
+            </div>
+            <div class="booking-divider"></div>
+            <div class="booking-item">
+                <div class="booking-info">
+                    <span class="booking-label">ROOMS & GUESTS</span>
+                    <span class="booking-value">1 Room, 1 Adult <i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+            </div>
+            <div class="booking-divider"></div>
+            <div class="booking-item">
+                <div class="booking-info">
+                    <span class="booking-label">SPECIAL RATES</span>
+                    <span class="booking-value">Lowest Regular Rate <i class="fa-solid fa-chevron-down"></i></span>
+                </div>
+            </div>
+            <div class="booking-action">
+                <button class="view-rates-btn">View Rates</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO VIDEO SECTION -->
+    <section class="hotel-hero-video-section">
+        <video id="tokyo-hero-video" class="hotel-hero-video" autoplay muted loop playsinline preload="auto" oncanplay="this.play()">
+            <source src="Sheraton%20%20Tokyo%20Bay%20%20Spa.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Gallery Controls -->
+        <div class="gallery-controls">
+            <div class="carousel-dots">
+                <i class="fa-solid fa-chevron-left arrow"></i>
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <i class="fa-solid fa-chevron-right arrow"></i>
+            </div>
+            <div class="gallery-btn">
+                <i class="fa-regular fa-images"></i> Gallery
+            </div>
+        </div>
+    </section>
+
+    <!-- DARK FOOTER SECTION -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-links-column">
+                <h5>SHERATON STORE</h5>
+                <ul>
+                    <li>SHERATON VACATION CLUB</li>
+                    <li>NEWS</li>
+                    <li>CAREERS</li>
+                    <li>DEVELOPERS</li>
+                </ul>
+            </div>
+            <div class="footer-links-column">
+                <h5>ABOUT US</h5>
+                <ul>
+                    <li>MI CORPORATE RESPONSIBILITY</li>
+                    <li>MARRIOTT.COM</li>
+                    <li>TERMS OF USE</li>
+                    <li>PRIVACY STATEMENT</li>
+                </ul>
+            </div>
+            <div class="footer-social-column">
+                <h5>STAY CONNECTED</h5>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-app-column">
+                <div class="app-promo-box">
+                    <p class="promo-title">WELCOME</p>
+                    <p class="promo-sub">Explore The Possibilities. What you need, When you need it.</p>
+                    <button class="learn-more-btn">LEARN MORE</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

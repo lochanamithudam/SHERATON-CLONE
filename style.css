@@ -1,0 +1,830 @@
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+    overflow-x: hidden;
+}
+
+/* Premium Typography Settings */
+h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+
+/* 1. Header & Navigation Container */
+.header-component {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    padding: 20px 60px 0 60px;
+}
+/* Final Premium Logo Styling */
+.logo-area .brand-name {
+    font-family: 'Montserrat', sans-serif !important;
+    letter-spacing: 8px !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+    font-size: 1.35rem !important;
+    display: inline-block !important;
+    text-shadow: none !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 2. Top Utility Bar (English, Sign In, Bonvoy) */
+.nav-utility-bar {
+    display: flex;
+    justify-content: flex-end;
+    /* සිහින් සුදු පැහැති රේඛාව */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); 
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.utility-right {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+}
+
+.utility-item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.utility-item:hover {
+    opacity: 1;
+}
+
+.small-arrow {
+    font-size: 0.6rem;
+    margin-left: 2px;
+}
+
+.utility-brand {
+    letter-spacing: 2px;
+    font-size: 0.85rem;
+    font-family: 'Montserrat', sans-serif;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    padding-left: 20px;
+}
+
+/* 3. Main Navigation Bar (Logo, Menu, Reserve Button) */
+.nav-main-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    color: #ffffff;
+    gap: 15px;
+}
+
+/* SVG Sheraton Medallion */
+.sheraton-medallion {
+    color: #ffffff;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 6px rgba(255,255,255,0.15));
+    transition: transform 0.3s ease;
+}
+
+.sheraton-medallion:hover {
+    transform: scale(1.05);
+}
+
+.brand-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    letter-spacing: 8px;
+    color: #ffffff !important;
+    text-transform: uppercase;
+    text-shadow: none;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Main Menu Items */
+.nav-links ul {
+    display: flex;
+    list-style: none;
+    gap: 45px;
+}
+
+.nav-links li {
+    color: #ffffff;
+    font-size: 1rem; /* අකුරු වල ප්‍රමාණය නියමිත පරිදි විශාල කර ඇත */
+    letter-spacing: 3px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.2s;
+}
+
+.nav-links li:hover {
+    transform: scale(1.03);
+}
+
+.nav-links a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: #f6d5bc;
+}
+
+.dynamic-arrow {
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+/* Hamburger Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* Premium Reserve Button */
+.reserve-btn {
+    background-color: #f6d5bc; /* Sheraton Signature Color */
+    color: #000000;
+    border: none;
+    padding: 14px 35px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.reserve-btn:hover {
+    background-color: #e5c2a7;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* 4. Fullscreen Background Video Setup */
+.video-hero-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.hero-bg-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    z-index: 2;
+}
+
+.hero-floating-card {
+    position: absolute;
+    bottom: 12%;
+    left: 6%;
+    max-width: 500px;
+    background-color: transparent !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+}
+
+.card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    line-height: 1.25;
+    letter-spacing: 1px;
+    
+    /* Here is the path to fix the color and weight */
+    color: #ffffff !important;   /* Changes the text color to white */
+    font-weight: 700 !important; /* Makes the font beautifully bold */
+}
+
+/* Middle Sections */
+.intro-section {
+    text-align: center;
+    padding: 90px 20px;
+    background-color: #fff;
+}
+
+.intro-section h2 {
+    font-size: 2.8rem;
+    font-weight: 400;
+    margin-bottom: 15px;
+    text-shadow: none;
+}
+
+.intro-section p {
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+    color: #666;
+}
+
+.feature-grid-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px 60px 40px;
+}
+
+.grid-card {
+    display: flex;
+    background-color: #f9f9f9;
+    align-items: center;
+}
+
+.card-text-content {
+    flex: 1;
+    padding: 60px;
+}
+
+.card-text-content h3 {
+    font-size: 2.2rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+    text-shadow: none;
+}
+
+.card-text-content p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.card-image-content {
+    flex: 1.2;
+    height: 450px;
+}
+
+.card-image-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.split-grid-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px 100px 40px;
+    display: flex;
+    gap: 40px;
+}
+
+.split-card {
+    flex: 1;
+    background-color: #f9f9f9;
+}
+
+.split-card img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+.split-text-box {
+    padding: 40px;
+}
+
+.split-text-box h4 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 15px;
+    text-shadow: none;
+}
+
+.split-text-box p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* Footer Section */
+.site-footer {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 80px 60px 50px 60px;
+    font-size: 0.8rem;
+}
+
+.footer-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.footer-links-column h5, .footer-social-column h5 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    letter-spacing: 1px;
+    margin-bottom: 25px;
+    font-size: 0.85rem;
+}
+
+.footer-links-column ul {
+    list-style: none;
+}
+
+.footer-links-column li {
+    margin-bottom: 15px;
+    color: #cccccc;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+}
+
+.footer-links-column li:hover {
+    color: #ffffff;
+}
+
+.social-icons {
+    display: flex;
+    gap: 20px;
+}
+
+.social-icons a {
+    color: #ffffff;
+    font-size: 1.3rem;
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: #f6d5bc;
+}
+
+.app-promo-box {
+    background-color: #222222;
+    padding: 30px;
+    max-width: 300px;
+    text-align: center;
+    border: 1px solid #444;
+}
+
+.promo-title {
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.promo-sub {
+    color: #aaa;
+    line-height: 1.4;
+    margin-bottom: 20px;
+}
+
+.learn-more-btn {
+    background-color: #f6d5bc;
+    color: #000;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+    .nav-links {
+        display: none;
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: rgba(17, 17, 17, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 30px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        z-index: 998;
+    }
+    .nav-links.active {
+        display: block;
+    }
+    .nav-links ul {
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+    }
+    .nav-utility-bar {
+        display: none;
+    }
+    .header-component {
+        padding: 15px 25px;
+    }
+    .grid-card {
+        flex-direction: column;
+    }
+    .card-image-content {
+        height: 300px;
+        flex: none;
+        width: 100%;
+    }
+    .split-grid-section {
+        flex-direction: column;
+        gap: 30px;
+        padding: 0 25px 60px 25px;
+    }
+    .feature-grid-section {
+        padding: 0 25px 40px 25px;
+    }
+    .logo-area .s-icon {
+        font-family: 'Playfair Display', serif !important;
+        font-size: 2rem !important;
+        font-weight: 400 !important;
+        letter-spacing: normal !important;
+        margin-right: 8px !important;
+    }
+    .logo-area .brand-name {
+        font-family: 'Montserrat', sans-serif !important;
+        letter-spacing: 5px !important;
+        text-transform: uppercase !important;
+        font-weight: 300 !important;
+        font-size: 1.1rem !important;
+        display: inline-block !important;
+    }
+}
+
+/* Destinations Page Styling */
+.destinations-hero {
+    height: 60vh;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('lobby.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #ffffff;
+    margin-top: 0;
+}
+
+.destinations-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.destinations-intro {
+    text-align: center;
+    padding: 80px 20px 40px 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.destinations-intro h2 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    font-weight: 400;
+}
+
+.destinations-intro p {
+    font-size: 0.95rem;
+    letter-spacing: 3px;
+    color: #666;
+    text-transform: uppercase;
+}
+
+.destinations-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px 100px 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+}
+
+.destination-card {
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.destination-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.destination-image {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.destination-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.destination-card:hover .destination-image img {
+    transform: scale(1.05);
+}
+
+.destination-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(17, 17, 17, 0.85);
+    color: #f6d5bc;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.destination-info {
+    padding: 30px;
+}
+
+.destination-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-weight: 400;
+    color: #111;
+}
+
+.destination-info p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.destination-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.explore-link {
+    color: #111;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    border-bottom: 2px solid #f6d5bc;
+    padding-bottom: 2px;
+    transition: border-color 0.3s;
+}
+
+.explore-link:hover {
+    border-color: #111;
+}
+
+.book-now-btn {
+    background-color: transparent;
+    border: 1px solid #111;
+    color: #111;
+    padding: 8px 18px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.book-now-btn:hover {
+    background-color: #111;
+    color: #fff;
+}
+
+/* TOKYO BAY PAGE SPECIFIC STYLES */
+
+.solid-header {
+    background-color: #1a1a1a;
+    position: static; /* Let it flow normally so it pushes content down */
+    padding-bottom: 20px;
+}
+
+/* Booking Bar */
+.booking-bar-wrapper {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.booking-bar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 40px;
+}
+
+.booking-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+    padding: 0 20px;
+}
+
+.booking-icon {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.booking-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-label {
+    font-size: 0.75rem;
+    color: #666;
+    letter-spacing: 1px;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.booking-value {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.booking-divider {
+    width: 1px;
+    height: 40px;
+    background-color: #eee;
+}
+
+.booking-action {
+    padding-left: 20px;
+}
+
+.view-rates-btn {
+    background-color: #5d5c58;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.view-rates-btn:hover {
+    background-color: #333;
+}
+
+/* Hero Video Section */
+.hotel-hero-video-section {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 200px);
+    overflow: hidden;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hotel-hero-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+/* Custom Overlays */
+.video-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.custom-play-btn {
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom-play-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.05);
+}
+
+.custom-play-btn i {
+    color: #fff;
+    font-size: 35px;
+    margin-left: 5px; /* adjust for optical center of play icon */
+}
+
+/* Gallery Controls */
+.gallery-controls {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 10;
+}
+
+.carousel-dots {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.carousel-dots .arrow {
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.carousel-dots .dot {
+    width: 8px;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.carousel-dots .dot.active {
+    background-color: #fff;
+}
+
+.gallery-btn {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gallery-btn:hover, .carousel-dots:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
