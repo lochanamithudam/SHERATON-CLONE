@@ -3,83 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sheraton Locations & Resorts | Destinations</title>
-    <!-- Google Font Import -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-    
-    <!-- CSS and Font Awesome -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Sheraton Destinations</title>
+    <style>
+        /* Base page styling */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #fafafa;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* The Grid Container */
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto; 
+            padding: 0 20px;
+        }
+
+        /* Individual Card Styling */
+        .destination-card {
+            background-color: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s ease;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Image Area */
+        .destination-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .destination-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* The Dark Label on the image */
+        .destination-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(17, 17, 17, 0.85);
+            color: #fff;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+        }
+
+        /* Text and Button Area */
+        .destination-info {
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .destination-info h3 {
+            font-family: 'Times New Roman', Times, serif; 
+            font-size: 1.6rem;
+            color: #222;
+            margin: 0 0 15px 0;
+            font-weight: normal;
+        }
+
+        .destination-info p {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            margin: 0 0 30px 0;
+            flex-grow: 1; 
+        }
+
+        /* Footer of the card for links/buttons */
+        .destination-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .explore-link {
+            text-decoration: none;
+            color: #111;
+            font-weight: bold;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .explore-link::after {
+            content: "▶";
+            font-size: 0.6rem;
+            margin-left: 6px;
+        }
+
+        .book-now-btn {
+            text-decoration: none;
+            border: 1px solid #111;
+            background: transparent;
+            color: #111;
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .book-now-btn:hover {
+            background: #111;
+            color: #fff;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- PREMIUM NAVIGATION HEADER -->
-    <header class="header-component">
-        <!-- Top Utility Bar -->
-        <div class="nav-utility-bar">
-            <div class="utility-right">
-                <span class="utility-item"><i class="fa-solid fa-earth-americas"></i> ENGLISH <i class="fa-solid fa-chevron-down small-arrow"></i></span>
-                <span class="utility-item"><i class="fa-regular fa-user"></i> SIGN IN OR JOIN</span>
-                <span class="utility-brand">MARRIOTT <b>BONVOY</b></span>
-            </div>
-        </div>
-
-        <!-- Main Navigation Bar -->
-        <div class="nav-main-bar">
-            <div class="logo-area">
-                <svg class="sheraton-medallion" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="52" height="52" aria-label="Sheraton S emblem">
-                    <circle cx="30" cy="30" r="27.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
-                    <circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 1.6"/>
-                    <text x="30" y="39" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-size="23" font-weight="400" fill="currentColor">S</text>
-                </svg>
-                <span class="brand-name">SHERATON</span>
-            </div>
-            <nav class="nav-links" id="nav-menu">
-                <ul>
-                    <li><a href="index.html">HOME</a></li>
-                    <li><a href="destinations.html" class="active">DESTINATIONS</a></li>
-                    <li><a href="about.html">ABOUT US</a></li>
-                    <li><a href="#">STORE</a></li>
-                </ul>
-            </nav>
-            <div class="nav-right-action">
-                <button class="reserve-btn">RESERVE NOW</button>
-                <button class="mobile-menu-toggle" id="mobile-toggle">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- HERO SECTION -->
-    <section class="destinations-hero">
-        <div>
-            <h1>Our Destinations</h1>
-        </div>
-    </section>
-
-    <!-- INTRO SECTION -->
-    <section class="destinations-intro">
-        <p>Explore the World's Gathering Place</p>
-        <h2>Find Your Next Sheraton Experience</h2>
-    </section>
-
-    <!-- DESTINATIONS GRID -->
     <section class="destinations-grid">
         <!-- Card 1 -->
         <div class="destination-card">
             <div class="destination-image">
-                <span class="destination-badge">Tropical Escape</span>
-                <img src="download.webp" alt="Sheraton Maldives Full Moon Resort">
+                <img src="download.webp" alt="Sheraton Maldives">
+                <span class="destination-badge">TROPICAL ESCAPE</span>
             </div>
             <div class="destination-info">
                 <h3>Sheraton Maldives Full Moon Resort</h3>
-                <p>Escape to paradise. Set on a private island with turquoise lagoons, lush gardens, and overwater bungalows, this resort is ideal for families and couples alike.</p>
+                <p>Escape to paradise. Set on a private island with turquoise lagoons, lush gardens, and overwater bungalows.</p>
                 <div class="destination-actions">
                     <a href="#" class="explore-link">EXPLORE RESORT</a>
-                    <button class="book-now-btn">BOOK NOW</button>
+                    <a href="booking.html?hotel=Maldives" class="book-now-btn">BOOK NOW</a>
                 </div>
             </div>
         </div>
@@ -87,15 +147,15 @@
         <!-- Card 2 -->
         <div class="destination-card">
             <div class="destination-image">
-                <span class="destination-badge">City Luxury</span>
-                <img src="OIP.webp" alt="Sheraton Colombo Hotel">
+                <img src="OIP.webp" alt="Sheraton Colombo">
+                <span class="destination-badge">CITY LUXURY</span>
             </div>
             <div class="destination-info">
                 <h3>Sheraton Colombo Hotel</h3>
-                <p>Located in the heart of Sri Lanka's bustling capital. Enjoy stunning ocean vistas, signature Sheraton sleep experience, state-of-the-art workspace, and rooftop dining.</p>
+                <p>Located in the heart of Sri Lanka's bustling capital. Enjoy stunning ocean vistas and rooftop dining.</p>
                 <div class="destination-actions">
                     <a href="#" class="explore-link">EXPLORE HOTEL</a>
-                    <button class="book-now-btn">BOOK NOW</button>
+                    <a href="booking.html?hotel=Colombo" class="book-now-btn">BOOK NOW</a>
                 </div>
             </div>
         </div>
@@ -103,62 +163,19 @@
         <!-- Card 3 -->
         <div class="destination-card">
             <div class="destination-image">
-                <span class="destination-badge">Urban Retreat</span>
-                <img src="lobby.jpg" alt="Sheraton Grand Tokyo Bay Hotel">
+                <img src="lobby.jpg" alt="Sheraton Tokyo Bay">
+                <span class="destination-badge">URBAN RETREAT</span>
             </div>
             <div class="destination-info">
                 <h3>Sheraton Grand Tokyo Bay Hotel</h3>
-                <p>Experience Japan in style. Located adjacent to Tokyo Disney Resort, our hotel features beautiful bay views, multiple pools, interactive kids spaces, and grand event spaces.</p>
+                <p>Experience Japan in style. Located adjacent to Tokyo Disney Resort, our hotel features beautiful bay views.</p>
                 <div class="destination-actions">
-                    <a href="tokyo-bay.html" class="explore-link">EXPLORE HOTEL <i class="fa-solid fa-play" style="margin-left: 5px;"></i></a>
-                    <button class="book-now-btn">BOOK NOW</button>
+                    <a href="#" class="explore-link">EXPLORE HOTEL</a>
+                    <a href="booking.html?hotel=Tokyo" class="book-now-btn">BOOK NOW</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- DARK FOOTER SECTION -->
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-links-column">
-                <h5>SHERATON STORE</h5>
-                <ul>
-                    <li>SHERATON VACATION CLUB</li>
-                    <li>NEWS</li>
-                    <li>CAREERS</li>
-                    <li>DEVELOPERS</li>
-                </ul>
-            </div>
-            <div class="footer-links-column">
-                <h5>ABOUT US</h5>
-                <ul>
-                    <li>MI CORPORATE RESPONSIBILITY</li>
-                    <li>MARRIOTT.COM</li>
-                    <li>TERMS OF USE</li>
-                    <li>PRIVACY STATEMENT</li>
-                </ul>
-            </div>
-            <div class="footer-social-column">
-                <h5>STAY CONNECTED</h5>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="footer-app-column">
-                <div class="app-promo-box">
-                    <p class="promo-title">WELCOME</p>
-                    <p class="promo-sub">Explore The Possibilities. What you need, When you need it.</p>
-                    <button class="learn-more-btn">LEARN MORE</button>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>

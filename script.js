@@ -163,4 +163,85 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+// Function to handle HTML Form submission
+const testForm = document.getElementById('testForm');
+const submissionResult = document.getElementById('submissionResult');
+
+if (testForm) {
+    testForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // පිටුව Reload වෙන එක නවත්වනවා
+
+        // HTML inputs වලින් නම සහ ඊමේල් එක කියවා ගැනීම
+        const inputName = document.getElementById('userName').value;
+        const inputEmail = document.getElementById('userEmail').value;
+
+        // Display "Submitting..." message
+        submissionResult.style.color = "blue";
+        submissionResult.innerText = "Submitting data...";
+
+        // සර්වර් එකේ API එකට (http://localhost:3000/api/test-submit) ඩේටා යැවීම
+        fetch('http://localhost:3000/api/test-submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: inputName,
+                email: inputEmail
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Server Response:", data);
+            if (data.status === "success") {
+                submissionResult.style.color = "green";
+                submissionResult.innerText = "Success! " + data.message;
+                testForm.reset(); // වැඩේ හරි ගියාට පස්සේ Form එක Clear කරනවා
+            } else {
+                submissionResult.style.color = "red";
+                submissionResult.innerText = "Failed: " + data.message;
+            }
+        })
+        .catch(error => {
+            console.error("Error occurred:", error);
+            submissionResult.style.color = "red";
+            submissionResult.innerText = "Error: Could not connect to server.";
+        });// Handles the hotel booking form submission
+const bookingForm = document.getElementById('hotel-booking-form');
+
+if (bookingForm) {
+    bookingForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const guestName = document.getElementById('guestName').value;
+        const guestEmail = document.getElementById('guestEmail').value;
+        const roomType = document.getElementById('roomType').value;
+
+        try {
+            // Replace with your actual live Railway URL
+            const response = await fetch('https://sheraton-clone-production.up.railway.app/api/bookings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ guestName, guestEmail, roomType })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                alert(data.message);
+                bookingForm.reset();
+            } else {
+                alert("Error: " + data.message);
+            }
+        } catch (error) {
+            console.error("Connection error:", error);
+            alert("Failed to connect to the backend server.");
+        }
+    });
+}
+    });
+}
+
 });

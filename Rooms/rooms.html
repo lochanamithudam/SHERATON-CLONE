@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms & Suites | Sheraton Hotels & Resorts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-navy: #1a2b4c;
+            --accent-gold: #c5a059;
+            --text-dark: #222222;
+            --text-gray: #666666;
+            --bg-light: #faf9f6;
+            --white: #ffffff;
+            --border-color: #e5e5e5;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Top Header Navigation */
+        header {
+            background-color: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-navy);
+            border-bottom: 2px solid var(--primary-navy);
+        }
+
+        /* Hero Banner Section */
+        .rooms-hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(rgba(26, 43, 76, 0.03), rgba(26, 43, 76, 0.08));
+        }
+
+        .rooms-hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem;
+            font-weight: 500;
+            color: var(--primary-navy);
+            margin-bottom: 12px;
+        }
+
+        .rooms-hero p {
+            font-size: 1.05rem;
+            color: var(--text-gray);
+            max-width: 720px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Main Container & Cards Grid */
+        .rooms-container {
+            max-width: 1200px;
+            margin: 50px auto 80px;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 45px;
+        }
+
+        /* Room Card Layout */
+        .room-card {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .room-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+        }
+
+        .room-image {
+            position: relative;
+            height: 100%;
+            min-height: 350px;
+            overflow: hidden;
+        }
+
+        .room-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .room-card:hover .room-image img {
+            transform: scale(1.04);
+        }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-navy);
+            color: var(--white);
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 4px;
+        }
+
+        /* Room Details Content */
+        .room-info {
+            padding: 40px 35px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .room-info h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.1rem;
+            color: var(--primary-navy);
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .room-description {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        /* Amenities List */
+        .amenities-list {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin-bottom: 30px;
+            border-top: 1px solid #f0f0f0;
+            border-bottom: 1px solid #f0f0f0;
+            padding: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        .amenities-list li {
+            font-size: 0.85rem;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .amenities-list i {
+            color: var(--accent-gold);
+        }
+
+        /* Bottom Action Bar */
+        .room-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price-tag {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price-tag .amount {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--primary-navy);
+        }
+
+        .price-tag .unit {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-reserve {
+            background-color: var(--primary-navy);
+            color: var(--white);
+            border: 1px solid var(--primary-navy);
+            padding: 12px 28px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reserve:hover {
+            background-color: var(--accent-gold);
+            border-color: var(--accent-gold);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 868px) {
+            .room-card {
+                grid-template-columns: 1fr;
+            }
+            .room-image {
+                height: 260px;
+            }
+            .rooms-hero h1 {
+                font-size: 2.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header>
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="../index.html">Overview</a></li>
+                <li><a href="../gallery.html">Gallery</a></li>
+                <li><a href="../Rooms/rooms.html">Rooms</a></li>
+                <li><a href="../dining.html">Dining</a></li>
+                <li><a href="#">Experiences</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Headline Section -->
+    <section class="rooms-hero">
+        <h1>Accommodations & Suites</h1>
+        <p>Rest peacefully in thoughtfully designed rooms featuring signature Sheraton Sleep Experience beds, serene ocean or city views, and modern luxury amenities.</p>
+    </section>
+
+    <!-- Rooms List Section -->
+    <main class="rooms-container">
+
+        <!-- Room 1 -->
+        <article class="room-card">
+            <div class="room-image">
+                <span class="badge">Ocean View</span>
+                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=80" alt="Deluxe Ocean Guest Room">
+            </div>
+            <div class="room-info">
+                <div>
+                    <h2>Deluxe Ocean Guest Room</h2>
+                    <p class="room-description">Unwind with elevated ocean panoramas, a plush King bed, ergonomically designed workspace, and a marble bath with premium toiletries.</p>
+                    <ul class="amenities-list">
+                        <li><i class="fa-solid fa-bed"></i> 1 King Bed</li>
+                        <li><i class="fa-solid fa-maximize"></i> 42 m²</li>
+                        <li><i class="fa-solid fa-wifi"></i> Free Wi-Fi</li>
+                        <li><i class="fa-solid fa-water"></i> Ocean View</li>
+                    </ul>
+                </div>
+                <div class="room-action">
+                    <div class="price-tag">
+                        <span class="amount">$280</span>
+                        <span class="unit">/ Per Night + Tax</span>
+                    </div>
+                    <button class="btn-reserve">Reserve Room</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Room 2 -->
+        <article class="room-card">
+            <div class="room-image">
+                <span class="badge">Club Level</span>
+                <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1000&q=80" alt="Sheraton Club Executive Room">
+            </div>
+            <div class="room-info">
+                <div>
+                    <h2>Sheraton Club Executive Room</h2>
+                    <p class="room-description">Includes exclusive access to the Sheraton Club Lounge with complimentary breakfast, afternoon refreshments, and private concierge service.</p>
+                    <ul class="amenities-list">
+                        <li><i class="fa-solid fa-bed"></i> 1 King / 2 Double</li>
+                        <li><i class="fa-solid fa-maximize"></i> 50 m²</li>
+                        <li><i class="fa-solid fa-martini-glass"></i> Lounge Access</li>
+                        <li><i class="fa-solid fa-city"></i> Skyline View</li>
+                    </ul>
+                </div>
+                <div class="room-action">
+                    <div class="price-tag">
+                        <span class="amount">$390</span>
+                        <span class="unit">/ Per Night + Tax</span>
+                    </div>
+                    <button class="btn-reserve">Reserve Room</button>
+                </div>
+            </div>
+        </article>
+
+        <!-- Room 3 -->
+        <article class="room-card">
+            <div class="room-image">
+                <span class="badge">Luxury Suite</span>
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=80" alt="Presidential Oceanfront Suite">
+            </div>
+            <div class="room-info">
+                <div>
+                    <h2>Presidential Oceanfront Suite</h2>
+                    <p class="room-description">Our pinnacle accommodation features an expansive living room, private dining space, private balcony, soaking tub, and dedicated butler service.</p>
+                    <ul class="amenities-list">
+                        <li><i class="fa-solid fa-bed"></i> Master King Suite</li>
+                        <li><i class="fa-solid fa-maximize"></i> 110 m²</li>
+                        <li><i class="fa-solid fa-hot-tub-person"></i> Soaking Tub</li>
+                        <li><i class="fa-solid fa-concierge-bell"></i> Butler Service</li>
+                    </ul>
+                </div>
+                <div class="room-action">
+                    <div class="price-tag">
+                        <span class="amount">$850</span>
+                        <span class="unit">/ Per Night + Tax</span>
+                    </div>
+                    <button class="btn-reserve">Reserve Room</button>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+</body>
+</html>

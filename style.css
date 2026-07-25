@@ -1,3 +1,6 @@
+/* --- FIX DESTINATION GRID LAYOUT --- */
+
+
 /* Base Reset */
 * {
     margin: 0;
@@ -735,6 +738,148 @@ h1, h2, h3, h4 {
     height: 100%;
     object-fit: cover;
     opacity: 0.8;
+}/* Dining Page Styles */
+.dining-hero img {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+
+.dining-sub-nav {
+    border-bottom: 1px solid #e0e0e0;
+    background: #fff;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.dining-sub-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.dining-sub-nav a {
+    text-decoration: none;
+    color: #666;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.dining-sub-nav a.active {
+    color: #000;
+    font-weight: bold;
+    border-bottom: 2px solid #000;
+    padding-bottom: 5px;
+}
+
+.dining-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.section-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin: 40px 0 20px 0;
+    font-weight: 400;
+}
+
+/* Offers Grid Layout */
+.offers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.offer-card {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    height: 300px;
+}
+
+.offer-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.offer-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: #fff;
+}
+
+.date-tag {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    opacity: 0.8;
+}
+
+.offer-text h3 {
+    font-size: 1.1rem;
+    margin-top: 5px;
+    font-weight: 400;
+}
+
+/* Restaurants List Layout */
+.restaurant-list-card {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.res-img-box img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.res-category {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+}
+
+.res-info-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin: 5px 0;
+}
+
+.res-desc {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+.res-hours {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.btn-book {
+    display: inline-block;
+    padding: 10px 25px;
+    border: 1px solid #000;
+    color: #000;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.85rem;
 }
 
 /* Custom Overlays */
@@ -827,4 +972,502 @@ h1, h2, h3, h4 {
 
 .gallery-btn:hover, .carousel-dots:hover {
     background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* ─── IMMERSIVE LOUNGE BANNER ─────────────────────────────────── */
+.lounge-banner-section {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+}
+
+.lounge-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 40%;
+    display: block;
+    transition: transform 8s ease;
+}
+
+.lounge-banner-section:hover .lounge-banner-img {
+    transform: scale(1.04);
+}
+
+.lounge-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.18) 0%,
+        rgba(0, 10, 30, 0.62) 60%,
+        rgba(0, 10, 30, 0.82) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lounge-banner-content {
+    text-align: center;
+    color: #ffffff;
+    padding: 0 20px;
+    max-width: 780px;
+    animation: fadeUp 0.9s ease both;
+}
+
+.lounge-banner-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 5px;
+    color: rgba(180, 210, 255, 0.85);
+    margin-bottom: 18px;
+    text-transform: uppercase;
+}
+
+.lounge-banner-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 500;
+    line-height: 1.25;
+    color: #ffffff;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+.lounge-banner-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 34px;
+}
+
+.lounge-banner-btn {
+    display: inline-block;
+    padding: 14px 38px;
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    backdrop-filter: blur(4px);
+}
+
+.lounge-banner-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+}/* Dining Interface Styling */
+.dining-hero img {
+    width: 100%;
+    height: 60vh;
+    object-fit: cover;
+}
+
+.dining-sub-nav {
+    border-bottom: 1px solid #e0e0e0;
+    background: #fff;
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.dining-sub-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 0;
+    margin: 0;
+}
+
+.dining-sub-nav a {
+    text-decoration: none;
+    color: #666;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.dining-sub-nav a.active {
+    color: #000;
+    font-weight: bold;
+    border-bottom: 2px solid #5c3566;
+    padding-bottom: 5px;
+}
+
+.dining-container {
+    max-width: 1140px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.section-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    margin: 40px 0 20px 0;
+    font-weight: 400;
+}
+
+/* Offers Grid Setup */
+.offers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.offer-card {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.card-bg-img {
+    height: 320px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+}
+
+.offer-text {
+    padding: 25px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    color: #fff;
+    width: 100%;
+}
+
+.date-tag {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    opacity: 0.9;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.offer-text h3 {
+    font-size: 1.15rem;
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+/* News Grid Setup */
+.news-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.news-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.news-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin: 15px 0 10px 0;
+    font-weight: 500;
+}
+
+.news-card p {
+    font-size: 0.85rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Restaurant Details Card Setup */
+.restaurant-list-card {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+    background: #fff;
+    padding: 20px;
+}
+
+.res-img-box img {
+    width: 100%;
+    height: 365px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.res-category {
+    font-size: 0.8rem;
+    color: #888;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.res-info-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    margin: 0 0 10px 0;
+    font-weight: 400;
+}
+
+.res-desc {
+    color: #4a4a4a;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.res-hours {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    margin-bottom: 25px;
+    font-size: 0.85rem;
+    color: #444;
+}
+
+.res-hours p {
+    margin: 0 0 5px 0;
+}
+
+.res-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn-more {
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-book {
+    display: inline-block;
+    padding: 10px 25px;
+    border: 1px solid #000;
+    color: #000;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-book:hover {
+    background: #f5f5f5;
+}
+
+@media (max-width: 768px) {
+    .offers-grid, .news-grid, .restaurant-list-card {
+        grid-template-columns: 1fr;
+    }
+}/* ==========================================
+   Dining Page Layout Isolation Blocks
+   ========================================== */
+.dining-hero {
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+}
+.dining-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.dining-sub-nav {
+    border-bottom: 1px solid #e0e0e0;
+    background: #fff;
+    padding: 15px 0;
+}
+.dining-sub-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    padding: 0;
+    margin: 0;
+}
+.dining-sub-nav a {
+    text-decoration: none;
+    color: #666;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+.dining-sub-nav a.active {
+    color: #000;
+    font-weight: bold;
+    border-bottom: 2px solid #5c3566;
+    padding-bottom: 5px;
+}
+.dining-container {
+    max-width: 1140px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.section-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    margin: 40px 0 20px 0;
+    font-weight: 400;
+}
+.text-center {
+    text-align: center;
+}
+.offers-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+.offer-card {
+    border-radius: 14px;
+    overflow: hidden;
+    height: 320px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: flex-end;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.offer-text {
+    padding: 25px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    color: #fff;
+    width: 100%;
+}
+.date-tag {
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 5px;
+}
+.offer-text h3 {
+    font-size: 1.15rem;
+    margin: 0;
+    font-weight: 400;
+}
+.news-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}.destinations-grid{
+    max-width: 1400px;
+    margin: 80px auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap:40px;
+}
+
+.destination-card{
+    background:#fff;
+    border-radius:0;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.destination-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 40px rgba(0,0,0,.15);
+}
+
+.destination-image{
+    position:relative;
+    overflow:hidden;
+}
+
+.destination-image img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    display:block;
+    transition:.5s;
+}
+
+.destination-card:hover .destination-image img{
+    transform:scale(1.05);
+}
+
+.destination-badge{
+    position:absolute;
+    top:18px;
+    left:18px;
+    background:#222;
+    color:#fff;
+    padding:8px 18px;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.destination-info{
+    padding:30px;
+}
+
+.destination-info h3{
+    font-size:38px;
+    line-height:1.15;
+    margin-bottom:20px;
+    font-family:Georgia, serif;
+}
+
+.destination-info p{
+    color:#666;
+    line-height:1.8;
+    margin-bottom:30px;
+    font-size:18px;
+}
+
+.destination-actions{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.explore-link{
+    color:#000;
+    text-decoration:none;
+    font-weight:700;
+    letter-spacing:1px;
+}
+
+.book-now-btn{
+    text-decoration:none;
+    color:#000;
+    border:1px solid #000;
+    padding:12px 26px;
+    transition:.3s;
+}
+
+.book-now-btn:hover{
+    background:#000;
+    color:#fff;
+}
+
+@media(max-width:1000px){
+    .destinations-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+@media(max-width:768px){
+    .destinations-grid{
+        grid-template-columns:1fr;
+    }
 }

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Room Booking | Luxury Stay</title>
+
+  <!-- Premium Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary-dark: #121212;
+      --primary-accent: #c5a880;
+      --bg-gradient: #f3f4f6;
+      --card-bg: #ffffff;
+      --text-main: #1a1a1a;
+      --text-muted: #666666;
+      --border-color: #e2e8f0;
+      --focus-ring: #000000;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+      color: var(--text-main);
+    }
+
+    /* Outer Wrapper Card */
+    .booking-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12);
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      overflow: hidden;
+    }
+
+    /* Left Visual Panel */
+    .hero-panel {
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 3rem 2.5rem;
+      color: #ffffff;
+      min-height: 520px;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.7) 100%);
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(8px);
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      font-weight: 400;
+    }
+
+    /* Right Form Panel */
+    .form-panel {
+      padding: 3rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .form-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+
+    .form-header span.highlight {
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    /* Form Fields */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .field-full {
+      grid-column: span 2;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background-color: #fafafa;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      background-color: #ffffff;
+      border-color: var(--focus-ring);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+    }
+
+    /* Price Summary Box */
+    .price-summary {
+      grid-column: span 2;
+      background: #f8fafc;
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+    }
+
+    .price-summary span {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .price-total {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    /* Confirm Button */
+    .btn-submit {
+      grid-column: span 2;
+      background: var(--primary-dark);
+      color: #ffffff;
+      padding: 1.1rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.1s ease;
+      margin-top: 0.5rem;
+    }
+
+    .btn-submit:hover {
+      background: #2a2a2a;
+    }
+
+    .btn-submit:active {
+      transform: scale(0.99);
+    }
+
+    /* Confirmation Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      max-width: 450px;
+      width: 90%;
+      text-align: center;
+      animation: popIn 0.3s ease;
+    }
+
+    .modal-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-close {
+      background: var(--primary-dark);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    /* Responsive Breakdown */
+    @media (max-width: 850px) {
+      .booking-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .hero-panel {
+        min-height: 250px;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .field-full, .price-summary, .btn-submit {
+        grid-column: span 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="booking-wrapper">
+    <!-- Left Hero Display -->
+    <div class="hero-panel">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <span class="badge">Luxury Stay</span>
+      </div>
+      <div class="hero-content">
+        <h2 class="hero-title" id="displayHotelTitle">Sheraton Maldives</h2>
+        <p class="hero-subtitle">Full Moon Resort & Spa — Experience paradise with ultimate comfort.</p>
+      </div>
+    </div>
+
+    <!-- Right Booking Form -->
+    <div class="form-panel">
+      <div class="form-header">
+        <h1>Book Your Room</h1>
+        <p>Reserve your stay at <span class="highlight" id="displayHotelSub">Sheraton Maldives Full Moon Resort</span> and experience luxury.</p>
+      </div>
+
+      <form id="bookingForm">
+        <div class="form-grid">
+          
+          <div class="form-group field-full">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" placeholder="e.g. John Doe" required>
+          </div>
+
+          <div class="form-group field-full">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="e.g. john@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="checkIn">Check-In Date</label>
+            <input type="date" id="checkIn" required>
+          </div>
+
+          <div class="form-group">
+            <label for="checkOut">Check-Out Date</label>
+            <input type="date" id="checkOut" required>
+          </div>
+
+          <div class="form-group field-full">
+            <label for="hotelLocation">Hotel Location</label>
+            <select id="hotelLocation">
+              <option value="Maldives">Sheraton Maldives Full Moon Resort</option>
+              <option value="Dubai">Sheraton Grand Hotel, Dubai</option>
+              <option value="Bali">Sheraton Bali Kuta Resort</option>
+            </select>
+          </div>
+
+          <div class="form-group field-full">
+            <label for="roomType">Select Room Type</label>
+            <select id="roomType">
+              <option value="450">Sheraton Deluxe Room ($450 / night)</option>
+              <option value="750">Oceanfront Water Villa ($750 / night)</option>
+              <option value="1200">Presidential Water Suite ($1,200 / night)</option>
+            </select>
+          </div>
+
+          <div class="price-summary">
+            <div>
+              <span>Estimated Stay (<span id="nightCount">1</span> Night)</span>
+            </div>
+            <div class="price-total" id="totalPrice">$450</div>
+          </div>
+
+          <button type="submit" class="btn-submit">Confirm Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Confirmation Popup Modal -->
+  <div class="modal-backdrop" id="confirmationModal">
+    <div class="modal-card">
+      <div style="font-size: 3rem; margin-bottom: 0.5rem;">✨</div>
+      <h3>Booking Confirmed!</h3>
+      <p id="modalMessage">Thank you! Your reservation at Sheraton Maldives has been received.</p>
+      <button class="btn-close" onclick="closeModal()">Done</button>
+    </div>
+  </div>
+
+  <script>
+    // Elements
+    const bookingForm = document.getElementById('bookingForm');
+    const hotelSelect = document.getElementById('hotelLocation');
+    const roomSelect = document.getElementById('roomType');
+    const checkInInput = document.getElementById('checkIn');
+    const checkOutInput = document.getElementById('checkOut');
+    const nightCountSpan = document.getElementById('nightCount');
+    const totalPriceDisplay = document.getElementById('totalPrice');
+    const modal = document.getElementById('confirmationModal');
+
+    // Default Dates (Today & Tomorrow)
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    checkInInput.value = today.toISOString().split('T')[0];
+    checkOutInput.value = tomorrow.toISOString().split('T')[0];
+    checkInInput.min = today.toISOString().split('T')[0];
+
+    // Read URL Search Params (e.g., ?hotel=Maldives)
+    const urlParams = new URLSearchParams(window.location.search);
+    const hotelParam = urlParams.get('hotel');
+
+    if (hotelParam) {
+      for (let option of hotelSelect.options) {
+        if (option.value.toLowerCase().includes(hotelParam.toLowerCase())) {
+          option.selected = true;
+          break;
+        }
+      }
+    }
+
+    // Dynamic Price & Night Calculation
+    function updatePricing() {
+      const checkInDate = new Date(checkInInput.value);
+      const checkOutDate = new Date(checkOutInput.value);
+
+      // Validate check-out is after check-in
+      if (checkOutDate <= checkInDate) {
+        const nextDay = new Date(checkInDate);
+        nextDay.setDate(nextDay.getDate() + 1);
+        checkOutInput.value = nextDay.toISOString().split('T')[0];
+      }
+
+      const timeDiff = new Date(checkOutInput.value) - new Date(checkInInput.value);
+      const nights = Math.max(1, Math.ceil(timeDiff / (1000 * 3600 * 24)));
+      const roomRate = parseInt(roomSelect.value, 10);
+      const total = nights * roomRate;
+
+      nightCountSpan.textContent = nights;
+      totalPriceDisplay.textContent = `$${total.toLocaleString()}`;
+    }
+
+    // Event Listeners
+    checkInInput.addEventListener('change', updatePricing);
+    checkOutInput.addEventListener('change', updatePricing);
+    roomSelect.addEventListener('change', updatePricing);
+
+    // Form Submit Action
+    bookingForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('fullName').value;
+      const hotelName = hotelSelect.options[hotelSelect.selectedIndex].text;
+      
+      document.getElementById('modalMessage').innerHTML = 
+        `Thank you, <strong>${name}</strong>! Your reservation for <strong>${hotelName}</strong> is confirmed. A receipt has been sent to your email.`;
+      
+      modal.style.display = 'flex';
+    });
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    // Initialize calculation
+    updatePricing();
+  </script>
+</body>
+</html>

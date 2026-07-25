@@ -39,13 +39,14 @@
                 <span class="brand-name">SHERATON</span>
             </div>
             <nav class="nav-links" id="nav-menu">
-                <ul>
-                    <li><a href="index.html" class="active">HOME</a></li>
-                    <li><a href="destinations.html">DESTINATIONS</a></li>
-                    <li><a href="about.html">ABOUT US</a></li>
-                    <li><a href="#">STORE</a></li>
-                </ul>
-            </nav>
+    <ul>
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="Rooms/rooms.html">Rooms</a></li>
+        <li><a href="dining.html">Dining</a></li>
+        <li><a href="#">Experiences</a></li>
+    </ul>
+</nav>
             <div class="nav-right-action">
                 <button class="reserve-btn">RESERVE NOW</button>
                 <button class="mobile-menu-toggle" id="mobile-toggle">
@@ -86,17 +87,30 @@
         </div>
     </section>
 
+    <!-- IMMERSIVE LOUNGE BANNER -->
+    <section class="lounge-banner-section">
+        <img src="skyline_bar.jpg" alt="Sheraton Skyline Lounge" class="lounge-banner-img">
+        <div class="lounge-banner-overlay">
+            <div class="lounge-banner-content">
+                <p class="lounge-banner-label">THE SHERATON EXPERIENCE</p>
+                <h2 class="lounge-banner-title">Where Every Evening Becomes&nbsp;Extraordinary</h2>
+                <p class="lounge-banner-sub">Unwind in our skyline lounges — crafted for those who expect more from every moment.</p>
+             <a href="./dining.html" target="_blank" rel="noopener noreferrer" class="lounge-banner-btn">EXPLORE DINING &amp; LOUNGES</a>
+            </div>
+        </div>
+    </section>
+
     <!-- DUAL SPLIT GRID -->
     <section class="split-grid-section">
         <div class="split-card">
-            <img src="lobby.jpg" alt="The Public Space">
+            <img src="public_space.jpg" alt="The Public Space">
             <div class="split-text-box">
                 <h4>The Public Space</h4>
                 <p>At the heart of the hotel, our new public space is designed to make guests feel welcome, facilitate meetings or safely gather with friends and coworkers.</p>
             </div>
         </div>
         <div class="split-card">
-            <img src="lobby.jpg" alt="The Community Table">
+            <img src="community_table.jpg" alt="The Community Table">
             <div class="split-text-box">
                 <h4>The Community Table</h4>
                 <p>With built-in wireless mobile charging and ergonomic seating, the comfortable, tech-friendly community worktable is designed for creativity and productivity.</p>
@@ -105,43 +119,71 @@
     </section>
 
     <!-- DARK FOOTER SECTION -->
-    <footer class="site-footer">
-        <div class="footer-container">
-            <div class="footer-links-column">
-                <h5>SHERATON STORE</h5>
-                <ul>
-                    <li>SHERATON VACATION CLUB</li>
-                    <li>NEWS</li>
-                    <li>CAREERS</li>
-                    <li>DEVELOPERS</li>
-                </ul>
+   <!-- DARK FOOTER SECTION -->
+<footer class="site-footer">
+    <div class="footer-container">
+        <div class="footer-links-column">
+            <h5>SHERATON STORE</h5>
+            <ul>
+                <li>SHERATON VACATION CLUB</li>
+                <li>NEWS</li>
+                <li>CAREERS</li>
+                <li>DEVELOPERS</li>
+            </ul>
+        </div>
+        <div class="footer-links-column">
+            <h5>ABOUT US</h5>
+            <ul>
+                <li>MI CORPORATE RESPONSIBILITY</li>
+                <li>MARRIOTT.COM</li>
+                <li>TERMS OF USE</li>
+                <li>PRIVACY STATEMENT</li>
+            </ul>
+        </div>
+        <div class="footer-social-column">
+            <h5>STAY CONNECTED</h5>
+            <div class="social-icons">
+                <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                <a href="#"><i class="fa-brands fa-youtube"></i></a>
             </div>
-            <div class="footer-links-column">
-                <h5>ABOUT US</h5>
-                <ul>
-                    <li>MI CORPORATE RESPONSIBILITY</li>
-                    <li>MARRIOTT.COM</li>
-                    <li>TERMS OF USE</li>
-                    <li>PRIVACY STATEMENT</li>
-                </ul>
-            </div>
-            <div class="footer-social-column">
-                <h5>STAY CONNECTED</h5>
-                <div class="social-icons">
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="footer-app-column">
-                <div class="app-promo-box">
-                    <p class="promo-title">WELCOME</p>
-                    <p class="promo-sub">Explore The Possibilities. What you need, When you need it.</p>
-                    <button class="learn-more-btn">LEARN MORE</button>
-                </div>
-            </div>
-    </footer>
+        </div>
+    </div>
+</footer>
     <script src="script.js"></script>
-</body>
-</html>
+</body><!-- Test Reservation / User Form -->
+<div style="padding: 50px; text-align: center; background-color: #f9f9f9;">
+    <h2>Test Database Submission</h2>
+    <form id="testForm" style="display: inline-block; text-align: left; background: white; padding: 20px; border-radius: 8px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
+        <div style="margin-bottom: 15px;">
+            <label for="userName" style="display: block; margin-bottom: 5px;">Name:</label>
+            <input type="text" id="userName" name="name" required style="width: 250px; padding: 8px;">
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="userEmail" style="display: block; margin-bottom: 5px;">Email:</label>
+            <input type="email" id="userEmail" name="email" required style="width: 250px; padding: 8px;">
+        </div>
+        <button type="submit" style="background-color: #007bff; color: white; padding: 10px 15px; border: none; cursor: pointer; border-radius: 4px; width: 100%;">Submit to Database</button>
+    </form>
+    <div id="submissionResult" style="margin-top: 15px; font-weight: bold;"></div>
+</div>
+</html><section id="booking-section">
+    <h2>Book Your Stay at Sheraton</h2>
+    <form id="hotel-booking-form">
+        <label for="guestName">Name:</label>
+        <input type="text" id="guestName" required>
+
+        <label for="guestEmail">Email:</label>
+        <input type="email" id="guestEmail" required>
+
+        <label for="roomType">Room Type:</label>
+        <select id="roomType">
+            <option value="Deluxe">Deluxe Room</option>
+            <option value="Suite">Executive Suite</option>
+            <option value="Presidential">Presidential Suite</option>
+        </select>
+
+        <button type="submit">Confirm Booking</button>
+    </form>
+</section>

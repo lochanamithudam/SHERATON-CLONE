@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery | Sheraton Hotel & Resort</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap">
+    
+    <style>
+        :root {
+            --primary-color: #1a2b4c;
+            --accent-gold: #c5a059;
+            --text-dark: #222222;
+            --bg-light: #faf9f6;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header Navigation */
+        header {
+            background-color: var(--white);
+            border-bottom: 1px solid #eaeaea;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        /* Hero Banner */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(rgba(26, 43, 76, 0.03), rgba(26, 43, 76, 0.08));
+        }
+
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Filter Controls */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 40px 0 30px;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #ddd;
+            padding: 10px 22px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            color: #555;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 15px rgba(26, 43, 76, 0.15);
+        }
+
+        /* Gallery Grid */
+        .gallery-section {
+            max-width: 1250px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 25px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            background-color: var(--white);
+            height: 280px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Hover Overlay */
+        .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, rgba(26, 43, 76, 0.85) 0%, rgba(26, 43, 76, 0.2) 60%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 25px;
+        color: var(--white);
+        pointer-events: none;
+    }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay span {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            margin-bottom: 5px;
+        }
+
+        .overlay h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 15px;
+                font-size: 0.75rem;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="nav-container">
+            <ul class="nav-links">
+              <ul class="nav-links">
+    <li><a href="index.html">Overview</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="Rooms/rooms.html">Rooms</a></li>
+    <li><a href="dining.html">Dining</a></li>
+    <li><a href="#">Experiences</a></li>
+</ul>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Title -->
+    <section class="hero">
+        <h1>Visual Journey</h1>
+        <p>Explore the luxurious spaces, exquisite dining venues, and breathtaking oceanfront atmosphere of Sheraton.</p>
+    </section>
+
+    <!-- Category Filter Buttons -->
+    <div class="filter-container">
+        <button class="filter-btn active" onclick="filterGallery('all')">All Views</button>
+        <button class="filter-btn" onclick="filterGallery('rooms')">Rooms & Suites</button>
+        <button class="filter-btn" onclick="filterGallery('dining')">Dining & Lounges</button>
+        <button class="filter-btn" onclick="filterGallery('pool')">Pool & Spa</button>
+        <button class="filter-btn" onclick="filterGallery('resort')">Resort & Ocean</button>
+    </div>
+
+    <!-- Gallery Grid -->
+    <section class="gallery-section">
+        <div class="gallery-grid">
+            
+            <!-- Dining Item -->
+            <div class="gallery-item dining" onclick="window.location.href='maihama-teppanyaki.html'">
+                <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Maihama Teppanyaki">
+                <div class="overlay">
+                    <span>Dining & Lounges</span>
+                    <h3>Maihama Teppanyaki+</h3>
+                </div>
+            </div>
+
+            <!-- Rooms Item -->
+            <div class="gallery-item rooms" onclick="window.location.href='presidential-ocean-suite.html'">
+                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80" alt="Ocean View Suite">
+                <div class="overlay">
+                    <span>Rooms & Suites</span>
+                    <h3>Presidential Ocean Suite</h3>
+                </div>
+            </div>
+
+            <!-- Pool Item -->
+            <div class="gallery-item pool" onclick="window.location.href='garden-infinity-pool.html'">
+                <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=80" alt="Outdoor Pool">
+                <div class="overlay">
+                    <span>Pool & Spa</span>
+                    <h3>Garden Infinity Pool</h3>
+                </div>
+            </div>
+
+            <!-- Dining Item 2 -->
+            <div class="gallery-item dining" onclick="window.location.href='grand-dining-hall.html'">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Luxury Dining Room">
+                <div class="overlay">
+                    <span>Dining & Lounges</span>
+                    <h3>Grand Dining Hall</h3>
+                </div>
+            </div>
+
+            <!-- Rooms Item 2 -->
+            <div class="gallery-item rooms">
+                <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80" alt="Deluxe Room">
+                <div class="overlay">
+                    <span>Rooms & Suites</span>
+                    <h3>Deluxe King Bedroom</h3>
+                </div>
+            </div>
+
+            <!-- Resort Item -->
+            <div class="gallery-item resort">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Beachfront View">
+                <div class="overlay">
+                    <span>Resort & Ocean</span>
+                    <h3>Tokyo Bay Horizon View</h3>
+                </div>
+            </div>
+
+            <!-- Pool Item 2 -->
+            <div class="gallery-item pool">
+                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Luxury Spa">
+                <div class="overlay">
+                    <span>Pool & Spa</span>
+                    <h3>Oasis Thermal Spa</h3>
+                </div>
+            </div>
+
+            <!-- Resort Item 2 -->
+            <div class="gallery-item resort">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80" alt="Sheraton Architecture">
+                <div class="overlay">
+                    <span>Resort & Ocean</span>
+                    <h3>Exterior Architecture</h3>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- JavaScript Filter Function -->
+    <script>
+        function filterGallery(category) {
+            const items = document.querySelectorAll('.gallery-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

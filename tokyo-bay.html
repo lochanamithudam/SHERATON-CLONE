@@ -85,10 +85,17 @@
 
     <!-- HERO VIDEO SECTION -->
     <section class="hotel-hero-video-section">
-        <video id="tokyo-hero-video" class="hotel-hero-video" autoplay muted loop playsinline preload="auto" oncanplay="this.play()">
+        <video id="tokyo-hero-video" class="hotel-hero-video" loop>
             <source src="Sheraton%20%20Tokyo%20Bay%20%20Spa.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
+        
+        <!-- Custom Overlays -->
+        <div class="video-overlay" id="video-overlay">
+            <button class="custom-play-btn" id="custom-play-btn">
+                <i class="fa-solid fa-play"></i>
+            </button>
+        </div>
 
         <!-- Gallery Controls -->
         <div class="gallery-controls">
