@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oasis Thermal Spa | Sheraton Hotel & Resort</title>
+    <meta name="description" content="Surrender to complete serenity at the Oasis Thermal Spa. Discover hydrotherapy pools, signature rituals, and expert therapists at Sheraton's world-class spa sanctuary.">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #c5a059;
+            --gold-light: #e8d5a3;
+            --dark-navy: #1a2b4c;
+            --deep-dark: #0d1a2e;
+            --teal: #1a6b6b;
+            --teal-light: #2a9090;
+            --cream: #faf9f6;
+            --text-muted: #888;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        /* ══════════════════════════════
+           FLOATING HEADER / NAV
+        ══════════════════════════════ */
+        .site-header {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 22px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.5s ease, padding 0.4s ease;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.65), transparent);
+        }
+
+        .site-header.scrolled {
+            background: rgba(13, 26, 46, 0.97);
+            backdrop-filter: blur(12px);
+            padding: 14px 60px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 7px;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .header-nav a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .header-nav a:hover { color: var(--gold-light); }
+
+        .back-btn {
+            background: rgba(197,160,89,0.15);
+            border: 1px solid rgba(197,160,89,0.5);
+            color: var(--gold-light);
+            padding: 9px 22px;
+            font-size: 0.75rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════
+           HERO SECTION
+        ══════════════════════════════ */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('spa-hero.jpg') center center / cover no-repeat;
+            transform: scale(1.07);
+            transition: transform 0.1s linear;
+            will-change: transform;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(13,26,46,0.3) 0%,
+                rgba(13,46,46,0.1) 35%,
+                rgba(13,40,40,0.6) 70%,
+                rgba(13,26,46,0.96) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 20px 80px;
+            max-width: 900px;
+            animation: heroFade 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.78rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1.1;
+            letter-spacing: 1px;
+            margin-bottom: 22px;
+            text-shadow: 0 8px 40px rgba(0,0,0,0.5);
+        }
+
+        .hero-tagline {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .hero-scroll-hint {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: pulse 2.5s infinite;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, transparent, var(--gold));
+            margin-top: 8px;
+        }
+
+        @keyframes heroFade {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ══════════════════════════════
+           GOLD DIVIDER
+        ══════════════════════════════ */
+        .gold-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 60px 20px;
+        }
+
+        .gold-divider::before, .gold-divider::after {
+            content: '';
+            flex: 1;
+            max-width: 180px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold));
+        }
+
+        .gold-divider::after {
+            background: linear-gradient(to left, transparent, var(--gold));
+        }
+
+        .divider-diamond {
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        /* ══════════════════════════════
+           INTRO CARD
+        ══════════════════════════════ */
+        .intro-section {
+            background: var(--white);
+            padding: 0 8% 80px;
+        }
+
+        .intro-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 4px;
+            padding: 80px;
+            box-shadow: 0 20px 80px rgba(26,43,76,0.08);
+            margin-top: -100px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .intro-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            color: var(--dark-navy);
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .intro-text .subtitle-gold {
+            font-size: 0.78rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .intro-text p {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: #555;
+            font-weight: 300;
+            margin-bottom: 22px;
+        }
+
+        /* Price badge */
+        .price-badge {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 6px;
+            background: var(--dark-navy);
+            color: var(--white);
+            padding: 16px 30px;
+            border-radius: 3px;
+            margin-top: 10px;
+            margin-bottom: 35px;
+        }
+
+        .price-badge .from {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .price-badge .amount {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--gold-light);
+        }
+
+        .price-badge .per {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 1px;
+        }
+
+        /* Amenities */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border: 1px solid #f0ece4;
+            border-radius: 4px;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .amenity-item:hover {
+            border-color: var(--gold);
+            background: #fdf9f1;
+        }
+
+        .amenity-item i {
+            color: var(--gold);
+            font-size: 1.1rem;
+            width: 22px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .amenity-item span {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* CTA */
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--dark-navy);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            border: 2px solid var(--dark-navy);
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--dark-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26,43,76,0.15);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--dark-navy);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            border: 2px solid var(--dark-navy);
+            transition: all 0.4s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--dark-navy);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* Right-side gallery */
+        .intro-gallery {
+            display: grid;
+            grid-template-rows: 1.4fr 1fr;
+            gap: 18px;
+        }
+
+        .intro-gallery .img-wrap {
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .intro-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.25,1,0.5,1);
+        }
+
+        .intro-gallery .img-wrap:hover img { transform: scale(1.05); }
+
+        /* ══════════════════════════════
+           STATS STRIP
+        ══════════════════════════════ */
+        .stats-strip {
+            background: linear-gradient(135deg, var(--dark-navy), #0d2a2a);
+            padding: 60px 8%;
+        }
+
+        .stats-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .stat-block {
+            text-align: center;
+            padding: 20px 30px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-block:last-child { border-right: none; }
+
+        .stat-icon {
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ══════════════════════════════
+           PHOTO MOSAIC
+        ══════════════════════════════ */
+        .showcase-section {
+            padding: 80px 5%;
+            background: var(--cream);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header .eyebrow {
+            display: block;
+            font-size: 0.72rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--dark-navy);
+            line-height: 1.2;
+        }
+
+        .photo-mosaic {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(2, 380px);
+            gap: 14px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .mosaic-item {
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .mosaic-item:nth-child(1) { grid-column: 1 / 6; grid-row: 1 / 2; }
+        .mosaic-item:nth-child(2) { grid-column: 6 / 9; grid-row: 1 / 2; }
+        .mosaic-item:nth-child(3) { grid-column: 9 / 13; grid-row: 1 / 2; }
+        .mosaic-item:nth-child(4) { grid-column: 1 / 5; grid-row: 2 / 3; }
+        .mosaic-item:nth-child(5) { grid-column: 5 / 9; grid-row: 2 / 3; }
+        .mosaic-item:nth-child(6) { grid-column: 9 / 13; grid-row: 2 / 3; }
+
+        .mosaic-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .mosaic-item:hover img { transform: scale(1.07); }
+
+        .mosaic-caption {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(13,26,46,0.9) 0%, transparent 100%);
+            padding: 30px 22px 18px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .mosaic-item:hover .mosaic-caption { transform: translateY(0); }
+
+        .mosaic-caption .cap-label {
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .mosaic-caption .cap-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            font-weight: 400;
+        }
+
+        /* ══════════════════════════════
+           SPA TREATMENTS SECTION
+        ══════════════════════════════ */
+        .treatments-section {
+            background: var(--white);
+            padding: 100px 8%;
+        }
+
+        .treatments-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .treatment-card {
+            text-align: center;
+            padding: 50px 30px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .treatment-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--teal), var(--gold));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .treatment-card:hover {
+            border-color: transparent;
+            box-shadow: 0 20px 60px rgba(26,43,76,0.1);
+            transform: translateY(-8px);
+        }
+
+        .treatment-card:hover::before { transform: scaleX(1); }
+
+        .treat-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--dark-navy), #1a6b6b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+
+        .treat-icon i {
+            color: var(--gold);
+            font-size: 1.4rem;
+        }
+
+        .treatment-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--dark-navy);
+            margin-bottom: 14px;
+        }
+
+        .treatment-card p {
+            font-size: 0.88rem;
+            color: #777;
+            line-height: 1.8;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .treatment-duration {
+            display: inline-block;
+            font-size: 0.72rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            padding: 6px 18px;
+            border-radius: 20px;
+        }
+
+        /* ══════════════════════════════
+           FULL-WIDTH FEATURE BANNER
+        ══════════════════════════════ */
+        .feature-banner {
+            position: relative;
+            height: 550px;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .feature-banner-bg {
+            position: absolute;
+            inset: 0;
+            background: url('spa-lounge.jpg') center / cover no-repeat;
+        }
+
+        .feature-banner-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(13,26,46,0.92) 45%, rgba(13,26,46,0.2) 100%);
+        }
+
+        .feature-banner-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 10%;
+            max-width: 620px;
+            animation: heroFade 1s ease both;
+        }
+
+        .feature-banner-content .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .feature-banner-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1.25;
+            margin-bottom: 24px;
+        }
+
+        .feature-banner-content p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.75);
+            line-height: 1.9;
+            font-weight: 300;
+            margin-bottom: 35px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .feature-list li {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.8);
+            padding: 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .feature-list li i {
+            color: var(--gold);
+            width: 18px;
+            text-align: center;
+        }
+
+        /* ══════════════════════════════
+           QUOTE BLOCK
+        ══════════════════════════════ */
+        .quote-section {
+            background: linear-gradient(135deg, var(--deep-dark), #0d2a2a);
+            padding: 120px 8%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '\201C';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20rem;
+            color: rgba(197,160,89,0.06);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--white);
+            max-width: 860px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            z-index: 1;
+            position: relative;
+        }
+
+        /* ══════════════════════════════
+           BOOKING CTA
+        ══════════════════════════════ */
+        .booking-cta {
+            background: var(--cream);
+            padding: 100px 8%;
+            text-align: center;
+        }
+
+        .booking-cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--dark-navy);
+            margin-bottom: 16px;
+        }
+
+        .booking-cta p {
+            font-size: 0.95rem;
+            color: #777;
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        .booking-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 20px 80px rgba(26,43,76,0.1);
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .booking-field label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .booking-field input, .booking-field select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e0dbd0;
+            border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            color: #333;
+            background: var(--cream);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .booking-field input:focus,
+        .booking-field select:focus { border-color: var(--gold); }
+
+        .btn-book {
+            padding: 15px 35px;
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-book:hover {
+            background: var(--dark-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26,43,76,0.25);
+        }
+
+        /* ══════════════════════════════
+           FOOTER
+        ══════════════════════════════ */
+        .page-footer {
+            background: var(--deep-dark);
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+        }
+
+        .page-footer a {
+            color: var(--gold);
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        /* ══════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════ */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.93);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active { display: flex; animation: lbFade 0.3s ease; }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 24px; right: 32px;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            background: none;
+            border: none;
+            transition: opacity 0.2s;
+        }
+        .lb-close:hover { opacity: 1; }
+
+        @keyframes lbFade {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ══════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════ */
+        @media (max-width: 1100px) {
+            .intro-card { grid-template-columns: 1fr; padding: 50px; gap: 50px; }
+            .intro-gallery { grid-template-rows: 300px 220px; }
+            .stats-inner { grid-template-columns: repeat(2, 1fr); }
+            .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .photo-mosaic {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: repeat(3, 260px);
+            }
+            .mosaic-item:nth-child(1) { grid-column: 1/2; grid-row: 1/2; }
+            .mosaic-item:nth-child(2) { grid-column: 2/3; grid-row: 1/2; }
+            .mosaic-item:nth-child(3) { grid-column: 1/2; grid-row: 2/3; }
+            .mosaic-item:nth-child(4) { grid-column: 2/3; grid-row: 2/3; }
+            .mosaic-item:nth-child(5) { grid-column: 1/2; grid-row: 3/4; }
+            .mosaic-item:nth-child(6) { grid-column: 2/3; grid-row: 3/4; }
+            .treatments-grid { grid-template-columns: 1fr; }
+            .booking-box { grid-template-columns: 1fr 1fr; }
+            .booking-box .btn-book { grid-column: 1/3; }
+        }
+
+        @media (max-width: 768px) {
+            .site-header { padding: 16px 24px; }
+            .header-nav { display: none; }
+            .hero-title { font-size: 2.8rem; }
+            .intro-card { padding: 36px; margin-top: -60px; }
+            .amenities-grid { grid-template-columns: 1fr; }
+            .photo-mosaic { grid-template-columns: 1fr; grid-template-rows: repeat(6, 240px); }
+            .mosaic-item { grid-column: 1/2 !important; grid-row: auto !important; }
+            .feature-banner { height: auto; }
+            .feature-banner-content { padding: 60px 8%; max-width: 100%; }
+            .booking-box { grid-template-columns: 1fr; padding: 30px; }
+            .booking-box .btn-book { grid-column: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ HEADER ============ -->
+    <header class="site-header" id="siteHeader">
+        <a href="index.html" class="logo-wrap" aria-label="Sheraton Home">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="46" height="46" style="color:white;">
+                <circle cx="30" cy="30" r="27.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                <circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 1.6"/>
+                <text x="30" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="23" font-weight="400" fill="currentColor">S</text>
+            </svg>
+            <span class="logo-name">Sheraton</span>
+        </a>
+
+        <ul class="header-nav">
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="Rooms/rooms.html">Rooms</a></li>
+            <li><a href="dining.html">Dining</a></li>
+        </ul>
+
+        <a href="gallery.html" class="back-btn">← Back to Gallery</a>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">Pool &amp; Spa · Sheraton Signature</p>
+            <h1 class="hero-title">Oasis<br>Thermal Spa</h1>
+            <p class="hero-tagline">Where the Body Breathes &amp; the Soul Restores</p>
+            <div class="hero-scroll-hint">
+                <span>Discover</span>
+                <div class="scroll-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ INTRO CARD ============ -->
+    <section class="intro-section">
+        <div class="intro-card reveal">
+            <div class="intro-text">
+                <span class="subtitle-gold">Pool &amp; Spa Sanctuary</span>
+                <h2>A World Apart, Within Your Reach</h2>
+
+                <p>The Oasis Thermal Spa is Sheraton's most celebrated wellness destination — a 12,000 sq ft sanctuary designed to dissolve the boundaries between luxury and healing. Ancient thermal traditions are reimagined through contemporary design, drawing on hydrotherapy, aromatherapy, and the restorative power of touch.</p>
+
+                <p>Step into cascading thermal pools, surrender to the hands of our expert therapists, and emerge transformed. Every signature treatment is crafted from rare botanicals and exclusive Sheraton blends, tailored exclusively to you.</p>
+
+                <div class="price-badge">
+                    <span class="from">From</span>
+                    <span class="amount">$180</span>
+                    <span class="per">/ session</span>
+                </div>
+
+                <div class="amenities-grid">
+                    <div class="amenity-item"><i class="fa-solid fa-water"></i><span>Thermal Hydrotherapy Pool</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-spa"></i><span>12 Private Treatment Rooms</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-fire"></i><span>Hammam &amp; Steam Rooms</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-snowflake"></i><span>Arctic Plunge Pool</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-leaf"></i><span>Botanical Ritual Lounge</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-sun"></i><span>Infrared Sauna Suites</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-mug-hot"></i><span>Herbal Tea &amp; Detox Bar</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-dumbbell"></i><span>Vitality Fitness Studio</span></div>
+                </div>
+
+                <div class="cta-group">
+                    <a href="booking.html" class="btn-primary" id="bookNowBtn">Book a Treatment</a>
+                    <a href="#photo-gallery" class="btn-outline">View Gallery</a>
+                </div>
+            </div>
+
+            <div class="intro-gallery">
+                <div class="img-wrap">
+                    <img src="spa-hero.jpg" alt="Oasis Thermal Spa pool" loading="lazy">
+                </div>
+                <div class="img-wrap">
+                    <img src="spa-treatment.jpg" alt="Luxury spa treatment room" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ STATS STRIP ============ -->
+    <section class="stats-strip reveal">
+        <div class="stats-inner">
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-expand"></i></div>
+                <div class="stat-value">12k</div>
+                <div class="stat-label">Square Feet</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-spa"></i></div>
+                <div class="stat-value">12</div>
+                <div class="stat-label">Treatment Rooms</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="stat-value">5<sup style="font-size:1rem">★</sup></div>
+                <div class="stat-label">Award-Winning</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="stat-value">9<sup style="font-size:1rem">am</sup></div>
+                <div class="stat-label">Opens Daily · 9am–10pm</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PHOTO GALLERY ============ -->
+    <section class="showcase-section" id="photo-gallery">
+        <div class="section-header reveal">
+            <span class="eyebrow">Visual Story</span>
+            <h2>Every Corner, a Moment of Serenity</h2>
+        </div>
+
+        <div class="photo-mosaic">
+            <div class="mosaic-item" onclick="openLightbox('spa-hero.jpg')">
+                <img src="spa-hero.jpg" alt="Thermal pool panoramic" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Hydrotherapy</p>
+                    <p class="cap-title">The Thermal Pool</p>
+                </div>
+            </div>
+            <div class="mosaic-item" onclick="openLightbox('spa-treatment.jpg')">
+                <img src="spa-treatment.jpg" alt="Treatment room" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Signature Ritual</p>
+                    <p class="cap-title">Treatment Sanctuary</p>
+                </div>
+            </div>
+            <div class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80" alt="Spa stones and oils" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Aromatherapy</p>
+                    <p class="cap-title">Hot Stone Ritual</p>
+                </div>
+            </div>
+            <div class="mosaic-item" onclick="openLightbox('spa-lounge.jpg')">
+                <img src="spa-lounge.jpg" alt="Relaxation lounge" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Post-Treatment</p>
+                    <p class="cap-title">Relaxation Lounge</p>
+                </div>
+            </div>
+            <div class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Spa products" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Botanicals</p>
+                    <p class="cap-title">Rare Spa Elixirs</p>
+                </div>
+            </div>
+            <div class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80" alt="Outdoor pool" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Outdoor Experience</p>
+                    <p class="cap-title">Garden Infinity Pool</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ GOLD DIVIDER ============ -->
+    <div class="gold-divider">
+        <div class="divider-diamond"></div>
+    </div>
+
+    <!-- ============ SIGNATURE TREATMENTS ============ -->
+    <section class="treatments-section">
+        <div class="section-header reveal">
+            <span class="eyebrow">Our Offerings</span>
+            <h2>Signature Spa Rituals</h2>
+        </div>
+
+        <div class="treatments-grid">
+            <div class="treatment-card reveal">
+                <div class="treat-icon"><i class="fa-solid fa-water"></i></div>
+                <h3>Thermal Journey</h3>
+                <p>A curated 4-step hydrotherapy circuit — from the warm mineral pool and aromatic steam room to the invigorating arctic plunge and tranquil relaxation pool.</p>
+                <span class="treatment-duration"><i class="fa-regular fa-clock" style="margin-right:6px;"></i>90 Minutes</span>
+            </div>
+            <div class="treatment-card reveal">
+                <div class="treat-icon"><i class="fa-solid fa-hand-sparkles"></i></div>
+                <h3>Sheraton Signature Ritual</h3>
+                <p>Our most treasured treatment. A full-body exfoliation with sea salt and botanical oils, followed by a heated stone massage and a 24-karat gold facial masque.</p>
+                <span class="treatment-duration"><i class="fa-regular fa-clock" style="margin-right:6px;"></i>120 Minutes</span>
+            </div>
+            <div class="treatment-card reveal">
+                <div class="treat-icon"><i class="fa-solid fa-leaf"></i></div>
+                <h3>Forest Bathing Ritual</h3>
+                <p>Inspired by the Japanese art of Shinrin-Yoku, this immersive aromatherapy experience combines cedar wood oils, forest sounds, and deep-tissue healing massage.</p>
+                <span class="treatment-duration"><i class="fa-regular fa-clock" style="margin-right:6px;"></i>75 Minutes</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FEATURE BANNER ============ -->
+    <section class="feature-banner reveal">
+        <div class="feature-banner-bg"></div>
+        <div class="feature-banner-overlay"></div>
+        <div class="feature-banner-content">
+            <span class="eyebrow">The Oasis Promise</span>
+            <h2>Every Detail Designed for Your Deepest Rest</h2>
+            <p>From the moment you arrive, every element of the Oasis Thermal Spa is orchestrated to guide you into a state of pure, effortless calm.</p>
+            <ul class="feature-list">
+                <li><i class="fa-solid fa-check"></i> Personalised pre-treatment consultation with a wellness expert</li>
+                <li><i class="fa-solid fa-check"></i> Complimentary Sheraton signature robe &amp; slippers</li>
+                <li><i class="fa-solid fa-check"></i> Private locker suite with personal amenities tray</li>
+                <li><i class="fa-solid fa-check"></i> Post-treatment botanical tea ceremony</li>
+                <li><i class="fa-solid fa-check"></i> Access to all thermal pools &amp; relaxation areas</li>
+            </ul>
+            <a href="booking.html" class="btn-primary" style="background:var(--gold);border-color:var(--gold);">Reserve Your Ritual</a>
+        </div>
+    </section>
+
+    <!-- ============ QUOTE BLOCK ============ -->
+    <section class="quote-section">
+        <p class="quote-text">"I have visited spas across five continents, but the Oasis at Sheraton is in a category of its own. The Thermal Journey alone is worth the flight. A truly transcendent experience."</p>
+        <p class="quote-author">— Isabelle M., Platinum Bonvoy Member</p>
+    </section>
+
+    <!-- ============ BOOKING CTA ============ -->
+    <section class="booking-cta reveal">
+        <h2>Reserve Your Ritual</h2>
+        <p>Choose your treatment and let the Oasis take care of the rest.</p>
+
+        <div class="booking-box">
+            <div class="booking-field">
+                <label for="spaDate">Preferred Date</label>
+                <input type="date" id="spaDate" name="spaDate">
+            </div>
+            <div class="booking-field">
+                <label for="treatment">Treatment</label>
+                <select id="treatment" name="treatment">
+                    <option value="">Select a Treatment</option>
+                    <option>Thermal Journey — 90 min</option>
+                    <option>Sheraton Signature Ritual — 120 min</option>
+                    <option>Forest Bathing Ritual — 75 min</option>
+                    <option>Spa Day Pass</option>
+                </select>
+            </div>
+            <button class="btn-book" onclick="handleSpaBooking()">Check Availability</button>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="page-footer">
+        <p>
+            &copy; 2026 Sheraton Hotels &amp; Resorts &nbsp;|&nbsp;
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="Rooms/rooms.html">Rooms</a>
+            <a href="booking.html">Book Now</a>
+        </p>
+    </footer>
+
+    <!-- ============ LIGHTBOX ============ -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+        <img src="" alt="Spa view" id="lightboxImg">
+    </div>
+
+    <script>
+        // Sticky header
+        const header = document.getElementById('siteHeader');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 80);
+        });
+
+        // Parallax hero
+        const heroBg = document.getElementById('heroBg');
+        window.addEventListener('scroll', () => {
+            heroBg.style.transform = `scale(1.07) translateY(${window.scrollY * 0.3}px)`;
+        });
+
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealEls.forEach(el => observer.observe(el));
+
+        // Lightbox
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+        // Booking
+        function handleSpaBooking() {
+            const date = document.getElementById('spaDate').value;
+            const treatment = document.getElementById('treatment').value;
+            if (!date || !treatment) {
+                alert('Please select a date and treatment to continue.');
+                return;
+            }
+            window.location.href = 'booking.html';
+        }
+
+        // Min date = today
+        document.getElementById('spaDate').min = new Date().toISOString().split('T')[0];
+    </script>
+
+</body>
+</html>
