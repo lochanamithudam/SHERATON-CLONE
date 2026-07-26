@@ -6,7 +6,7 @@
     <title>Oasis Thermal Spa | Sheraton Hotel & Resort</title>
     <meta name="description" content="Surrender to complete serenity at the Oasis Thermal Spa. Discover hydrotherapy pools, signature rituals, and expert therapists at Sheraton's world-class spa sanctuary.">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
         :root {
             --gold: #c5a059;
@@ -522,6 +522,14 @@
             box-shadow: 0 8px 30px rgba(0,0,0,0.12);
             position: relative;
             cursor: pointer;
+            border: none;
+            padding: 0;
+            background: transparent;
+            text-align: left;
+            display: block;
+            width: 100%;
+            font: inherit;
+            color: inherit;
         }
 
         .mosaic-item:nth-child(1) { grid-column: 1 / 6; grid-row: 1 / 2; }
@@ -891,6 +899,9 @@
             z-index: 9999;
             align-items: center;
             justify-content: center;
+            border: none;
+            padding: 0;
+            color: inherit;
         }
 
         .lightbox.active { display: flex; animation: lbFade 0.3s ease; }
@@ -1089,48 +1100,48 @@
         </div>
 
         <div class="photo-mosaic">
-            <div class="mosaic-item" onclick="openLightbox('spa-hero.jpg')">
+            <button type="button" class="mosaic-item" onclick="openLightbox('spa-hero.jpg')" aria-label="View The Thermal Pool photo">
                 <img src="spa-hero.jpg" alt="Thermal pool panoramic" loading="lazy">
                 <div class="mosaic-caption">
                     <p class="cap-label">Hydrotherapy</p>
                     <p class="cap-title">The Thermal Pool</p>
                 </div>
-            </div>
-            <div class="mosaic-item" onclick="openLightbox('spa-treatment.jpg')">
+            </button>
+            <button type="button" class="mosaic-item" onclick="openLightbox('spa-treatment.jpg')" aria-label="View Treatment Sanctuary photo">
                 <img src="spa-treatment.jpg" alt="Treatment room" loading="lazy">
                 <div class="mosaic-caption">
                     <p class="cap-label">Signature Ritual</p>
                     <p class="cap-title">Treatment Sanctuary</p>
                 </div>
-            </div>
-            <div class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80')">
+            </button>
+            <button type="button" class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=1200&q=80')" aria-label="View Hot Stone Ritual photo">
                 <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80" alt="Spa stones and oils" loading="lazy">
                 <div class="mosaic-caption">
                     <p class="cap-label">Aromatherapy</p>
                     <p class="cap-title">Hot Stone Ritual</p>
                 </div>
-            </div>
-            <div class="mosaic-item" onclick="openLightbox('spa-lounge.jpg')">
+            </button>
+            <button type="button" class="mosaic-item" onclick="openLightbox('spa-lounge.jpg')" aria-label="View Relaxation Lounge photo">
                 <img src="spa-lounge.jpg" alt="Relaxation lounge" loading="lazy">
                 <div class="mosaic-caption">
                     <p class="cap-label">Post-Treatment</p>
                     <p class="cap-title">Relaxation Lounge</p>
                 </div>
-            </div>
-            <div class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80')">
+            </button>
+            <button type="button" class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=80')" aria-label="View Rare Spa Elixirs photo">
                 <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Spa products" loading="lazy">
                 <div class="mosaic-caption">
                     <p class="cap-label">Botanicals</p>
                     <p class="cap-title">Rare Spa Elixirs</p>
                 </div>
-            </div>
-            <div class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80')">
+            </button>
+            <button type="button" class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80')" aria-label="View Garden Infinity Pool photo">
                 <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80" alt="Outdoor pool" loading="lazy">
                 <div class="mosaic-caption">
                     <p class="cap-label">Outdoor Experience</p>
                     <p class="cap-title">Garden Infinity Pool</p>
                 </div>
-            </div>
+            </button>
         </div>
     </section>
 
@@ -1229,10 +1240,10 @@
     </footer>
 
     <!-- ============ LIGHTBOX ============ -->
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <dialog class="lightbox" id="lightbox" aria-label="Image Preview">
         <button class="lb-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
-        <img src="" alt="Spa view" id="lightboxImg">
-    </div>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" alt="Spa view" id="lightboxImg">
+    </dialog>
 
     <script>
         // Sticky header
@@ -1260,6 +1271,13 @@
         revealEls.forEach(el => observer.observe(el));
 
         // Lightbox
+        const lightboxEl = document.getElementById('lightbox');
+        if (lightboxEl) {
+            lightboxEl.addEventListener('click', (e) => {
+                if (e.target === lightboxEl) closeLightbox();
+            });
+        }
+
         function openLightbox(src) {
             document.getElementById('lightboxImg').src = src;
             document.getElementById('lightbox').classList.add('active');

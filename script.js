@@ -1,29 +1,39 @@
-document.addEventListener('DOMContentLoaded', () => {
+// --- HERO VIDEO AUTOPLAY FALLBACK HELPERS ---
+function removeGestureListeners(onGesture) {
+    const events = ['click', 'scroll', 'keydown', 'touchstart'];
+    events.forEach(evt => document.removeEventListener(evt, onGesture));
+}
 
-    // --- HERO VIDEO AUTOPLAY FALLBACK ---
-    const forceAutoplay = (video) => {
-        if (!video) return;
-        video.muted = true;
-        video.playsInline = true;
+function addGestureListeners(onGesture) {
+    const events = ['click', 'scroll', 'keydown', 'touchstart'];
+    events.forEach(evt => document.addEventListener(evt, onGesture, { once: true }));
+}
 
-        const tryPlay = () => {
-            video.play().catch(() => {
-                // Autoplay blocked — start on first user gesture
-                const onGesture = () => {
-                    video.play();
-                    ['click', 'scroll', 'keydown', 'touchstart'].forEach(evt =>
-                        document.removeEventListener(evt, onGesture)
-                    );
-                };
-                ['click', 'scroll', 'keydown', 'touchstart'].forEach(evt =>
-                    document.addEventListener(evt, onGesture, { once: true })
-                );
-            });
-        };
-
-        tryPlay();
-        setTimeout(tryPlay, 500);
+function setupGestureAutoplay(video) {
+    const onGesture = () => {
+        video.play();
+        removeGestureListeners(onGesture);
     };
+    addGestureListeners(onGesture);
+}
+
+function tryPlayVideo(video) {
+    video.play().catch(() => {
+        // Autoplay blocked — start on first user gesture
+        setupGestureAutoplay(video);
+    });
+}
+
+function forceAutoplay(video) {
+    if (!video) return;
+    video.muted = true;
+    video.playsInline = true;
+
+    tryPlayVideo(video);
+    setTimeout(() => tryPlayVideo(video), 500);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
 
     // Apply to both page videos
     forceAutoplay(document.querySelector('.hero-bg-video'));
@@ -163,85 +173,52 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-// Function to handle HTML Form submission
-const testForm = document.getElementById('testForm');
-const submissionResult = document.getElementById('submissionResult');
 
-if (testForm) {
-    testForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // පිටුව Reload වෙන එක නවත්වනවා
+    // Function to handle HTML Form submission
+    const testForm = document.getElementById('testForm');
+    const submissionResult = document.getElementById('submissionResult');
 
-        // HTML inputs වලින් නම සහ ඊමේල් එක කියවා ගැනීම
-        const inputName = document.getElementById('userName').value;
-        const inputEmail = document.getElementById('userEmail').value;
+    if (testForm) {
+        testForm.addEventListener('submit', function(event) {
+            event.preventDefault();
 
-        // Display "Submitting..." message
-        submissionResult.style.color = "blue";
-        submissionResult.innerText = "Submitting data...";
+            const inputName = document.getElementById('userName').value;
+            const inputEmail = document.getElementById('userEmail').value;
 
-        // සර්වර් එකේ API එකට (http://localhost:3000/api/test-submit) ඩේටා යැවීම
-        fetch('http://localhost:3000/api/test-submit', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name: inputName,
-                email: inputEmail
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Server Response:", data);
-            if (data.status === "success") {
-                submissionResult.style.color = "green";
-                submissionResult.innerText = "Success! " + data.message;
-                testForm.reset(); // වැඩේ හරි ගියාට පස්සේ Form එක Clear කරනවා
-            } else {
-                submissionResult.style.color = "red";
-                submissionResult.innerText = "Failed: " + data.message;
-            }
-        })
-        .catch(error => {
-            console.error("Error occurred:", error);
-            submissionResult.style.color = "red";
-            submissionResult.innerText = "Error: Could not connect to server.";
-        });// Handles the hotel booking form submission
-const bookingForm = document.getElementById('hotel-booking-form');
+            submissionResult.style.color = "blue";
+            submissionResult.innerText = "Submitting data...";
 
-if (bookingForm) {
-    bookingForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
+            const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+                ? 'http://localhost:3000/api/test-submit'
+                : 'https://sheraton-clone-production.up.railway.app/api/test-submit';
 
-        const guestName = document.getElementById('guestName').value;
-        const guestEmail = document.getElementById('guestEmail').value;
-        const roomType = document.getElementById('roomType').value;
-
-        try {
-            // Replace with your actual live Railway URL
-            const response = await fetch('https://sheraton-clone-production.up.railway.app/api/bookings', {
+            fetch(API_URL, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ guestName, guestEmail, roomType })
+                body: JSON.stringify({
+                    name: inputName,
+                    email: inputEmail
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    submissionResult.style.color = "green";
+                    submissionResult.innerText = "Success! " + data.message;
+                    testForm.reset();
+                } else {
+                    submissionResult.style.color = "red";
+                    submissionResult.innerText = "Failed: " + data.message;
+                }
+            })
+            .catch(error => {
+                console.error("Error occurred:", error);
+                submissionResult.style.color = "red";
+                submissionResult.innerText = "Error: Could not connect to server.";
             });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                alert(data.message);
-                bookingForm.reset();
-            } else {
-                alert("Error: " + data.message);
-            }
-        } catch (error) {
-            console.error("Connection error:", error);
-            alert("Failed to connect to the backend server.");
-        }
-    });
-}
-    });
-}
+        });
+    }
 
 });
