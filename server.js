@@ -78,33 +78,25 @@ const BookingSchema = new mongoose.Schema({
 });
 const Booking = mongoose.model('Booking', BookingSchema);
 
-// ── Nodemailer Transporter ──────────────────────────────────
-// Fix 6: Move email credentials to environment variables    (security best practice)
-//         Set GMAIL_USER and GMAIL_PASS in your .env file.
-//         If you remove them, bookings still save to MongoDB — email is optional.
-const GMAIL_USER = process.env.GMAIL_USER || '';
-const GMAIL_PASS = process.env.GMAIL_PASS || '';
-
-// Only create a real transporter if credentials are configured
-const transporter = (GMAIL_USER && GMAIL_PASS)
-    ? nodemailer.createTransport({
-        service: 'gmail',
-        secure: true,
-        auth: { user: GMAIL_USER, pass: GMAIL_PASS }
-      })
-    : null;
-
 // ── Helper: Send Booking Email (graceful — never crashes the server) ──
 async function sendBookingEmail(guestName, guestEmail, roomType) {
-    if (!transporter) {
+    const gmailUser = process.env.GMAIL_USER || '';
+    const gmailPass = process.env.GMAIL_PASS || '';
+
+    if (!gmailUser || !gmailPass) {
         console.warn('⚠️  Email skipped: GMAIL_USER / GMAIL_PASS not set in environment.');
         return { skipped: true };
     }
 
-    const recipientList = [guestEmail, GMAIL_USER].filter(Boolean).join(',');
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: { user: gmailUser, pass: gmailPass }
+    });
+
+    const recipientList = [guestEmail, gmailUser].filter(Boolean).join(',');
 
     const mailOptions = {
-        from:    `"Sheraton Hotels & Resorts" <${GMAIL_USER}>`,
+        from:    `"Sheraton Hotels & Resorts" <${gmailUser}>`,
         to:      recipientList,               // sends confirmation to guest and alert to admin
         subject: '🏨 Your Sheraton Reservation Confirmation',
         html: `
@@ -130,8 +122,9 @@ async function sendBookingEmail(guestName, guestEmail, roomType) {
         `
     };
 
-    await transporter.sendMail(mailOptions);
-    return { sent: true };
+    const info = await transporter.sendMail(mailOptions);
+    console.log('✅ Email successfully sent via Nodemailer:', info.response);
+    return { sent: true, response: info.response };
 }
 
 // ── Page Routes ─────────────────────────────────────────────
