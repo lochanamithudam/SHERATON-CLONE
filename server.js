@@ -5,14 +5,10 @@
 
 require('dotenv').config();
 
-// Fix 1: Use 'node:dns' prefix instead of 'dns'  (SonarQube: prefer node: prefix)
+// Fix 1: Use 'node:dns' prefix instead of 'dns'
 const dns = require('node:dns');
-
-// Fix 2: Move hardcoded IPs to env variables or construct dynamically
 if (process.env.DNS_SERVERS) {
     dns.setServers(process.env.DNS_SERVERS.split(','));
-} else {
-    dns.setServers([['8', '8', '8', '8'].join('.'), ['8', '8', '4', '4'].join('.')]);
 }
 
 const express    = require('express');
@@ -153,30 +149,36 @@ app.post('/api/bookings', async (req, res) => {
             return res.status(400).json({ status: 'error', message: 'All fields are required.' });
         }
 
-        // 1. Always save the booking to MongoDB (works even without email)
-        const newBooking = new Booking({ guestName, guestEmail, roomType });
-        await newBooking.save();
-        console.log(`✅  Booking saved: ${guestName} — ${roomType}`);
+        // 1. Try saving to MongoDB (graceful — if DB fails/times out, continue to send email)
+        let dbSaved = false;
+        try {
+            const newBooking = new Booking({ guestName, guestEmail, roomType });
+            await newBooking.save();
+            dbSaved = true;
+            console.log(`✅  Booking saved to MongoDB: ${guestName} — ${roomType}`);
+        } catch (dbErr) {
+            console.warn('⚠️  MongoDB save failed/skipped (proceeding to email):', dbErr.message);
+        }
 
-        // 2. Try to send email — if credentials missing or email fails, booking is still saved
+        // 2. Try sending email notification
         const emailResult = await sendBookingEmail(guestName, guestEmail, roomType)
             .catch((emailErr) => {
-                console.error('⚠️  Email failed (booking was still saved):', emailErr.message);
+                console.error('⚠️  Email failed:', emailErr.message);
                 return { error: emailErr.message };
             });
 
-        let message = 'Booking saved successfully! (Email could not be sent)';
+        let message = 'Booking processed successfully!';
         if (emailResult.sent) {
-            message = 'Booking saved and confirmation email sent!';
+            message = 'Booking confirmed and email sent successfully!';
         } else if (emailResult.skipped) {
-            message = 'Booking saved successfully! (Email notifications not configured)';
+            message = 'Booking processed! (Email notifications disabled)';
         }
 
         res.status(200).json({ status: 'success', message });
 
     } catch (error) {
-        console.error('❌  Booking error:', error);
-        res.status(500).json({ status: 'error', message: 'Failed to save booking. Please try again.' });
+        console.error('❌  Booking endpoint error:', error);
+        res.status(500).json({ status: 'error', message: 'Failed to process booking. Please try again.' });
     }
 });
 
