@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deluxe King Bedroom | Sheraton Hotel & Resort</title>
+    <meta name="description" content="Experience unparalleled luxury in the Sheraton Deluxe King Bedroom. Discover panoramic views, exquisite furnishings, and world-class amenities designed for the discerning traveller.">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #c5a059;
+            --gold-light: #e8d5a3;
+            --dark-navy: #1a2b4c;
+            --deep-dark: #0d1a2e;
+            --cream: #faf9f6;
+            --text-muted: #888;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        /* ══════════════════════════════
+           FLOATING HEADER / NAV
+        ══════════════════════════════ */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 22px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.5s ease, padding 0.4s ease;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+        }
+
+        .site-header.scrolled {
+            background: rgba(13, 26, 46, 0.97);
+            backdrop-filter: blur(12px);
+            padding: 14px 60px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo-wrap svg { color: var(--white); }
+
+        .logo-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 7px;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .header-nav a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .header-nav a:hover { color: var(--gold-light); }
+
+        .back-btn {
+            background: rgba(197,160,89,0.15);
+            border: 1px solid rgba(197,160,89,0.5);
+            color: var(--gold-light);
+            padding: 9px 22px;
+            font-size: 0.75rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════
+           HERO SECTION — PARALLAX STYLE
+        ══════════════════════════════ */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('deluxe-king-hero.jpg') center center / cover no-repeat;
+            transform: scale(1.07);
+            transition: transform 0.1s linear;
+            will-change: transform;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(13,26,46,0.25) 0%,
+                rgba(13,26,46,0.1) 35%,
+                rgba(13,26,46,0.55) 70%,
+                rgba(13,26,46,0.95) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 20px 80px;
+            max-width: 900px;
+            animation: heroFade 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.78rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1.1;
+            letter-spacing: 1px;
+            margin-bottom: 22px;
+            text-shadow: 0 8px 40px rgba(0,0,0,0.5);
+        }
+
+        .hero-tagline {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .hero-scroll-hint {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: pulse 2.5s infinite;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, transparent, var(--gold));
+            margin-top: 8px;
+        }
+
+        @keyframes heroFade {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ══════════════════════════════
+           GOLD DIVIDER
+        ══════════════════════════════ */
+        .gold-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 60px 20px;
+        }
+
+        .gold-divider::before,
+        .gold-divider::after {
+            content: '';
+            flex: 1;
+            max-width: 180px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold));
+        }
+
+        .gold-divider::after {
+            background: linear-gradient(to left, transparent, var(--gold));
+        }
+
+        .divider-diamond {
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        /* ══════════════════════════════
+           MAIN INTRO CARD
+        ══════════════════════════════ */
+        .intro-section {
+            background: var(--white);
+            padding: 0 8% 80px;
+        }
+
+        .intro-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 4px;
+            padding: 80px;
+            box-shadow: 0 20px 80px rgba(26,43,76,0.08);
+            margin-top: -100px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .intro-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            color: var(--dark-navy);
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .intro-text .subtitle-gold {
+            font-size: 0.78rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .intro-text p {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: #555;
+            font-weight: 300;
+            margin-bottom: 22px;
+        }
+
+        /* Price badge */
+        .price-badge {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 6px;
+            background: var(--dark-navy);
+            color: var(--white);
+            padding: 16px 30px;
+            border-radius: 3px;
+            margin-top: 10px;
+            margin-bottom: 35px;
+        }
+
+        .price-badge .from {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .price-badge .amount {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--gold-light);
+        }
+
+        .price-badge .per {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 1px;
+        }
+
+        /* Amenities grid */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border: 1px solid #f0ece4;
+            border-radius: 4px;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .amenity-item:hover {
+            border-color: var(--gold);
+            background: #fdf9f1;
+        }
+
+        .amenity-item i {
+            color: var(--gold);
+            font-size: 1.1rem;
+            width: 22px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .amenity-item span {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* CTA buttons */
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--dark-navy);
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            border: 2px solid var(--dark-navy);
+            transition: all 0.4s ease;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--dark-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26,43,76,0.15);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--dark-navy);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            border: 2px solid var(--dark-navy);
+            transition: all 0.4s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--dark-navy);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* Right-side image stacked gallery */
+        .intro-gallery {
+            display: grid;
+            grid-template-rows: 1.4fr 1fr;
+            gap: 18px;
+        }
+
+        .intro-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.25,1,0.5,1), box-shadow 0.5s;
+        }
+
+        .intro-gallery .img-wrap {
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .intro-gallery .img-wrap:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ══════════════════════════════
+           ROOM DETAILS STATS STRIP
+        ══════════════════════════════ */
+        .stats-strip {
+            background: var(--dark-navy);
+            padding: 60px 8%;
+        }
+
+        .stats-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .stat-block {
+            text-align: center;
+            padding: 20px 30px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-block:last-child { border-right: none; }
+
+        .stat-icon {
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ══════════════════════════════
+           PHOTO SHOWCASE — FULL BLEED
+        ══════════════════════════════ */
+        .showcase-section {
+            padding: 80px 5%;
+            background: var(--cream);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header .eyebrow {
+            display: block;
+            font-size: 0.72rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--dark-navy);
+            line-height: 1.2;
+        }
+
+        /* Masonry-inspired gallery */
+        .photo-mosaic {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(2, 380px);
+            gap: 14px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .mosaic-item {
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .mosaic-item:nth-child(1) { grid-column: 1 / 6; grid-row: 1 / 2; }
+        .mosaic-item:nth-child(2) { grid-column: 6 / 9; grid-row: 1 / 2; }
+        .mosaic-item:nth-child(3) { grid-column: 9 / 13; grid-row: 1 / 2; }
+        .mosaic-item:nth-child(4) { grid-column: 1 / 5; grid-row: 2 / 3; }
+        .mosaic-item:nth-child(5) { grid-column: 5 / 9; grid-row: 2 / 3; }
+        .mosaic-item:nth-child(6) { grid-column: 9 / 13; grid-row: 2 / 3; }
+
+        .mosaic-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .mosaic-item:hover img { transform: scale(1.07); }
+
+        .mosaic-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(13,26,46,0.85) 0%, transparent 100%);
+            padding: 30px 22px 18px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .mosaic-item:hover .mosaic-caption { transform: translateY(0); }
+
+        .mosaic-caption .cap-label {
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .mosaic-caption .cap-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            font-weight: 400;
+        }
+
+        /* ══════════════════════════════
+           EXPERIENCES STRIP
+        ══════════════════════════════ */
+        .experiences-section {
+            background: var(--white);
+            padding: 100px 8%;
+        }
+
+        .experiences-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .experience-card {
+            text-align: center;
+            padding: 50px 30px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .experience-card:hover {
+            border-color: transparent;
+            box-shadow: 0 20px 60px rgba(26,43,76,0.1);
+            transform: translateY(-8px);
+        }
+
+        .experience-card:hover::before { transform: scaleX(1); }
+
+        .exp-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--dark-navy), #2a4070);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+        }
+
+        .exp-icon i {
+            color: var(--gold);
+            font-size: 1.4rem;
+        }
+
+        .experience-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--dark-navy);
+            margin-bottom: 14px;
+        }
+
+        .experience-card p {
+            font-size: 0.88rem;
+            color: #777;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* ══════════════════════════════
+           TESTIMONIAL / QUOTE BLOCK
+        ══════════════════════════════ */
+        .quote-section {
+            background: linear-gradient(135deg, var(--deep-dark), var(--dark-navy));
+            padding: 120px 8%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '\201C';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20rem;
+            color: rgba(197,160,89,0.06);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--white);
+            max-width: 860px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            z-index: 1;
+            position: relative;
+        }
+
+        /* ══════════════════════════════
+           BOOKING CTA SECTION
+        ══════════════════════════════ */
+        .booking-cta {
+            background: var(--cream);
+            padding: 100px 8%;
+            text-align: center;
+        }
+
+        .booking-cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--dark-navy);
+            margin-bottom: 16px;
+        }
+
+        .booking-cta p {
+            font-size: 0.95rem;
+            color: #777;
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        .booking-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 20px 80px rgba(26,43,76,0.1);
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .booking-field label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .booking-field input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e0dbd0;
+            border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            background: var(--cream);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .booking-field input:focus { border-color: var(--gold); }
+
+        .btn-book {
+            padding: 15px 35px;
+            background: var(--gold);
+            color: var(--white);
+            border: none;
+            border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-book:hover {
+            background: var(--dark-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26,43,76,0.25);
+        }
+
+        /* ══════════════════════════════
+           FOOTER
+        ══════════════════════════════ */
+        .page-footer {
+            background: var(--deep-dark);
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+        }
+
+        .page-footer a {
+            color: var(--gold);
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        /* ══════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════ */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: lbFade 0.3s ease;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            background: none;
+            border: none;
+        }
+        .lb-close:hover { opacity: 1; }
+
+        @keyframes lbFade {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ══════════════════════════════
+           SCROLL REVEAL UTILITY
+        ══════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════ */
+        @media (max-width: 1100px) {
+            .intro-card {
+                grid-template-columns: 1fr;
+                padding: 50px;
+                gap: 50px;
+            }
+            .intro-gallery {
+                grid-template-rows: 300px 220px;
+            }
+            .stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .stat-block:nth-child(2n) { border-right: none; }
+            .photo-mosaic {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: repeat(3, 260px);
+            }
+            .mosaic-item:nth-child(1) { grid-column: 1 / 2; grid-row: 1 / 2; }
+            .mosaic-item:nth-child(2) { grid-column: 2 / 3; grid-row: 1 / 2; }
+            .mosaic-item:nth-child(3) { grid-column: 1 / 2; grid-row: 2 / 3; }
+            .mosaic-item:nth-child(4) { grid-column: 2 / 3; grid-row: 2 / 3; }
+            .mosaic-item:nth-child(5) { grid-column: 1 / 2; grid-row: 3 / 4; }
+            .mosaic-item:nth-child(6) { grid-column: 2 / 3; grid-row: 3 / 4; }
+            .experiences-grid { grid-template-columns: 1fr; }
+            .booking-box { grid-template-columns: 1fr 1fr; }
+            .booking-box .btn-book { grid-column: 1 / 3; }
+        }
+
+        @media (max-width: 768px) {
+            .site-header { padding: 16px 24px; }
+            .header-nav { display: none; }
+            .hero-title { font-size: 2.8rem; }
+            .intro-card { padding: 36px; margin-top: -60px; }
+            .amenities-grid { grid-template-columns: 1fr; }
+            .stats-inner { grid-template-columns: 1fr 1fr; }
+            .photo-mosaic { grid-template-columns: 1fr; grid-template-rows: repeat(6, 240px); }
+            .mosaic-item { grid-column: 1 / 2 !important; grid-row: auto !important; }
+            .booking-box { grid-template-columns: 1fr; padding: 30px; }
+            .booking-box .btn-book { grid-column: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ FLOATING HEADER ============ -->
+    <header class="site-header" id="siteHeader">
+        <a href="index.html" class="logo-wrap" aria-label="Sheraton Home">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="46" height="46">
+                <circle cx="30" cy="30" r="27.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                <circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 1.6"/>
+                <text x="30" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="23" font-weight="400" fill="currentColor">S</text>
+            </svg>
+            <span class="logo-name">Sheraton</span>
+        </a>
+
+        <ul class="header-nav">
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="Rooms/rooms.html">Rooms</a></li>
+            <li><a href="dining.html">Dining</a></li>
+        </ul>
+
+        <a href="gallery.html" class="back-btn">← Back to Gallery</a>
+    </header>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">Rooms &amp; Suites · Sheraton Signature</p>
+            <h1 class="hero-title">Deluxe King<br>Bedroom</h1>
+            <p class="hero-tagline">Crafted for the Connoisseur of Comfort</p>
+            <div class="hero-scroll-hint">
+                <span>Explore</span>
+                <div class="scroll-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ INTRO CARD ============ -->
+    <section class="intro-section">
+        <div class="intro-card reveal">
+            <div class="intro-text">
+                <span class="subtitle-gold">Luxury Accommodations</span>
+                <h2>A Sanctuary of Unrivalled Elegance</h2>
+
+                <p>The Sheraton Deluxe King Bedroom is a masterfully designed retreat where timeless luxury meets modern comfort. Every detail — from the hand-stitched linen on the grand king bed to the bespoke artwork adorning the walls — has been curated to create an environment of pure indulgence.</p>
+
+                <p>Wake up to sweeping panoramic views of the city skyline, enjoy breakfast served in the comfort of your private space, and unwind in a spa-inspired bathroom featuring Carrara marble and gold-appointed fixtures. This is not just a room; it is an experience.</p>
+
+                <div class="price-badge">
+                    <span class="from">From</span>
+                    <span class="amount">$485</span>
+                    <span class="per">/ night</span>
+                </div>
+
+                <div class="amenities-grid">
+                    <div class="amenity-item"><i class="fa-solid fa-expand"></i><span>680 sq ft / 63 sq m</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-bed"></i><span>1 King Signature Bed</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-city"></i><span>Panoramic City View</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-bath"></i><span>Marble Rain Shower</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-wifi"></i><span>Complimentary High-Speed Wi-Fi</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-bell-concierge"></i><span>24/7 Butler Service</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-martini-glass"></i><span>Stocked Mini Bar</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-sun"></i><span>Blackout Drapes &amp; Climate</span></div>
+                </div>
+
+                <div class="cta-group">
+                    <a href="booking.html" class="btn-primary" id="bookNowBtn">Reserve Now</a>
+                    <a href="#photo-gallery" class="btn-outline">View Gallery</a>
+                </div>
+            </div>
+
+            <div class="intro-gallery">
+                <div class="img-wrap">
+                    <img src="deluxe-king-hero.jpg" alt="Deluxe King Bedroom main view" loading="lazy">
+                </div>
+                <div class="img-wrap">
+                    <img src="deluxe-sitting.jpg" alt="Sitting area and city views" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ STATS STRIP ============ -->
+    <section class="stats-strip reveal">
+        <div class="stats-inner">
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-expand"></i></div>
+                <div class="stat-value">680</div>
+                <div class="stat-label">Square Feet</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-floor"></i></div>
+                <div class="stat-value">32<sup style="font-size:1rem">nd</sup></div>
+                <div class="stat-label">Floor &amp; Above</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="stat-value">5<sup style="font-size:1rem">★</sup></div>
+                <div class="stat-label">Luxury Rating</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-concierge-bell"></i></div>
+                <div class="stat-value">24<sup style="font-size:1rem">h</sup></div>
+                <div class="stat-label">Butler Service</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PHOTO GALLERY ============ -->
+    <section class="showcase-section" id="photo-gallery">
+        <div class="section-header reveal">
+            <span class="eyebrow">Visual Story</span>
+            <h2>Every Corner, a Work of Art</h2>
+        </div>
+
+        <div class="photo-mosaic">
+            <!-- Image 1 — large hero cell -->
+            <div class="mosaic-item" onclick="openLightbox('deluxe-king-hero.jpg')">
+                <img src="deluxe-king-hero.jpg" alt="Deluxe King Bedroom panoramic" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Master Bedroom</p>
+                    <p class="cap-title">Grand King Suite</p>
+                </div>
+            </div>
+            <!-- Image 2 -->
+            <div class="mosaic-item" onclick="openLightbox('deluxe-bathroom.jpg')">
+                <img src="deluxe-bathroom.jpg" alt="Luxury marble bathroom" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">En-Suite Bathroom</p>
+                    <p class="cap-title">Marble Sanctuary</p>
+                </div>
+            </div>
+            <!-- Image 3 — Unsplash fallback -->
+            <div class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80" alt="Luxurious bedding detail" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Bedding</p>
+                    <p class="cap-title">Egyptian Cotton Linen</p>
+                </div>
+            </div>
+            <!-- Image 4 -->
+            <div class="mosaic-item" onclick="openLightbox('deluxe-sitting.jpg')">
+                <img src="deluxe-sitting.jpg" alt="Elegant sitting area" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Sitting Area</p>
+                    <p class="cap-title">Private Lounge</p>
+                </div>
+            </div>
+            <!-- Image 5 — Unsplash fallback -->
+            <div class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80" alt="Evening ambience" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Evening Ambience</p>
+                    <p class="cap-title">Warm Glow at Dusk</p>
+                </div>
+            </div>
+            <!-- Image 6 — Unsplash fallback -->
+            <div class="mosaic-item" onclick="openLightbox('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80')">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" alt="Spa rainfall shower" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Spa Shower</p>
+                    <p class="cap-title">Rainfall Experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ GOLD DIVIDER ============ -->
+    <div class="gold-divider">
+        <div class="divider-diamond"></div>
+    </div>
+
+    <!-- ============ EXPERIENCES ============ -->
+    <section class="experiences-section">
+        <div class="section-header reveal">
+            <span class="eyebrow">What's Included</span>
+            <h2>The Sheraton Deluxe Experience</h2>
+        </div>
+
+        <div class="experiences-grid">
+            <div class="experience-card reveal">
+                <div class="exp-icon"><i class="fa-solid fa-spa"></i></div>
+                <h3>Spa &amp; Wellness Access</h3>
+                <p>Complimentary access to our award-winning Sheraton Spa, featuring hydrotherapy pools, steam rooms, and a dedicated relaxation lounge with curated teas.</p>
+            </div>
+            <div class="experience-card reveal">
+                <div class="exp-icon"><i class="fa-solid fa-utensils"></i></div>
+                <h3>In-Room Fine Dining</h3>
+                <p>Enjoy our curated 24-hour in-room dining menu, with dishes crafted by our Michelin-star chef. A private breakfast service is also available each morning.</p>
+            </div>
+            <div class="experience-card reveal">
+                <div class="exp-icon"><i class="fa-solid fa-car"></i></div>
+                <h3>Chauffeur &amp; Transfers</h3>
+                <p>Benefit from seamless private airport transfers in our fleet of luxury vehicles, available around the clock for your comfort and convenience.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ QUOTE BLOCK ============ -->
+    <section class="quote-section">
+        <p class="quote-text">"From the moment I stepped in, I knew this was different. The Deluxe King Bedroom at Sheraton isn't just a place to sleep — it's a destination unto itself. The serenity, the detail, the warmth — simply unforgettable."</p>
+        <p class="quote-author">— Valentina R., Guest &amp; Sheraton Bonvoy Member</p>
+    </section>
+
+    <!-- ============ BOOKING CTA ============ -->
+    <section class="booking-cta reveal">
+        <h2>Begin Your Stay</h2>
+        <p>Reserve the Deluxe King Bedroom and let every moment become a memory.</p>
+
+        <div class="booking-box">
+            <div class="booking-field">
+                <label for="checkIn">Check-In</label>
+                <input type="date" id="checkIn" name="checkIn">
+            </div>
+            <div class="booking-field">
+                <label for="checkOut">Check-Out</label>
+                <input type="date" id="checkOut" name="checkOut">
+            </div>
+            <button class="btn-book" onclick="handleBooking()">Check Availability</button>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="page-footer">
+        <p>
+            &copy; 2026 Sheraton Hotels &amp; Resorts &nbsp;|&nbsp;
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="Rooms/rooms.html">Rooms</a>
+            <a href="booking.html">Book Now</a>
+        </p>
+    </footer>
+
+    <!-- ============ LIGHTBOX ============ -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lb-close" onclick="closeLightbox()" aria-label="Close lightbox">&times;</button>
+        <img src="" alt="Room preview" id="lightboxImg">
+    </div>
+
+    <!-- ============ JAVASCRIPT ============ -->
+    <script>
+        // Sticky header on scroll
+        const header = document.getElementById('siteHeader');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Parallax effect on hero background
+        const heroBg = document.getElementById('heroBg');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            heroBg.style.transform = `scale(1.07) translateY(${scrollY * 0.3}px)`;
+        });
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, i * 80);
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Lightbox
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Booking handler
+        function handleBooking() {
+            const checkIn  = document.getElementById('checkIn').value;
+            const checkOut = document.getElementById('checkOut').value;
+            if (!checkIn || !checkOut) {
+                alert('Please select both check-in and check-out dates.');
+                return;
+            }
+            window.location.href = 'booking.html';
+        }
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('checkIn').min  = today;
+        document.getElementById('checkOut').min = today;
+    </script>
+
+</body>
+</html>
