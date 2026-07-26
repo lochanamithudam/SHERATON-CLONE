@@ -65,9 +65,9 @@ app.use('/Rooms',   express.static(path.join(__dirname, 'Rooms')));
 const dbURI = process.env.MONGODB_URI || process.env.MONGO_URI ||
     'mongodb+srv://lochanamithudam097_db_user:Mithu123456@cluster0.f51etmt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
-mongoose.connect(dbURI)
+mongoose.connect(dbURI, { serverSelectionTimeoutMS: 5000 })
     .then(() => console.log('✅  Successfully connected to MongoDB!'))
-    .catch((err) => console.error('❌  MongoDB connection error:', err));
+    .catch((err) => console.error('❌  MongoDB connection warning:', err.message));
 
 // ── Booking Schema ──────────────────────────────────────────
 const BookingSchema = new mongoose.Schema({
