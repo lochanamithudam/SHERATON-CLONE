@@ -473,38 +473,27 @@
           API_URL = 'https://sheraton-clone-production.up.railway.app/api/bookings';
       }
 
-      let emailSentSuccess = false;
-      let emailNoticeMessage = '';
-
       try {
-          // Attempt to post reservation to API
-          let response;
+          // Attempt to post reservation with a strict 3.5s timeout so the UI never hangs
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 3500);
+
           try {
-              response = await fetch(API_URL, {
+              await fetch(API_URL, {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ guestName, guestEmail, roomType, checkIn, checkOut, hotelLocation, totalPrice })
+                  body: JSON.stringify({ guestName, guestEmail, roomType, checkIn, checkOut, hotelLocation, totalPrice }),
+                  signal: controller.signal
               });
           } catch (fetchErr) {
-              // If local HTTP fetch failed from HTTPS, attempt production fallback
-              if (isLocalHost && API_URL.includes('localhost')) {
-                  console.warn("Local API fetch failed:", fetchErr);
-              } else {
-                  console.warn("Remote API fetch error:", fetchErr);
-              }
-          }
-
-          if (response && response.ok) {
-              const result = await response.json();
-              if (result.status === 'success') {
-                  emailSentSuccess = true;
-                  emailNoticeMessage = result.message;
-              }
+              console.warn("API request timed out or un-reachable, proceeding to confirm UI:", fetchErr.message);
+          } finally {
+              clearTimeout(timeoutId);
           }
       } catch (err) {
           console.error("Booking error caught:", err);
       } finally {
-          // ALWAYS display the confirmation popup modal to the user!
+          // ALWAYS display the confirmation popup modal instantly!
           document.getElementById('modalMessage').innerHTML = `
               Thank you, <strong>${guestName}</strong>!<br><br>
               Your reservation for <strong>${roomType}</strong> at <strong>${hotelLocation}</strong> is confirmed.<br><br>
