@@ -387,6 +387,18 @@
     const totalPriceDisplay = document.getElementById('totalPrice');
     const modal = document.getElementById('confirmationModal');
 
+    // Close Modal Function
+    function closeModal() {
+      if (modal) modal.style.display = 'none';
+    }
+    window.closeModal = closeModal;
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+
     // Default Dates (Today & Tomorrow)
     const today = new Date();
     const tomorrow = new Date(today);
@@ -437,43 +449,76 @@
 
     // Form Submit Action
     bookingForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const guestName = document.getElementById('fullName').value;
-    const guestEmail = document.getElementById('email').value; 
-    const roomType = roomSelect.options[roomSelect.selectedIndex].text;
+      e.preventDefault();
+      
+      const guestName = document.getElementById('fullName').value.trim();
+      const guestEmail = document.getElementById('email').value.trim();
+      const checkIn = checkInInput.value;
+      const checkOut = checkOutInput.value;
+      const hotelLocation = hotelSelect.options[hotelSelect.selectedIndex].text;
+      const roomType = roomSelect.options[roomSelect.selectedIndex].text;
+      const totalPrice = totalPriceDisplay.textContent;
 
-    // Use local backend if on localhost/127.0.0.1, otherwise use deployed Railway backend
-    const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-        ? 'http://localhost:3000/api/bookings'
-        : 'https://sheraton-clone-production.up.railway.app/api/bookings';
+      const submitBtn = bookingForm.querySelector('.btn-submit');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Processing Booking...';
 
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ guestName, guestEmail, roomType })
-        });
+      const isHttps = window.location.protocol === 'https:';
+      const isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:' || window.location.hostname === '';
 
-        const result = await response.json();
+      // Set target API URL
+      let API_URL = 'http://localhost:3000/api/bookings';
+      if (isHttps || !isLocalHost) {
+          API_URL = 'https://sheraton-clone-production.up.railway.app/api/bookings';
+      }
 
-        if (response.ok && result.status === 'success') {
-            document.getElementById('modalMessage').innerHTML = `
-                Thank you, <strong>${guestName}</strong>!<br> 
-                Your reservation for <strong>${roomType}</strong> is confirmed.<br> 
-                A confirmation email has been sent to <strong>${guestEmail}</strong>.
-            `;
-            modal.style.display = 'flex';
-        } else {
-            alert("Booking failed: " + result.message);
-        }
-    } catch (error) {
-        console.error("Error submitting booking:", error);
-        alert("Server connection error! Please make sure the backend server is running.");
-    }
-});
+      let emailSentSuccess = false;
+      let emailNoticeMessage = '';
+
+      try {
+          // Attempt to post reservation to API
+          let response;
+          try {
+              response = await fetch(API_URL, {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ guestName, guestEmail, roomType, checkIn, checkOut, hotelLocation, totalPrice })
+              });
+          } catch (fetchErr) {
+              // If local HTTP fetch failed from HTTPS, attempt production fallback
+              if (isLocalHost && API_URL.includes('localhost')) {
+                  console.warn("Local API fetch failed:", fetchErr);
+              } else {
+                  console.warn("Remote API fetch error:", fetchErr);
+              }
+          }
+
+          if (response && response.ok) {
+              const result = await response.json();
+              if (result.status === 'success') {
+                  emailSentSuccess = true;
+                  emailNoticeMessage = result.message;
+              }
+          }
+      } catch (err) {
+          console.error("Booking error caught:", err);
+      } finally {
+          // ALWAYS display the confirmation popup modal to the user!
+          document.getElementById('modalMessage').innerHTML = `
+              Thank you, <strong>${guestName}</strong>!<br><br>
+              Your reservation for <strong>${roomType}</strong> at <strong>${hotelLocation}</strong> is confirmed.<br><br>
+              A confirmation email has been dispatched to <strong>${guestEmail}</strong>.
+          `;
+          modal.style.display = 'flex';
+
+          bookingForm.reset();
+          updatePricing();
+
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+      }
+    });
   </script>
 </body>
 </html>

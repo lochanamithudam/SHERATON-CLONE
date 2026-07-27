@@ -185,10 +185,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const inputName = document.getElementById('userName').value;
             const inputEmail = document.getElementById('userEmail').value;
 
-            submissionResult.style.color = "blue";
-            submissionResult.innerText = "Submitting data...";
+            submissionResult.style.color = "#0284c7";
+            submissionResult.innerText = "Sending request & email...";
 
-            const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            const isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:' || window.location.hostname === '';
+            const API_URL = isLocalHost
                 ? 'http://localhost:3000/api/test-submit'
                 : 'https://sheraton-clone-production.up.railway.app/api/test-submit';
 
@@ -205,18 +206,18 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 if (data.status === "success") {
-                    submissionResult.style.color = "green";
-                    submissionResult.innerText = "Success! " + data.message;
+                    submissionResult.style.color = "#16a34a";
+                    submissionResult.innerText = "✅ " + data.message;
                     testForm.reset();
                 } else {
-                    submissionResult.style.color = "red";
-                    submissionResult.innerText = "Failed: " + data.message;
+                    submissionResult.style.color = "#dc2626";
+                    submissionResult.innerText = "❌ " + data.message;
                 }
             })
             .catch(error => {
                 console.error("Error occurred:", error);
-                submissionResult.style.color = "red";
-                submissionResult.innerText = "Error: Could not connect to server.";
+                submissionResult.style.color = "#dc2626";
+                submissionResult.innerText = "❌ Error: Could not connect to backend server (make sure node server.js is running).";
             });
         });
     }
