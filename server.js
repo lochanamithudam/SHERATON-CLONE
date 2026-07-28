@@ -254,16 +254,21 @@ app.post('/api/test-submit', async (req, res) => {
     }
 });
 
-// ── Server Start ─────────────────────────────────────────────
-app.listen(PORT, () => {
-    console.log(`🚀  Sheraton Server running → http://localhost:${PORT}`);
-    if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
-        console.warn('⚠️  GMAIL_USER / GMAIL_PASS not set — email notifications are disabled.');
-        console.warn('    Bookings will still be saved to MongoDB.');
-    } else {
-        console.log(`✉️  Email sender configured for: ${process.env.GMAIL_USER}`);
-    }
-    if (!process.env.MONGO_URI && !process.env.MONGODB_URI) {
-        console.warn('⚠️  MONGO_URI / MONGODB_URI not set — using hardcoded fallback URI.');
-    }
-});
+// ── Server Start (only when running locally, not on Vercel) ──
+if (!process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`🚀  Sheraton Server running → http://localhost:${PORT}`);
+        if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
+            console.warn('⚠️  GMAIL_USER / GMAIL_PASS not set — email notifications are disabled.');
+            console.warn('    Bookings will still be saved to MongoDB.');
+        } else {
+            console.log(`✉️  Email sender configured for: ${process.env.GMAIL_USER}`);
+        }
+        if (!process.env.MONGO_URI && !process.env.MONGODB_URI) {
+            console.warn('⚠️  MONGO_URI / MONGODB_URI not set — using hardcoded fallback URI.');
+        }
+    });
+}
+
+// Export for Vercel serverless
+module.exports = app;
