@@ -28,6 +28,7 @@ app.disable('x-powered-by');
 const allowedOrigins = process.env.ALLOWED_ORIGINS
     ? process.env.ALLOWED_ORIGINS.split(',')
     : [
+        'https://sheraton-clone.vercel.app',
         'https://sheratonclone.netlify.app',
         'http://sheratonclone.netlify.app',
         'http://localhost:3000',
@@ -39,8 +40,8 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
 
 const corsOptions = {
     origin: (origin, callback) => {
-        // Allow requests with no origin or matching allowedOrigins or netlify app
-        if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.netlify.app')) {
+        // Allow requests with no origin or matching allowedOrigins or netlify/vercel app
+        if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.netlify.app') || origin.endsWith('.vercel.app')) {
             callback(null, true);
         } else {
             callback(new Error('Not allowed by CORS'));
@@ -76,6 +77,7 @@ const BookingSchema = new mongoose.Schema({
     roomType:      { type: String, required: true },
     checkIn:       { type: String },
     checkOut:      { type: String },
+    checkInTime:   { type: String },
     hotelLocation: { type: String },
     totalPrice:    { type: String },
     bookedAt:      { type: Date, default: Date.now }
@@ -83,7 +85,7 @@ const BookingSchema = new mongoose.Schema({
 const Booking = mongoose.model('Booking', BookingSchema);
 
 // ── Helper: Send Booking Email (graceful — never crashes the server) ──
-async function sendBookingEmail(guestName, guestEmail, roomType, checkIn = '', checkOut = '', hotelLocation = '', totalPrice = '') {
+async function sendBookingEmail(guestName, guestEmail, roomType, checkIn = '', checkOut = '', hotelLocation = '', totalPrice = '', checkInTime = '') {
     const gmailUser = process.env.GMAIL_USER || '';
     const gmailPass = process.env.GMAIL_PASS || '';
 
@@ -103,8 +105,14 @@ async function sendBookingEmail(guestName, guestEmail, roomType, checkIn = '', c
     const recipientList = [guestEmail, gmailUser].filter(Boolean).join(',');
     const reservationRef = `SHR-${Math.floor(100000 + Math.random() * 900000)}`;
 
+    const formattedBookedTime = new Date().toLocaleString('en-US', {
+        dateStyle: 'medium',
+        timeStyle: 'medium',
+        hour12: true
+    });
+
     const detailsRows = [
-        `<tr><td style="padding:10px 0;color:#888;width:140px;">Reservation Ref</td><td style="padding:10px 0;font-weight:700;color:#1a2b4c;">${reservationRef}</td></tr>`,
+        `<tr><td style="padding:10px 0;color:#888;width:160px;">Reservation Ref</td><td style="padding:10px 0;font-weight:700;color:#1a2b4c;">${reservationRef}</td></tr>`,
         `<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Guest Name</td><td style="padding:10px 0;font-weight:600;color:#222;">${guestName}</td></tr>`,
         `<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Guest Email</td><td style="padding:10px 0;font-weight:600;color:#222;">${guestEmail}</td></tr>`,
         `<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Hotel Location</td><td style="padding:10px 0;font-weight:600;color:#222;">${hotelLocation || 'Sheraton Hotels & Resorts'}</td></tr>`,
@@ -112,12 +120,19 @@ async function sendBookingEmail(guestName, guestEmail, roomType, checkIn = '', c
     ];
 
     if (checkIn && checkOut) {
-        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Dates of Stay</td><td style="padding:10px 0;font-weight:600;color:#222;">${checkIn} &rarr; ${checkOut}</td></tr>`);
+        const timeFormatted = checkInTime ? ` (Check-In Time: ${checkInTime})` : '';
+        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Dates of Stay</td><td style="padding:10px 0;font-weight:600;color:#222;">${checkIn}${timeFormatted} &rarr; ${checkOut}</td></tr>`);
+    } else if (checkIn) {
+        const timeFormatted = checkInTime ? ` at ${checkInTime}` : '';
+        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Reservation Date/Time</td><td style="padding:10px 0;font-weight:600;color:#222;">${checkIn}${timeFormatted}</td></tr>`);
+    } else if (checkInTime) {
+        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Preferred Time</td><td style="padding:10px 0;font-weight:600;color:#222;">${checkInTime}</td></tr>`);
     }
+
     if (totalPrice) {
         detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Total Amount</td><td style="padding:10px 0;font-weight:700;color:#c5a059;">${totalPrice}</td></tr>`);
     }
-    detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Booked Date</td><td style="padding:10px 0;font-weight:600;color:#222;">${new Date().toLocaleString()}</td></tr>`);
+    detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Booked Date & Time</td><td style="padding:10px 0;font-weight:600;color:#222;">${formattedBookedTime}</td></tr>`);
 
     const mailOptions = {
         from:    `"Sheraton Hotels & Resorts" <${gmailUser}>`,
@@ -163,7 +178,7 @@ app.get('/', (req, res) => {
 // ── API Routes ──────────────────────────────────────────────
 app.post('/api/bookings', async (req, res) => {
     try {
-        const { guestName, guestEmail, roomType, checkIn, checkOut, hotelLocation, totalPrice } = req.body;
+        const { guestName, guestEmail, roomType, checkIn, checkOut, checkInTime, hotelLocation, totalPrice } = req.body;
 
         // Validate inputs
         if (!guestName || !guestEmail || !roomType) {
@@ -180,6 +195,7 @@ app.post('/api/bookings', async (req, res) => {
                     roomType,
                     checkIn: checkIn || '',
                     checkOut: checkOut || '',
+                    checkInTime: checkInTime || '',
                     hotelLocation: hotelLocation || '',
                     totalPrice: totalPrice || ''
                 });
@@ -194,7 +210,7 @@ app.post('/api/bookings', async (req, res) => {
         }
 
         // 2. Try sending email notification
-        const emailResult = await sendBookingEmail(guestName, guestEmail, roomType, checkIn, checkOut, hotelLocation, totalPrice)
+        const emailResult = await sendBookingEmail(guestName, guestEmail, roomType, checkIn, checkOut, hotelLocation, totalPrice, checkInTime)
             .catch((emailErr) => {
                 console.error('⚠️  Email failed:', emailErr.message);
                 return { error: emailErr.message };
@@ -220,12 +236,12 @@ app.post('/api/bookings', async (req, res) => {
 // Test submission route (handles index.html test form)
 app.post('/api/test-submit', async (req, res) => {
     try {
-        const { name, email } = req.body;
+        const { name, email, preferredDate, preferredTime } = req.body;
         if (!name || !email) {
             return res.status(400).json({ status: 'error', message: 'Name and email are required.' });
         }
 
-        const emailResult = await sendBookingEmail(name, email, 'Test Reservation Request')
+        const emailResult = await sendBookingEmail(name, email, 'Test Reservation Request', preferredDate || '', '', 'Sheraton Hotels & Resorts', '', preferredTime || '')
             .catch(err => ({ error: err.message }));
 
         res.status(200).json({
