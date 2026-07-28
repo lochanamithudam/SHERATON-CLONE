@@ -14,15 +14,15 @@
       "use": "@vercel/static"
     },
     {
-      "src": "*.js",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "*.{jpg,jpeg,png,gif,webp,avif,svg,ico,mp4}",
+      "src": "script.js",
       "use": "@vercel/static"
     },
     {
       "src": "Rooms/**",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "*.{jpg,jpeg,png,webp,avif,svg,ico,mp4,gif}",
       "use": "@vercel/static"
     }
   ],
@@ -31,8 +31,12 @@
       "handle": "filesystem"
     },
     {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
+      "src": "/api/bookings",
+      "dest": "/api/bookings.js"
+    },
+    {
+      "src": "/api/test-submit",
+      "dest": "/api/test-submit.js"
     }
   ]
 }
