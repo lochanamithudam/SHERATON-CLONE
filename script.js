@@ -184,14 +184,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const inputName = document.getElementById('userName').value;
             const inputEmail = document.getElementById('userEmail').value;
+            const userDateEl = document.getElementById('userDate');
+            const userTimeEl = document.getElementById('userTime');
+            const inputDate = userDateEl ? userDateEl.value : '';
+            const inputTime = userTimeEl ? userTimeEl.value : '';
 
             submissionResult.style.color = "#0284c7";
             submissionResult.innerText = "Sending request & email...";
 
-            const isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:' || window.location.hostname === '';
-            const API_URL = isLocalHost
+            const API_URL = (window.location.protocol === 'file:')
                 ? 'http://localhost:3000/api/test-submit'
-                : 'https://sheraton-clone-production.up.railway.app/api/test-submit';
+                : '/api/test-submit';
 
             fetch(API_URL, {
                 method: 'POST',
@@ -200,7 +203,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 },
                 body: JSON.stringify({
                     name: inputName,
-                    email: inputEmail
+                    email: inputEmail,
+                    preferredDate: inputDate,
+                    preferredTime: inputTime
                 })
             })
             .then(response => response.json())

@@ -331,6 +331,11 @@
           </div>
 
           <div class="form-group">
+            <label for="checkInTime">Check-In Time</label>
+            <input type="time" id="checkInTime" value="15:00" required>
+          </div>
+
+          <div class="form-group">
             <label for="checkOut">Check-Out Date</label>
             <input type="date" id="checkOut" required>
           </div>
@@ -454,6 +459,8 @@
       const guestName = document.getElementById('fullName').value.trim();
       const guestEmail = document.getElementById('email').value.trim();
       const checkIn = checkInInput.value;
+      const checkInTimeInput = document.getElementById('checkInTime');
+      const checkInTime = checkInTimeInput ? checkInTimeInput.value : '15:00';
       const checkOut = checkOutInput.value;
       const hotelLocation = hotelSelect.options[hotelSelect.selectedIndex].text;
       const roomType = roomSelect.options[roomSelect.selectedIndex].text;
@@ -464,46 +471,60 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Processing Booking...';
 
-      const isHttps = window.location.protocol === 'https:';
-      const isLocalHost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:' || window.location.hostname === '';
-
-      // Set target API URL
-      let API_URL = 'http://localhost:3000/api/bookings';
-      if (isHttps || !isLocalHost) {
-          API_URL = 'https://sheraton-clone-production.up.railway.app/api/bookings';
-      }
+      // Target API endpoint: relative URL on web server / Vercel, localhost if file://
+      const API_URL = (window.location.protocol === 'file:')
+          ? 'http://localhost:3000/api/bookings'
+          : '/api/bookings';
 
       try {
-          // Attempt to post reservation with a strict 3.5s timeout so the UI never hangs
           const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 3500);
+          const timeoutId = setTimeout(() => controller.abort(), 12000);
 
-          try {
-              await fetch(API_URL, {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({ guestName, guestEmail, roomType, checkIn, checkOut, hotelLocation, totalPrice }),
-                  signal: controller.signal
-              });
-          } catch (fetchErr) {
-              console.warn("API request timed out or un-reachable, proceeding to confirm UI:", fetchErr.message);
-          } finally {
-              clearTimeout(timeoutId);
+          const response = await fetch(API_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ guestName, guestEmail, roomType, checkIn, checkOut, checkInTime, hotelLocation, totalPrice }),
+              signal: controller.signal
+          });
+          clearTimeout(timeoutId);
+
+          const data = await response.json();
+
+          if (response.ok && data.status === 'success') {
+              if (data.emailResult && data.emailResult.sent) {
+                  document.getElementById('modalMessage').innerHTML = `
+                      Thank you, <strong>${guestName}</strong>!<br><br>
+                      Your reservation for <strong>${roomType}</strong> at <strong>${hotelLocation}</strong> is confirmed.<br><br>
+                      A confirmation email has been dispatched to <strong>${guestEmail}</strong>.
+                  `;
+              } else if (data.emailResult && data.emailResult.skipped) {
+                  document.getElementById('modalMessage').innerHTML = `
+                      Thank you, <strong>${guestName}</strong>!<br><br>
+                      Your reservation at <strong>${hotelLocation}</strong> is registered.<br><br>
+                      <span style="color:#d97706;font-size:0.88rem;display:block;margin-top:8px;">⚠️ Email skipped: GMAIL_USER / GMAIL_PASS environment variables are not set in Vercel project settings.</span>
+                  `;
+              } else if (data.emailResult && data.emailResult.error) {
+                  document.getElementById('modalMessage').innerHTML = `
+                      Thank you, <strong>${guestName}</strong>!<br><br>
+                      Your reservation at <strong>${hotelLocation}</strong> is registered.<br><br>
+                      <span style="color:#dc2626;font-size:0.88rem;display:block;margin-top:8px;">⚠️ Email error: ${data.emailResult.error}</span>
+                  `;
+              } else {
+                  document.getElementById('modalMessage').innerHTML = `
+                      Thank you, <strong>${guestName}</strong>!<br><br>
+                      Your reservation for <strong>${roomType}</strong> at <strong>${hotelLocation}</strong> is confirmed.
+                  `;
+              }
+              modal.style.display = 'flex';
+              bookingForm.reset();
+              updatePricing();
+          } else {
+              alert('Booking error: ' + (data.message || 'Server error. Please try again.'));
           }
       } catch (err) {
           console.error("Booking error caught:", err);
+          alert("Could not connect to the backend server. If running locally, make sure node server.js is running.");
       } finally {
-          // ALWAYS display the confirmation popup modal instantly!
-          document.getElementById('modalMessage').innerHTML = `
-              Thank you, <strong>${guestName}</strong>!<br><br>
-              Your reservation for <strong>${roomType}</strong> at <strong>${hotelLocation}</strong> is confirmed.<br><br>
-              A confirmation email has been dispatched to <strong>${guestEmail}</strong>.
-          `;
-          modal.style.display = 'flex';
-
-          bookingForm.reset();
-          updatePricing();
-
           submitBtn.disabled = false;
           submitBtn.textContent = originalBtnText;
       }
