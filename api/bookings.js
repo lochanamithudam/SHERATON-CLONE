@@ -31,8 +31,8 @@ const BookingSchema = new mongoose.Schema({
 const Booking = mongoose.models.Booking || mongoose.model('Booking', BookingSchema);
 
 async function sendBookingEmail(guestName, guestEmail, roomType, checkIn = '', checkOut = '', hotelLocation = '', totalPrice = '', checkInTime = '') {
-     const GMAIL_USER = process.env.GMAIL_USER || 'lochanamithudam097@gmail.com';  
-     const GMAIL_PASS = process.env.GMAIL_PASS || 'fmquzkprfvgceexv';
+     const gmailUser = process.env.GMAIL_USER || 'lochanamithudam097@gmail.com';  
+     const gmailPass = process.env.GMAIL_PASS || 'fmquzkprfvgceexv';
 
     if (!gmailUser || !gmailPass) {
         console.warn('⚠️ Email skipped: GMAIL_USER / GMAIL_PASS not set.');
