@@ -145,6 +145,9 @@
             background-color: var(--white);
             height: 280px;
             cursor: pointer;
+            display: block;
+            text-decoration: none;
+            color: inherit;
         }
 
         .gallery-item img {
@@ -242,81 +245,80 @@
         <button class="filter-btn" onclick="filterGallery('resort')">Resort & Ocean</button>
     </div>
 
-    <!-- Gallery Grid -->
- <section class="gallery-section">
+       <!-- Gallery Grid -->
+    <section class="gallery-section">
         <div class="gallery-grid">
-    <!-- Item 1: Dining -->
-            <div class="gallery-item dining" onclick="window.location.href='maihama-teppanyaki.html'">
+            <!-- Item 1: Dining -->
+            <a href="maihama-teppanyaki.html" class="gallery-item dining">
                 <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Maihama Teppanyaki">
                 <div class="overlay">
                     <span>Dining & Lounges</span>
                     <h3>Maihama Teppanyaki</h3>
                 </div>
-            </div>
+            </a>
+
             <!-- Item 2: Rooms -->
-            <div class="gallery-item rooms" onclick="window.location.href='presidential-ocean-suite.html'">
+            <a href="presidential-ocean-suite.html" class="gallery-item rooms">
                 <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80" alt="Presidential Ocean Suite">
                 <div class="overlay">
                     <span>Rooms & Suites</span>
                     <h3>Presidential Ocean Suite</h3>
                 </div>
-            </div>
+            </a>
 
             <!-- Item 3: Pool -->
-            <div class="gallery-item pool" onclick="window.location.href='garden-infinity-pool.html'">
+            <a href="garden-infinity-pool.html" class="gallery-item pool">
                 <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80" alt="Garden Infinity Pool">
                 <div class="overlay">
                     <span>Pool & Spa</span>
                     <h3>Garden Infinity Pool</h3>
                 </div>
-            </div>
-
+            </a>
 
             <!-- Dining Item 2 -->
-            <div class="gallery-item dining" onclick="window.location.href='grand-dining-hall.html'">
+            <a href="grand-dining-hall.html" class="gallery-item dining">
                 <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Luxury Dining Room">
                 <div class="overlay">
                     <span>Dining & Lounges</span>
                     <h3>Grand Dining Hall</h3>
                 </div>
-            </div>
+            </a>
 
             <!-- Rooms Item 2 -->
-            <div class="gallery-item rooms" onclick="window.location.href='deluxe-king-bedroom.html'" style="cursor:pointer;">
+            <a href="deluxe-king-bedroom.html" class="gallery-item rooms">
                 <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80" alt="Deluxe Room">
                 <div class="overlay">
                     <span>Rooms &amp; Suites</span>
                     <h3>Deluxe King Bedroom</h3>
                 </div>
-            </div>
+            </a>
 
             <!-- Resort Item -->
-            <div class="gallery-item resort">
-                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Beachfront View">
+            <a href="tokyo-bay-horizon-view.html" class="gallery-item resort">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="Tokyo Bay Horizon View">
                 <div class="overlay">
                     <span>Resort & Ocean</span>
                     <h3>Tokyo Bay Horizon View</h3>
                 </div>
-            </div>
+            </a>
 
             <!-- Pool Item 2 -->
-            <div class="gallery-item pool" onclick="window.location.href='oasis-thermal-spa.html'" style="cursor:pointer;">
+            <a href="oasis-thermal-spa.html" class="gallery-item pool">
                 <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Luxury Spa">
                 <div class="overlay">
                     <span>Pool &amp; Spa</span>
                     <h3>Oasis Thermal Spa</h3>
                 </div>
-            </div>
+            </a>
 
             <!-- Resort Item 2 -->
-            <div class="gallery-item resort">
+            <a href="tokyo-bay-horizon-view.html" class="gallery-item resort">
                 <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80" alt="Sheraton Architecture">
                 <div class="overlay">
                     <span>Resort & Ocean</span>
                     <h3>Exterior Architecture</h3>
                 </div>
-            </div>
-
+            </a>
         </div>
     </section>
 

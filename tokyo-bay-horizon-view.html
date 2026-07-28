@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokyo Bay Horizon View | Sheraton Hotel & Resort</title>
+    <meta name="description" content="Discover the Sheraton Tokyo Bay Horizon View — a breathtaking oceanfront retreat with panoramic bay vistas, Japanese-inspired luxury, and world-class resort amenities.">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #c5a059;
+            --gold-light: #e8d5a3;
+            --dark-navy: #1a2b4c;
+            --deep-dark: #0d1a2e;
+            --ocean-teal: #1b4d5c;
+            --ocean-light: #2a7a8f;
+            --cream: #faf9f6;
+            --text-muted: #888;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        /* ══════════════════════════════
+           FLOATING HEADER / NAV
+        ══════════════════════════════ */
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 22px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.5s ease, padding 0.4s ease;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+        }
+
+        .site-header.scrolled {
+            background: rgba(13, 26, 46, 0.97);
+            backdrop-filter: blur(12px);
+            padding: 14px 60px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo-wrap svg { color: var(--white); }
+
+        .logo-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 7px;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+        }
+
+        .header-nav a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .header-nav a:hover { color: var(--gold-light); }
+
+        .back-btn {
+            background: rgba(197,160,89,0.15);
+            border: 1px solid rgba(197,160,89,0.5);
+            color: var(--gold-light);
+            padding: 9px 22px;
+            font-size: 0.75rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════
+           HERO SECTION — PARALLAX
+        ══════════════════════════════ */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 700px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('tokyo-bay-hero.jpg') center center / cover no-repeat;
+            transform: scale(1.07);
+            transition: transform 0.1s linear;
+            will-change: transform;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(13,26,46,0.15) 0%,
+                rgba(27,77,92,0.08) 30%,
+                rgba(13,26,46,0.45) 65%,
+                rgba(13,26,46,0.95) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 0 20px 80px;
+            max-width: 950px;
+            animation: heroFade 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.78rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 7vw, 5.8rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1.08;
+            letter-spacing: 1px;
+            margin-bottom: 22px;
+            text-shadow: 0 8px 40px rgba(0,0,0,0.5);
+        }
+
+        .hero-tagline {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .hero-scroll-hint {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: pulse 2.5s infinite;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, transparent, var(--gold));
+            margin-top: 8px;
+        }
+
+        @keyframes heroFade {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ══════════════════════════════
+           GOLD DIVIDER
+        ══════════════════════════════ */
+        .gold-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 60px 20px;
+        }
+
+        .gold-divider::before,
+        .gold-divider::after {
+            content: '';
+            flex: 1;
+            max-width: 180px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold));
+        }
+
+        .gold-divider::after {
+            background: linear-gradient(to left, transparent, var(--gold));
+        }
+
+        .divider-diamond {
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+
+        /* ══════════════════════════════
+           OCEAN HORIZON BANNER
+        ══════════════════════════════ */
+        .ocean-banner {
+            background: linear-gradient(135deg, var(--ocean-teal), var(--dark-navy));
+            padding: 35px 8%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ocean-banner::before {
+            content: '';
+            position: absolute;
+            top: -60%;
+            left: -20%;
+            width: 140%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(42,122,143,0.15) 0%, transparent 70%);
+            animation: shimmer 8s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            from { transform: translateX(-10%) rotate(-2deg); }
+            to   { transform: translateX(10%) rotate(2deg); }
+        }
+
+        .ocean-banner p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .ocean-banner .wave-icon {
+            color: var(--gold);
+            margin: 0 12px;
+            font-size: 0.9rem;
+        }
+
+        /* ══════════════════════════════
+           MAIN INTRO CARD
+        ══════════════════════════════ */
+        .intro-section {
+            background: var(--white);
+            padding: 0 8% 80px;
+        }
+
+        .intro-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 4px;
+            padding: 80px;
+            box-shadow: 0 20px 80px rgba(26,43,76,0.08);
+            margin-top: -100px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .intro-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            color: var(--dark-navy);
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .intro-text .subtitle-gold {
+            font-size: 0.78rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .intro-text p {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: #555;
+            font-weight: 300;
+            margin-bottom: 22px;
+        }
+
+        /* Price badge */
+        .price-badge {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 6px;
+            background: linear-gradient(135deg, var(--ocean-teal), var(--dark-navy));
+            color: var(--white);
+            padding: 16px 30px;
+            border-radius: 3px;
+            margin-top: 10px;
+            margin-bottom: 35px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .price-badge::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            animation: priceShine 4s ease-in-out infinite;
+        }
+
+        @keyframes priceShine {
+            0%   { left: -100%; }
+            50%  { left: 100%; }
+            100% { left: 100%; }
+        }
+
+        .price-badge .from {
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .price-badge .amount {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--gold-light);
+        }
+
+        .price-badge .per {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 1px;
+        }
+
+        /* Amenities grid */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border: 1px solid #f0ece4;
+            border-radius: 4px;
+            transition: border-color 0.3s, background 0.3s, transform 0.3s;
+        }
+
+        .amenity-item:hover {
+            border-color: var(--gold);
+            background: #fdf9f1;
+            transform: translateX(4px);
+        }
+
+        .amenity-item i {
+            color: var(--gold);
+            font-size: 1.1rem;
+            width: 22px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .amenity-item span {
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* CTA buttons */
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 40px;
+            background: linear-gradient(135deg, var(--ocean-teal), var(--dark-navy));
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            border: 2px solid var(--ocean-teal);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before { left: 100%; }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(27,77,92,0.3);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent;
+            color: var(--dark-navy);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            border-radius: 3px;
+            border: 2px solid var(--dark-navy);
+            transition: all 0.4s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--dark-navy);
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* Right-side image stacked gallery */
+        .intro-gallery {
+            display: grid;
+            grid-template-rows: 1.4fr 1fr;
+            gap: 18px;
+        }
+
+        .intro-gallery img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.25,1,0.5,1), box-shadow 0.5s;
+        }
+
+        .intro-gallery .img-wrap {
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .intro-gallery .img-wrap:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ══════════════════════════════
+           ROOM DETAILS STATS STRIP
+        ══════════════════════════════ */
+        .stats-strip {
+            background: linear-gradient(135deg, var(--ocean-teal), var(--dark-navy));
+            padding: 60px 8%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-strip::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(197,160,89,0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .stats-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-block {
+            text-align: center;
+            padding: 20px 30px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-block:hover { transform: translateY(-4px); }
+
+        .stat-block:last-child { border-right: none; }
+
+        .stat-icon {
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem;
+            font-weight: 400;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.72rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ══════════════════════════════
+           PANORAMA FULL-WIDTH IMAGE
+        ══════════════════════════════ */
+        .panorama-section {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .panorama-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.1s linear;
+        }
+
+        .panorama-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to right,
+                rgba(13,26,46,0.8) 0%,
+                rgba(13,26,46,0.2) 40%,
+                transparent 60%,
+                rgba(13,26,46,0.2) 80%,
+                rgba(13,26,46,0.8) 100%
+            );
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+        }
+
+        .panorama-text {
+            max-width: 480px;
+        }
+
+        .panorama-text .eyebrow {
+            font-size: 0.72rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .panorama-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 300;
+            color: var(--white);
+            line-height: 1.2;
+            margin-bottom: 18px;
+        }
+
+        .panorama-text p {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.7);
+            font-weight: 300;
+        }
+
+        /* ══════════════════════════════
+           PHOTO SHOWCASE — MASONRY
+        ══════════════════════════════ */
+        .showcase-section {
+            padding: 80px 5%;
+            background: var(--cream);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header .eyebrow {
+            display: block;
+            font-size: 0.72rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--dark-navy);
+            line-height: 1.2;
+        }
+
+        .photo-mosaic {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(2, 380px);
+            gap: 14px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .mosaic-item {
+            overflow: hidden;
+            border-radius: 4px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .mosaic-item:nth-child(1) { grid-column: 1 / 6;  grid-row: 1 / 2; }
+        .mosaic-item:nth-child(2) { grid-column: 6 / 9;  grid-row: 1 / 2; }
+        .mosaic-item:nth-child(3) { grid-column: 9 / 13; grid-row: 1 / 2; }
+        .mosaic-item:nth-child(4) { grid-column: 1 / 5;  grid-row: 2 / 3; }
+        .mosaic-item:nth-child(5) { grid-column: 5 / 9;  grid-row: 2 / 3; }
+        .mosaic-item:nth-child(6) { grid-column: 9 / 13; grid-row: 2 / 3; }
+
+        .mosaic-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .mosaic-item:hover img { transform: scale(1.07); }
+
+        .mosaic-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(13,26,46,0.85) 0%, transparent 100%);
+            padding: 30px 22px 18px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .mosaic-item:hover .mosaic-caption { transform: translateY(0); }
+
+        .mosaic-caption .cap-label {
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .mosaic-caption .cap-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            font-weight: 400;
+        }
+
+        /* ══════════════════════════════
+           EXPERIENCES STRIP
+        ══════════════════════════════ */
+        .experiences-section {
+            background: var(--white);
+            padding: 100px 8%;
+        }
+
+        .experiences-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 60px auto 0;
+        }
+
+        .experience-card {
+            text-align: center;
+            padding: 50px 30px;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--ocean-teal), var(--gold));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .experience-card:hover {
+            border-color: transparent;
+            box-shadow: 0 20px 60px rgba(26,43,76,0.1);
+            transform: translateY(-8px);
+        }
+
+        .experience-card:hover::before { transform: scaleX(1); }
+
+        .exp-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--ocean-teal), var(--dark-navy));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            transition: transform 0.4s ease;
+        }
+
+        .experience-card:hover .exp-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .exp-icon i {
+            color: var(--gold);
+            font-size: 1.4rem;
+        }
+
+        .experience-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--dark-navy);
+            margin-bottom: 14px;
+        }
+
+        .experience-card p {
+            font-size: 0.88rem;
+            color: #777;
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* ══════════════════════════════
+           TESTIMONIAL / QUOTE BLOCK
+        ══════════════════════════════ */
+        .quote-section {
+            background: linear-gradient(135deg, var(--deep-dark), var(--ocean-teal));
+            padding: 120px 8%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '\201C';
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20rem;
+            color: rgba(197,160,89,0.06);
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--white);
+            max-width: 860px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            font-size: 0.75rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold);
+            z-index: 1;
+            position: relative;
+        }
+
+        /* ══════════════════════════════
+           BOOKING CTA SECTION
+        ══════════════════════════════ */
+        .booking-cta {
+            background: var(--cream);
+            padding: 100px 8%;
+            text-align: center;
+        }
+
+        .booking-cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--dark-navy);
+            margin-bottom: 16px;
+        }
+
+        .booking-cta p {
+            font-size: 0.95rem;
+            color: #777;
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        .booking-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 6px;
+            box-shadow: 0 20px 80px rgba(26,43,76,0.1);
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 20px;
+            align-items: end;
+        }
+
+        .booking-field label {
+            display: block;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .booking-field input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e0dbd0;
+            border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            color: #333;
+            background: var(--cream);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .booking-field input:focus { border-color: var(--gold); }
+
+        .btn-book {
+            padding: 15px 35px;
+            background: linear-gradient(135deg, var(--ocean-teal), var(--dark-navy));
+            color: var(--white);
+            border: none;
+            border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-book:hover {
+            background: var(--dark-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26,43,76,0.25);
+        }
+
+        /* ══════════════════════════════
+           FOOTER
+        ══════════════════════════════ */
+        .page-footer {
+            background: var(--deep-dark);
+            color: rgba(255,255,255,0.5);
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+        }
+
+        .page-footer a {
+            color: var(--gold);
+            text-decoration: none;
+            margin: 0 12px;
+        }
+
+        /* ══════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════ */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: lbFade 0.3s ease;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 88vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .lb-close {
+            position: absolute;
+            top: 24px;
+            right: 32px;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+            background: none;
+            border: none;
+        }
+        .lb-close:hover { opacity: 1; }
+
+        @keyframes lbFade {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ══════════════════════════════
+           SCROLL REVEAL
+        ══════════════════════════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ══════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════ */
+        @media (max-width: 1100px) {
+            .intro-card {
+                grid-template-columns: 1fr;
+                padding: 50px;
+                gap: 50px;
+            }
+            .intro-gallery {
+                grid-template-rows: 300px 220px;
+            }
+            .stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .stat-block:nth-child(2n) { border-right: none; }
+            .photo-mosaic {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: repeat(3, 260px);
+            }
+            .mosaic-item:nth-child(1) { grid-column: 1 / 2; grid-row: 1 / 2; }
+            .mosaic-item:nth-child(2) { grid-column: 2 / 3; grid-row: 1 / 2; }
+            .mosaic-item:nth-child(3) { grid-column: 1 / 2; grid-row: 2 / 3; }
+            .mosaic-item:nth-child(4) { grid-column: 2 / 3; grid-row: 2 / 3; }
+            .mosaic-item:nth-child(5) { grid-column: 1 / 2; grid-row: 3 / 4; }
+            .mosaic-item:nth-child(6) { grid-column: 2 / 3; grid-row: 3 / 4; }
+            .experiences-grid { grid-template-columns: 1fr; }
+            .booking-box { grid-template-columns: 1fr 1fr; }
+            .booking-box .btn-book { grid-column: 1 / 3; }
+            .panorama-section { height: 400px; }
+        }
+
+        @media (max-width: 768px) {
+            .site-header { padding: 16px 24px; }
+            .header-nav { display: none; }
+            .hero-title { font-size: 2.8rem; }
+            .intro-card { padding: 36px; margin-top: -60px; }
+            .amenities-grid { grid-template-columns: 1fr; }
+            .stats-inner { grid-template-columns: 1fr 1fr; }
+            .photo-mosaic { grid-template-columns: 1fr; grid-template-rows: repeat(6, 240px); }
+            .mosaic-item { grid-column: 1 / 2 !important; grid-row: auto !important; }
+            .booking-box { grid-template-columns: 1fr; padding: 30px; }
+            .booking-box .btn-book { grid-column: 1; }
+            .panorama-section { height: 350px; }
+            .panorama-text h2 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ FLOATING HEADER ============ -->
+    <header class="site-header" id="siteHeader">
+        <a href="index.html" class="logo-wrap" aria-label="Sheraton Home">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="46" height="46">
+                <circle cx="30" cy="30" r="27.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                <circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 1.6"/>
+                <text x="30" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="23" font-weight="400" fill="currentColor">S</text>
+            </svg>
+            <span class="logo-name">Sheraton</span>
+        </a>
+
+        <ul class="header-nav">
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="Rooms/rooms.html">Rooms</a></li>
+            <li><a href="dining.html">Dining</a></li>
+        </ul>
+
+        <a href="gallery.html" class="back-btn">← Back to Gallery</a>
+    </header>
+
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">Resort &amp; Ocean · Sheraton Signature</p>
+            <h1 class="hero-title">Tokyo Bay<br>Horizon View</h1>
+            <p class="hero-tagline">Where the Ocean Meets the Sky</p>
+            <div class="hero-scroll-hint">
+                <span>Discover</span>
+                <div class="scroll-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ OCEAN HORIZON BANNER ============ -->
+    <div class="ocean-banner">
+        <p>
+            <i class="fa-solid fa-water wave-icon"></i>
+            Endless blue horizons, where Tokyo Bay stretches into infinity
+            <i class="fa-solid fa-water wave-icon"></i>
+        </p>
+    </div>
+
+    <!-- ============ INTRO CARD ============ -->
+    <section class="intro-section">
+        <div class="intro-card reveal">
+            <div class="intro-text">
+                <span class="subtitle-gold">Oceanfront Luxury</span>
+                <h2>A Panoramic Escape at the Edge of the Bay</h2>
+
+                <p>The Tokyo Bay Horizon View is Sheraton's crown jewel — a breathtaking oceanfront retreat where the serene waters of Tokyo Bay unfold before you like a living canvas. Floor-to-ceiling windows frame panoramic vistas from sunrise to starlight, while Japanese-inspired interiors blend centuries-old aesthetics with modern luxury.</p>
+
+                <p>Wake to the gentle shimmer of dawn on the water, step onto your private balcony to feel the ocean breeze, and return to a sanctuary of warm wood tones, artisan furnishings, and spa-inspired indulgence. Every moment here is a conversation between land, sea, and sky.</p>
+
+                <div class="price-badge">
+                    <span class="from">From</span>
+                    <span class="amount">$620</span>
+                    <span class="per">/ night</span>
+                </div>
+
+                <div class="amenities-grid">
+                    <div class="amenity-item"><i class="fa-solid fa-expand"></i><span>850 sq ft / 79 sq m</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-bed"></i><span>1 Premium King Bed</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-water"></i><span>Panoramic Bay View</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-bath"></i><span>Japanese Soaking Tub</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-wind"></i><span>Private Ocean Balcony</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-bell-concierge"></i><span>24/7 Concierge Service</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-wifi"></i><span>Complimentary High-Speed Wi-Fi</span></div>
+                    <div class="amenity-item"><i class="fa-solid fa-mug-hot"></i><span>Nespresso &amp; Japanese Teas</span></div>
+                </div>
+
+                <div class="cta-group">
+                    <a href="booking.html" class="btn-primary" id="bookNowBtn">Reserve Now</a>
+                    <a href="#photo-gallery" class="btn-outline">View Gallery</a>
+                </div>
+            </div>
+
+            <div class="intro-gallery">
+                <div class="img-wrap">
+                    <img src="tokyo-bay-hero.jpg" alt="Tokyo Bay Horizon View — panoramic bay vista" loading="lazy">
+                </div>
+                <div class="img-wrap">
+                    <img src="tokyo-bay-balcony.jpg" alt="Private ocean balcony at twilight" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ STATS STRIP ============ -->
+    <section class="stats-strip reveal">
+        <div class="stats-inner">
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-expand"></i></div>
+                <div class="stat-value">850</div>
+                <div class="stat-label">Square Feet</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-building"></i></div>
+                <div class="stat-value">38<sup style="font-size:1rem">th</sup></div>
+                <div class="stat-label">Floor &amp; Above</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-compass"></i></div>
+                <div class="stat-value">270°</div>
+                <div class="stat-label">Bay Vista</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-sun"></i></div>
+                <div class="stat-value">∞</div>
+                <div class="stat-label">Horizon Moments</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PANORAMA SECTION ============ -->
+    <section class="panorama-section reveal">
+        <img src="tokyo-bay-aerial.jpg" alt="Aerial panorama of Tokyo Bay resort" id="panoramaImg" loading="lazy">
+        <div class="panorama-overlay">
+            <div class="panorama-text">
+                <span class="eyebrow">The View</span>
+                <h2>Where Tokyo Bay Unfolds Before You</h2>
+                <p>From your private vantage point on the 38th floor, watch the sun paint golden trails across the bay, ships glide silently beneath you, and the city skyline glow to life as dusk descends.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PHOTO GALLERY ============ -->
+    <section class="showcase-section" id="photo-gallery">
+        <div class="section-header reveal">
+            <span class="eyebrow">Visual Story</span>
+            <h2>Horizons in Every Detail</h2>
+        </div>
+
+        <div class="photo-mosaic">
+            <!-- Image 1 — Bay view hero -->
+            <div class="mosaic-item" onclick="openLightbox('tokyo-bay-hero.jpg')">
+                <img src="tokyo-bay-hero.jpg" alt="Tokyo Bay Horizon View panoramic" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Ocean View</p>
+                    <p class="cap-title">Bay Panorama Suite</p>
+                </div>
+            </div>
+            <!-- Image 2 — Bathroom -->
+            <div class="mosaic-item" onclick="openLightbox('tokyo-bay-bathroom.jpg')">
+                <img src="tokyo-bay-bathroom.jpg" alt="Japanese-inspired luxury bathroom" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">En-Suite Bath</p>
+                    <p class="cap-title">Japanese Soaking Ritual</p>
+                </div>
+            </div>
+            <!-- Image 3 — Living area -->
+            <div class="mosaic-item" onclick="openLightbox('tokyo-bay-living.jpg')">
+                <img src="tokyo-bay-living.jpg" alt="Elegant living area with ocean view" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Living Space</p>
+                    <p class="cap-title">Zen Lounge</p>
+                </div>
+            </div>
+            <!-- Image 4 — Balcony -->
+            <div class="mosaic-item" onclick="openLightbox('tokyo-bay-balcony.jpg')">
+                <img src="tokyo-bay-balcony.jpg" alt="Private balcony overlooking Tokyo Bay" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Balcony</p>
+                    <p class="cap-title">Twilight Terrace</p>
+                </div>
+            </div>
+            <!-- Image 5 — Bedding detail -->
+            <div class="mosaic-item" onclick="openLightbox('tokyo-bay-bedding.jpg')">
+                <img src="tokyo-bay-bedding.jpg" alt="Premium king bed with luxurious linens" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">Bedding</p>
+                    <p class="cap-title">Cloud-Nine Comfort</p>
+                </div>
+            </div>
+            <!-- Image 6 — Aerial resort -->
+            <div class="mosaic-item" onclick="openLightbox('tokyo-bay-aerial.jpg')">
+                <img src="tokyo-bay-aerial.jpg" alt="Aerial view of the bay resort" loading="lazy">
+                <div class="mosaic-caption">
+                    <p class="cap-label">The Resort</p>
+                    <p class="cap-title">Bay Horizon Resort</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ GOLD DIVIDER ============ -->
+    <div class="gold-divider">
+        <div class="divider-diamond"></div>
+    </div>
+
+    <!-- ============ EXPERIENCES ============ -->
+    <section class="experiences-section">
+        <div class="section-header reveal">
+            <span class="eyebrow">What's Included</span>
+            <h2>The Bay Horizon Experience</h2>
+        </div>
+
+        <div class="experiences-grid">
+            <div class="experience-card reveal">
+                <div class="exp-icon"><i class="fa-solid fa-water"></i></div>
+                <h3>Oceanfront Wellness</h3>
+                <p>Begin each day with sunrise yoga on your private balcony, followed by a bespoke treatment at the Sheraton Ocean Spa — featuring thalassotherapy, hot stone massages, and Japanese onsen traditions.</p>
+            </div>
+            <div class="experience-card reveal">
+                <div class="exp-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+                <h3>Sunset Lounge &amp; Bar</h3>
+                <p>Exclusive access to the 40th-floor Sky Horizon Lounge, serving handcrafted cocktails, premium sake selections, and artisanal Japanese tapas as the bay transforms from gold to indigo.</p>
+            </div>
+            <div class="experience-card reveal">
+                <div class="exp-icon"><i class="fa-solid fa-ship"></i></div>
+                <h3>Private Bay Cruise</h3>
+                <p>Embark on a complimentary private evening cruise across Tokyo Bay. Sip champagne as the city skyline illuminates the horizon — an unforgettable signature Sheraton experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ QUOTE BLOCK ============ -->
+    <section class="quote-section">
+        <p class="quote-text">"I've stayed in hundreds of luxury hotels around the world, but waking up to the Tokyo Bay Horizon View was something else entirely. The way the morning light dances across the water, the stillness of the room — it felt like the ocean was welcoming me home."</p>
+        <p class="quote-author">— Haruki M., Guest &amp; Sheraton Bonvoy Platinum Member</p>
+    </section>
+
+    <!-- ============ BOOKING CTA ============ -->
+    <section class="booking-cta reveal">
+        <h2>Claim Your Horizon</h2>
+        <p>Reserve the Tokyo Bay Horizon View and let the ocean become your canvas.</p>
+
+        <div class="booking-box">
+            <div class="booking-field">
+                <label for="checkIn">Check-In</label>
+                <input type="date" id="checkIn" name="checkIn">
+            </div>
+            <div class="booking-field">
+                <label for="checkOut">Check-Out</label>
+                <input type="date" id="checkOut" name="checkOut">
+            </div>
+            <button class="btn-book" onclick="handleBooking()">Check Availability</button>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="page-footer">
+        <p>
+            &copy; 2026 Sheraton Hotels &amp; Resorts &nbsp;|&nbsp;
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="Rooms/rooms.html">Rooms</a>
+            <a href="booking.html">Book Now</a>
+        </p>
+    </footer>
+
+    <!-- ============ LIGHTBOX ============ -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lb-close" onclick="closeLightbox()" aria-label="Close lightbox">&times;</button>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" alt="Room preview" id="lightboxImg">
+    </div>
+
+    <!-- ============ JAVASCRIPT ============ -->
+    <script>
+        // Sticky header on scroll
+        const header = document.getElementById('siteHeader');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 80) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Parallax effect on hero background
+        const heroBg = document.getElementById('heroBg');
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY < window.innerHeight) {
+                heroBg.style.transform = `scale(1.07) translateY(${scrollY * 0.3}px)`;
+            }
+        });
+
+        // Parallax on panorama image
+        const panoramaImg = document.getElementById('panoramaImg');
+        if (panoramaImg) {
+            window.addEventListener('scroll', () => {
+                const rect = panoramaImg.parentElement.getBoundingClientRect();
+                const speed = 0.15;
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const offset = (window.innerHeight - rect.top) * speed;
+                    panoramaImg.style.transform = `translateY(${-offset}px) scale(1.1)`;
+                }
+            });
+        }
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, i * 80);
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Lightbox
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // Booking handler
+        function handleBooking() {
+            const checkIn  = document.getElementById('checkIn').value;
+            const checkOut = document.getElementById('checkOut').value;
+            if (!checkIn || !checkOut) {
+                alert('Please select both check-in and check-out dates.');
+                return;
+            }
+            window.location.href = 'booking.html';
+        }
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('checkIn').min  = today;
+        document.getElementById('checkOut').min = today;
+    </script>
+
+</body>
+</html>
