@@ -36,7 +36,7 @@ module.exports = async (req, res) => {
                     from: `"Sheraton Hotels" <${gmailUser}>`,
                     to: [email, gmailUser].filter(Boolean).join(','),
                     subject: 'Test Submission Confirmation',
-                    text: `Hello ${Lochana}, your request for ${preferredDate || 'today'} ${preferredTime || ''} was received!`
+                    text: `Hello ${name}, your request for ${preferredDate || 'today'} ${preferredTime || ''} was received!`
                 });
                 emailResult = { sent: true, response: info.response };
             } catch (err) {
