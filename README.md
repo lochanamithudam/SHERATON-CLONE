@@ -1,60 +1,72 @@
-# 🏨 Sheraton Hotels & Resorts - Web Clone
+# 🏨 Sheraton Hotels & Resorts — Full-Stack Web Application
 
-A responsive front-end website clone inspired by the **Sheraton Hotels & Resorts** web experience. This project features high-definition video backgrounds, interactive components, dynamic navigation, and multi-page layouts showcasing luxury destinations and hotel amenities.
-
----
-
-## 🚀 Demo & Pages
-
-This repository includes the following key pages and media components:
-
-* **Home (`index.html`):** Main hero page featuring background video integration and key hotel offerings.
-* **About Us (`about.html`):** Overview of the brand heritage, property history, and hospitality values.
-* **Destinations (`destinations.html`):** Showcase of hotel locations, including featured spots like the *Sheraton Tokyo Bay*.
-* **Media & Assets:** Embedded MP4 background loops and optimized WebP graphics for a smooth user experience.
+An ultra-luxury, full-stack web application clone inspired by **Sheraton Hotels & Resorts**. Built with a modern responsive frontend and a Node.js / Express backend with MongoDB database integration.
 
 ---
 
-## 🛠️ Tech Stack
+## 🛠️ Technology Stack
 
-* **HTML5:** Semantic structure across all pages (`index.html`, `about.html`, `destinations.html`).
-* **CSS3:** Custom styles, layout structuring, responsive media queries, and video overlay backgrounds.
-* **JavaScript (ES6+):** Interactive elements, mobile menu toggles, and UI scripts (`script.js`).
+### 🌐 1. Frontend (User Interface)
+* **Languages:** HTML5, CSS3 (Vanilla CSS with design system tokens & variables), JavaScript (ES6+)
+* **Typography & Icons:** Google Fonts (*Cormorant Garamond*, *Montserrat*) & Font Awesome 6
+* **UI & Aesthetics:** Custom dark navy (`#1a2b4c`) & champagne gold (`#c5a059`) palette, Glassmorphism, smooth parallax scrolling, hero video loops, and lightbox modals.
+
+### 🚀 2. Backend (Server)
+* **Runtime:** Node.js
+* **Web Framework:** Express.js (`server.js`)
+* **Email Gateway:** Nodemailer (handles reservation notifications & contact forms)
+* **Security & CORS:** Configured CORS policies & environment variable protection (`dotenv`)
+
+### 🍃 3. Database
+* **Database:** MongoDB
+* **Object Data Modeling (ODM):** Mongoose (`mongoose`) — models reservation records, room availability, and user inquiries.
+
+### ☁️ 4. Deployment & Hosting
+* **Hosting:** Vercel (`vercel.json`) & Netlify
+* **Environment Management:** `dotenv` (`.env`) for storing MongoDB URI (`MONGO_URI`), server ports, and SMTP secrets.
 
 ---
 
-## 📁 Project Structure
+## 🏛️ Pages & Key Features
 
-```text
-SHERATON-CLONE/
-├── index.html                           # Main Landing Page
-├── about.html                           # Brand & Story Page
-├── destinations.html                    # Hotel Locations Page
-├── script.js                            # Frontend JavaScript Logic
-├── sheraton-bg.mp4                      # Hero background video loop
-├── Sheraton Tokyo Bay Spa.mp4           # Promotional destination video
-├── lobby.jpg                            # High-res interior assets
-├── download.webp / OIP.webp             # Optimized graphic elements
-└── Read.me
-⚙️ How to Run Locally
-Clone the repository:
+* **Home (`index.html`):** Main landing experience featuring background video loops, brand heritage, and property highlights.
+* **Accommodations & Suites (`Rooms/rooms.html`):** Premium luxury catalog featuring 6 room/suite tiers, specs grid, nightly rate badges, and direct reservation modal hooks.
+* **Deluxe King Bedroom (`deluxe-king-bedroom.html`):** Dedicated luxury suite showcase with parallax hero, 3D photo mosaic, interactive lightbox, and amenity highlights.
+* **Restaurants & Dining (`dining.html`):** Michelin-calibre culinary page featuring live teppanyaki, fine dining, skyline rooftop lounge, signature food mosaic, and table reservation manager.
+* **Gallery (`gallery.html`):** High-definition visual media showcase.
+* **Booking System (`booking.html`):** Interactive room reservation interface powered by Node.js, Express & MongoDB.
 
-Bash
-git clone [https://github.com/lochanamithudam/SHERATON-CLONE.git](https://github.com/lochanamithudam/SHERATON-CLONE.git)
-Navigate into the project directory:
+---
 
-Bash
+## ⚙️ How to Run Locally
+
+### 1. Clone the repository
+```bash
+git clone https://github.com/lochanamithudam/SHERATON-CLONE.git
 cd SHERATON-CLONE
-Open the project:
+```
 
-Open index.html directly in any browser, or use VS Code's Live Server extension for the best experience.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-🎨 Features & Highlights
-Rich Media Integration: Background video autoplay for an immersive luxury feel.
+### 3. Setup Environment Variables
+Create a `.env` file in the root directory:
+```env
+PORT=3000
+MONGO_URI=your_mongodb_connection_string
+ALLOWED_ORIGINS=http://localhost:3000,https://sheraton-clone.vercel.app
+```
 
-Multi-Page Navigation: Smooth transitions between main pages.
+### 4. Start the application
+```bash
+# Start backend server
+npm start
+```
+Open `http://localhost:3000` in your web browser.
 
-Responsive Design: Formatted for desktop, tablet, and mobile views.
+---
 
-📄 License
-This project is created for educational and portfolio purposes only. All hotel brand assets, trademarks, and media belong to Marriott International / Sheraton Hotels & Resorts.
+## 📄 License
+This project is created for educational and portfolio presentation purposes. All hotel brand names, trademarks, and original media belong to Marriott International / Sheraton Hotels & Resorts.
