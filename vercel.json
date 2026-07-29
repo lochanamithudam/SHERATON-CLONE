@@ -22,6 +22,10 @@
       "use": "@vercel/static"
     },
     {
+      "src": "architecture/**",
+      "use": "@vercel/static"
+    },
+    {
       "src": "*.{jpg,jpeg,png,webp,avif,svg,ico,mp4,gif}",
       "use": "@vercel/static"
     }
