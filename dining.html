@@ -4,95 +4,1524 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Restaurants & Dining | Sheraton Grande Tokyo Bay</title>
-    <link rel="stylesheet" href="./style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="description" content="Discover world-class culinary experiences at Sheraton Grande Tokyo Bay. From Michelin-calibre teppanyaki to elegant rooftop lounges, every meal is a masterpiece.">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #c5a059;
+            --gold-light: #e8d5a3;
+            --dark-navy: #1a2b4c;
+            --deep-dark: #0d1a2e;
+            --cream: #faf9f6;
+            --text-muted: #888;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        /* ══════════════════════════════
+           FLOATING HEADER / NAV
+        ══════════════════════════════ */
+        .site-header {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 22px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.5s ease, padding 0.4s ease;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.65), transparent);
+        }
+
+        .site-header.scrolled {
+            background: rgba(13,26,46,0.97);
+            backdrop-filter: blur(12px);
+            padding: 14px 60px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .logo-wrap {
+            display: flex; align-items: center; gap: 14px;
+            color: var(--white); text-decoration: none;
+        }
+
+        .logo-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem; font-weight: 500;
+            letter-spacing: 7px; text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .header-nav {
+            display: flex; gap: 35px; list-style: none;
+        }
+
+        .header-nav a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 0.78rem; font-weight: 500;
+            letter-spacing: 2px; text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .header-nav a:hover,
+        .header-nav a.active { color: var(--gold-light); }
+
+        .back-btn {
+            background: rgba(197,160,89,0.15);
+            border: 1px solid rgba(197,160,89,0.5);
+            color: var(--gold-light);
+            padding: 9px 22px;
+            font-size: 0.75rem; font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px; text-transform: uppercase;
+            text-decoration: none; cursor: pointer;
+            border-radius: 2px; transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════
+           HERO — FULL PARALLAX
+        ══════════════════════════════ */
+        .hero {
+            position: relative;
+            height: 100vh; min-height: 700px;
+            display: flex; align-items: flex-end;
+            justify-content: center; overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute; inset: 0;
+            background: url('dining-hero-premium.jpg') center center / cover no-repeat;
+            transform: scale(1.07);
+            transition: transform 0.1s linear;
+            will-change: transform;
+        }
+
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(13,26,46,0.3) 0%,
+                rgba(13,26,46,0.1) 35%,
+                rgba(13,26,46,0.6) 70%,
+                rgba(13,26,46,0.97) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative; z-index: 2;
+            text-align: center;
+            padding: 0 20px 80px;
+            max-width: 960px;
+            animation: heroFade 1.6s cubic-bezier(0.2,0.8,0.2,1) both;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.78rem; letter-spacing: 5px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 18px; font-weight: 500;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 300; color: var(--white);
+            line-height: 1.1; letter-spacing: 1px;
+            margin-bottom: 22px;
+            text-shadow: 0 8px 40px rgba(0,0,0,0.5);
+        }
+
+        .hero-tagline {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 3px; text-transform: uppercase;
+            font-weight: 300; margin-bottom: 40px;
+        }
+
+        .hero-scroll-hint {
+            display: flex; flex-direction: column;
+            align-items: center; gap: 8px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.7rem; letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: pulse 2.5s infinite;
+        }
+
+        .scroll-line {
+            width: 1px; height: 50px;
+            background: linear-gradient(to bottom, transparent, var(--gold));
+            margin-top: 8px;
+        }
+
+        @keyframes heroFade {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ══════════════════════════════
+           INTRO CARD
+        ══════════════════════════════ */
+        .intro-section {
+            background: var(--white);
+            padding: 0 8% 80px;
+        }
+
+        .intro-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 4px;
+            padding: 80px;
+            box-shadow: 0 20px 80px rgba(26,43,76,0.08);
+            margin-top: -100px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .intro-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400; color: var(--dark-navy);
+            line-height: 1.2; margin-bottom: 8px;
+        }
+
+        .subtitle-gold {
+            font-size: 0.78rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 30px; display: block;
+        }
+
+        .intro-text p {
+            font-size: 1rem; line-height: 1.9;
+            color: #555; font-weight: 300;
+            margin-bottom: 22px;
+        }
+
+        /* Feature badges */
+        .feature-badges {
+            display: flex; gap: 12px; flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+
+        .badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--cream);
+            border: 1px solid #e8e0d0;
+            border-radius: 100px;
+            padding: 8px 18px;
+            font-size: 0.75rem; font-weight: 500;
+            color: var(--dark-navy); letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .badge i { color: var(--gold); font-size: 0.8rem; }
+
+        .badge:hover {
+            background: var(--dark-navy);
+            border-color: var(--dark-navy);
+            color: var(--white);
+        }
+
+        .badge:hover i { color: var(--gold-light); }
+
+        /* Amenities / highlights */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px; margin-bottom: 40px;
+        }
+
+        .highlight-item {
+            display: flex; align-items: center; gap: 14px;
+            padding: 14px 16px;
+            border: 1px solid #f0ece4;
+            border-radius: 4px;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .highlight-item:hover {
+            border-color: var(--gold);
+            background: #fdf9f1;
+        }
+
+        .highlight-item i {
+            color: var(--gold); font-size: 1.1rem;
+            width: 22px; text-align: center; flex-shrink: 0;
+        }
+
+        .highlight-item span {
+            font-size: 0.88rem; font-weight: 500; color: #333;
+        }
+
+        /* CTA buttons */
+        .cta-group { display: flex; gap: 16px; flex-wrap: wrap; }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--dark-navy); color: var(--white);
+            text-decoration: none;
+            font-size: 0.82rem; font-weight: 600;
+            letter-spacing: 3px; text-transform: uppercase;
+            border-radius: 3px; border: 2px solid var(--dark-navy);
+            transition: all 0.4s ease; cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: transparent; color: var(--dark-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26,43,76,0.15);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent; color: var(--dark-navy);
+            text-decoration: none;
+            font-size: 0.82rem; font-weight: 600;
+            letter-spacing: 3px; text-transform: uppercase;
+            border-radius: 3px; border: 2px solid var(--dark-navy);
+            transition: all 0.4s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--dark-navy); color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* Right-side stacked gallery */
+        .intro-gallery {
+            display: grid;
+            grid-template-rows: 1.4fr 1fr;
+            gap: 18px;
+        }
+
+        .intro-gallery .img-wrap {
+            overflow: hidden; border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .intro-gallery img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+            transition: transform 0.7s cubic-bezier(0.25,1,0.5,1);
+        }
+
+        .intro-gallery .img-wrap:hover img { transform: scale(1.05); }
+
+        /* ══════════════════════════════
+           STATS STRIP
+        ══════════════════════════════ */
+        .stats-strip {
+            background: var(--dark-navy);
+            padding: 60px 8%;
+        }
+
+        .stats-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+        }
+
+        .stat-block {
+            text-align: center; padding: 20px 20px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-block:last-child { border-right: none; }
+
+        .stat-icon { font-size: 1.6rem; color: var(--gold); margin-bottom: 14px; }
+
+        .stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem; font-weight: 400;
+            color: var(--white); line-height: 1; margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.7rem; letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ══════════════════════════════
+           GOLD DIVIDER
+        ══════════════════════════════ */
+        .gold-divider {
+            display: flex; align-items: center;
+            justify-content: center; gap: 20px;
+            padding: 60px 20px;
+        }
+
+        .gold-divider::before, .gold-divider::after {
+            content: ''; flex: 1; max-width: 180px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold));
+        }
+
+        .gold-divider::after {
+            background: linear-gradient(to left, transparent, var(--gold));
+        }
+
+        .divider-diamond {
+            width: 10px; height: 10px;
+            background: var(--gold); transform: rotate(45deg);
+        }
+
+        /* ══════════════════════════════
+           RESTAURANTS SECTION
+        ══════════════════════════════ */
+        .restaurants-section {
+            background: var(--white);
+            padding: 20px 8% 100px;
+        }
+
+        .section-header {
+            text-align: center; margin-bottom: 70px;
+        }
+
+        .section-header .eyebrow {
+            display: block; font-size: 0.72rem;
+            letter-spacing: 5px; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400; color: var(--dark-navy); line-height: 1.2;
+        }
+
+        .section-header p {
+            max-width: 600px; margin: 16px auto 0;
+            font-size: 0.92rem; color: #777;
+            line-height: 1.8; font-weight: 300;
+        }
+
+        /* Restaurant card — alternating layout */
+        .restaurant-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            max-width: 1300px; margin: 0 auto 60px;
+            border-radius: 6px; overflow: hidden;
+            box-shadow: 0 20px 60px rgba(26,43,76,0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .restaurant-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 80px rgba(26,43,76,0.15);
+        }
+
+        .restaurant-card.reverse { direction: rtl; }
+        .restaurant-card.reverse > * { direction: ltr; }
+
+        .res-img-panel {
+            position: relative; overflow: hidden;
+            min-height: 420px;
+        }
+
+        .res-img-panel img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25,1,0.5,1);
+        }
+
+        .restaurant-card:hover .res-img-panel img { transform: scale(1.06); }
+
+        .res-category-tag {
+            position: absolute; top: 24px; left: 24px;
+            background: var(--gold);
+            color: var(--white); padding: 6px 16px;
+            font-size: 0.68rem; letter-spacing: 3px;
+            text-transform: uppercase; font-weight: 600;
+            border-radius: 2px;
+        }
+
+        .res-info-panel {
+            background: var(--white);
+            padding: 56px 56px;
+            display: flex; flex-direction: column;
+            justify-content: center;
+        }
+
+        .res-sub-cat {
+            font-size: 0.7rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 12px; font-weight: 600;
+        }
+
+        .res-info-panel h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 400; color: var(--dark-navy);
+            line-height: 1.2; margin-bottom: 16px;
+        }
+
+        .res-info-panel > p {
+            font-size: 0.92rem; line-height: 1.85;
+            color: #666; font-weight: 300; margin-bottom: 28px;
+        }
+
+        .res-menu-highlights {
+            display: flex; flex-direction: column; gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .menu-item-row {
+            display: flex; align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: var(--cream);
+            border-radius: 4px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .menu-item-name {
+            font-size: 0.85rem; font-weight: 500;
+            color: var(--dark-navy);
+        }
+
+        .menu-item-desc {
+            font-size: 0.75rem; color: #999;
+            font-weight: 300;
+        }
+
+        .menu-item-price {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem; color: var(--gold);
+            font-weight: 500; white-space: nowrap; margin-left: 12px;
+        }
+
+        .res-hours-block {
+            display: flex; gap: 24px;
+            margin-bottom: 32px;
+            padding: 16px 20px;
+            background: var(--dark-navy);
+            border-radius: 4px;
+        }
+
+        .hours-col { flex: 1; }
+
+        .hours-col .day {
+            font-size: 0.65rem; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .hours-col .time {
+            font-size: 0.88rem; color: rgba(255,255,255,0.85);
+            font-weight: 400;
+        }
+
+        .res-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+        .btn-gold {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--gold); color: var(--white);
+            text-decoration: none; font-size: 0.78rem;
+            font-weight: 600; letter-spacing: 3px;
+            text-transform: uppercase; border-radius: 3px;
+            border: 2px solid var(--gold);
+            transition: all 0.3s ease; cursor: pointer;
+        }
+
+        .btn-gold:hover {
+            background: var(--dark-navy);
+            border-color: var(--dark-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26,43,76,0.2);
+        }
+
+        .btn-ghost {
+            display: inline-block;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--dark-navy);
+            text-decoration: none; font-size: 0.78rem;
+            font-weight: 600; letter-spacing: 3px;
+            text-transform: uppercase; border-radius: 3px;
+            border: 2px solid rgba(26,43,76,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--dark-navy);
+            background: var(--dark-navy);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* ══════════════════════════════
+           SIGNATURE DISHES / FOOD MOSAIC
+        ══════════════════════════════ */
+        .dishes-section {
+            background: var(--cream);
+            padding: 80px 5%;
+        }
+
+        .dishes-mosaic {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(2, 360px);
+            gap: 14px;
+            max-width: 1400px; margin: 0 auto;
+        }
+
+        .dish-item {
+            overflow: hidden; border-radius: 4px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            position: relative; cursor: pointer;
+        }
+
+        .dish-item:nth-child(1) { grid-column: 1 / 6; grid-row: 1 / 2; }
+        .dish-item:nth-child(2) { grid-column: 6 / 9; grid-row: 1 / 2; }
+        .dish-item:nth-child(3) { grid-column: 9 / 13; grid-row: 1 / 2; }
+        .dish-item:nth-child(4) { grid-column: 1 / 5; grid-row: 2 / 3; }
+        .dish-item:nth-child(5) { grid-column: 5 / 9; grid-row: 2 / 3; }
+        .dish-item:nth-child(6) { grid-column: 9 / 13; grid-row: 2 / 3; }
+
+        .dish-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25,1,0.5,1);
+        }
+
+        .dish-item:hover img { transform: scale(1.07); }
+
+        .dish-caption {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(to top, rgba(13,26,46,0.9) 0%, transparent 100%);
+            padding: 30px 22px 18px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .dish-item:hover .dish-caption { transform: translateY(0); }
+
+        .dish-caption .cap-label {
+            font-size: 0.68rem; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 4px;
+        }
+
+        .dish-caption .cap-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem; color: var(--white); font-weight: 400;
+        }
+
+        /* ══════════════════════════════
+           SPECIAL OFFERS / PACKAGES
+        ══════════════════════════════ */
+        .offers-section {
+            background: var(--dark-navy);
+            padding: 100px 8%;
+        }
+
+        .offers-section .section-header h2 { color: var(--white); }
+        .offers-section .section-header p { color: rgba(255,255,255,0.6); }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            max-width: 1300px; margin: 0 auto;
+        }
+
+        .offer-card {
+            position: relative; overflow: hidden;
+            border-radius: 6px; min-height: 400px;
+            display: flex; align-items: flex-end;
+            background-size: cover; background-position: center;
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .offer-card::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(13,26,46,0.92) 0%, transparent 55%);
+            transition: background 0.4s;
+        }
+
+        .offer-card:hover {
+            transform: scale(1.02);
+        }
+
+        .offer-card:hover::before {
+            background: linear-gradient(to top, rgba(13,26,46,0.97) 0%, rgba(13,26,46,0.3) 100%);
+        }
+
+        .offer-text {
+            position: relative; z-index: 1;
+            padding: 32px 28px;
+            width: 100%;
+        }
+
+        .offer-date-tag {
+            display: inline-block;
+            font-size: 0.65rem; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 10px; font-weight: 600;
+        }
+
+        .offer-text h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem; font-weight: 400;
+            color: var(--white); line-height: 1.3;
+            margin-bottom: 12px;
+        }
+
+        .offer-text p {
+            font-size: 0.8rem; color: rgba(255,255,255,0.7);
+            line-height: 1.6; font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .offer-link {
+            display: inline-block;
+            font-size: 0.72rem; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--gold-light);
+            text-decoration: none; font-weight: 500;
+            transition: letter-spacing 0.3s;
+        }
+
+        .offer-link:hover { letter-spacing: 4px; }
+        .offer-link i { margin-left: 6px; }
+
+        /* ══════════════════════════════
+           AFTERNOON TEA & LOUNGE HIGHLIGHT
+        ══════════════════════════════ */
+        .lounge-section {
+            background: var(--white);
+            padding: 100px 8%;
+        }
+
+        .lounge-inner {
+            max-width: 1300px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 80px; align-items: center;
+        }
+
+        .lounge-imagery {
+            position: relative;
+        }
+
+        .lounge-main-img {
+            width: 100%; border-radius: 4px;
+            box-shadow: 0 20px 60px rgba(26,43,76,0.12);
+            display: block; object-fit: cover;
+            height: 520px;
+        }
+
+        .lounge-accent-img {
+            position: absolute;
+            bottom: -36px; right: -36px;
+            width: 55%; border-radius: 4px;
+            box-shadow: 0 15px 50px rgba(26,43,76,0.2);
+            border: 6px solid var(--white);
+            object-fit: cover; height: 220px;
+        }
+
+        .lounge-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 400; color: var(--dark-navy);
+            line-height: 1.2; margin-bottom: 10px;
+        }
+
+        .lounge-text p {
+            font-size: 0.95rem; line-height: 1.9;
+            color: #666; font-weight: 300; margin-bottom: 28px;
+        }
+
+        .tea-menu-list {
+            list-style: none; margin-bottom: 36px;
+        }
+
+        .tea-menu-list li {
+            display: flex; align-items: center; gap: 14px;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0ece4;
+            font-size: 0.88rem; color: #444; font-weight: 400;
+        }
+
+        .tea-menu-list li:last-child { border-bottom: none; }
+
+        .tea-menu-list li i {
+            color: var(--gold); font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        /* ══════════════════════════════
+           QUOTE SECTION
+        ══════════════════════════════ */
+        .quote-section {
+            background: linear-gradient(135deg, var(--deep-dark), var(--dark-navy));
+            padding: 120px 8%;
+            text-align: center; position: relative; overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '\201C';
+            position: absolute; top: -30px; left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20rem;
+            color: rgba(197,160,89,0.06);
+            line-height: 1; pointer-events: none;
+        }
+
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 300; font-style: italic;
+            color: var(--white);
+            max-width: 860px; margin: 0 auto 30px;
+            line-height: 1.6; position: relative; z-index: 1;
+        }
+
+        .quote-author {
+            font-size: 0.75rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            z-index: 1; position: relative;
+        }
+
+        /* ══════════════════════════════
+           TABLE RESERVATION CTA
+        ══════════════════════════════ */
+        .reservation-cta {
+            background: var(--cream);
+            padding: 100px 8%; text-align: center;
+        }
+
+        .reservation-cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400; color: var(--dark-navy); margin-bottom: 14px;
+        }
+
+        .reservation-cta > p {
+            font-size: 0.95rem; color: #777;
+            margin-bottom: 50px; font-weight: 300;
+        }
+
+        .reservation-box {
+            max-width: 900px; margin: 0 auto;
+            background: var(--white); border-radius: 6px;
+            box-shadow: 0 20px 80px rgba(26,43,76,0.1);
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 20px; align-items: end;
+        }
+
+        .booking-field label {
+            display: block; font-size: 0.7rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--text-muted); margin-bottom: 8px; font-weight: 500;
+        }
+
+        .booking-field select,
+        .booking-field input {
+            width: 100%; padding: 14px 16px;
+            border: 1px solid #e0dbd0; border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem; color: #333;
+            background: var(--cream); outline: none;
+            transition: border-color 0.3s;
+            appearance: none;
+        }
+
+        .booking-field select:focus,
+        .booking-field input:focus { border-color: var(--gold); }
+
+        .btn-reserve {
+            padding: 15px 32px;
+            background: var(--gold); color: var(--white);
+            border: none; border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem; font-weight: 600;
+            letter-spacing: 3px; text-transform: uppercase;
+            cursor: pointer; white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reserve:hover {
+            background: var(--dark-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26,43,76,0.25);
+        }
+
+        /* ══════════════════════════════
+           FOOTER
+        ══════════════════════════════ */
+        .page-footer {
+            background: var(--deep-dark);
+            color: rgba(255,255,255,0.5);
+            text-align: center; padding: 40px 20px;
+            font-size: 0.78rem; letter-spacing: 1.5px;
+        }
+
+        .page-footer a {
+            color: var(--gold); text-decoration: none;
+            margin: 0 12px; transition: color 0.3s;
+        }
+
+        .page-footer a:hover { color: var(--gold-light); }
+
+        /* ══════════════════════════════
+           LIGHTBOX
+        ══════════════════════════════ */
+        .lightbox {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.92); z-index: 9999;
+            align-items: center; justify-content: center;
+            animation: lbFade 0.3s ease;
+        }
+
+        .lightbox.active { display: flex; }
+
+        .lightbox img {
+            max-width: 90vw; max-height: 88vh;
+            object-fit: contain; border-radius: 4px;
+        }
+
+        .lb-close {
+            position: absolute; top: 24px; right: 32px;
+            color: var(--white); font-size: 2rem;
+            cursor: pointer; opacity: 0.7;
+            transition: opacity 0.2s;
+            background: none; border: none;
+        }
+
+        .lb-close:hover { opacity: 1; }
+
+        @keyframes lbFade {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ══════════════════════════════
+           SCROLL REVEAL UTILITY
+        ══════════════════════════════ */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1; transform: translateY(0);
+        }
+
+        /* ══════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════ */
+        @media (max-width: 1100px) {
+            .intro-card {
+                grid-template-columns: 1fr;
+                padding: 50px; gap: 50px;
+            }
+            .intro-gallery { grid-template-rows: 300px 220px; }
+            .stats-inner { grid-template-columns: repeat(3, 1fr); }
+            .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .restaurant-card, .restaurant-card.reverse {
+                grid-template-columns: 1fr; direction: ltr;
+            }
+            .restaurant-card.reverse { direction: ltr; }
+            .dishes-mosaic {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: repeat(3, 260px);
+            }
+            .dish-item:nth-child(1) { grid-column: 1/2; grid-row: 1/2; }
+            .dish-item:nth-child(2) { grid-column: 2/3; grid-row: 1/2; }
+            .dish-item:nth-child(3) { grid-column: 1/2; grid-row: 2/3; }
+            .dish-item:nth-child(4) { grid-column: 2/3; grid-row: 2/3; }
+            .dish-item:nth-child(5) { grid-column: 1/2; grid-row: 3/4; }
+            .dish-item:nth-child(6) { grid-column: 2/3; grid-row: 3/4; }
+            .offers-grid { grid-template-columns: 1fr 1fr; }
+            .lounge-inner { grid-template-columns: 1fr; }
+            .lounge-accent-img { display: none; }
+            .lounge-main-img { height: 380px; }
+            .reservation-box { grid-template-columns: 1fr 1fr; }
+            .reservation-box .btn-reserve { grid-column: 1/3; }
+        }
+
+        @media (max-width: 768px) {
+            .site-header { padding: 16px 24px; }
+            .header-nav { display: none; }
+            .hero-title { font-size: 2.8rem; }
+            .intro-card { padding: 36px; margin-top: -60px; }
+            .highlights-grid { grid-template-columns: 1fr; }
+            .stats-inner { grid-template-columns: 1fr 1fr; }
+            .dishes-mosaic { grid-template-columns: 1fr; grid-template-rows: repeat(6, 240px); }
+            .dish-item { grid-column: 1/2 !important; grid-row: auto !important; }
+            .offers-grid { grid-template-columns: 1fr; }
+            .reservation-box { grid-template-columns: 1fr; padding: 30px; }
+            .reservation-box .btn-reserve { grid-column: 1; }
+            .res-info-panel { padding: 36px 28px; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Hero Banner -->
-  <!-- Main Dining Image Banner -->
-    <div class="dining-hero">
-        <img src="dinoro.jpg" alt="Sheraton Dining">
-    </div>
+    <!-- ============ FLOATING HEADER ============ -->
+    <header class="site-header" id="siteHeader">
+        <a href="index.html" class="logo-wrap" aria-label="Sheraton Home">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="46" height="46">
+                <circle cx="30" cy="30" r="27.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                <circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 1.6"/>
+                <text x="30" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="23" font-weight="400" fill="currentColor">S</text>
+            </svg>
+            <span class="logo-name">Sheraton</span>
+        </a>
 
-    <!-- NEW: Introduction Detail Space -->
-    <div class="dining-intro">
-        <h1>Explore Dining &amp; Lounges</h1>
-        <p>Discover an array of exceptional dining experiences at Sheraton Grande Tokyo Bay Hotel. From interactive teppanyaki showcases to relaxed, elegant lounges, our diverse venues offer the perfect setting for unforgettable culinary moments.</p>
-    </div>
+        <ul class="header-nav">
+            <li><a href="index.html">Overview</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="Rooms/rooms.html">Rooms</a></li>
+            <li><a href="dining.html" class="active">Dining</a></li>
+            <li><a href="#">Experiences</a></li>
+        </ul>
 
-<!-- Dining Navigation Menu -->
-<nav class="dining-sub-nav">
-    <ul>
-        <li><a href="index.html">Overview</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="Rooms/rooms.html">Rooms</a></li>
-        <li><a href="dining.html" class="active">Dining</a></li>
-        <li><a href="#">Experiences</a></li>
-    </ul>
-</nav>
-       
+        <a href="index.html" class="back-btn">← Back to Home</a>
+    </header>
 
-    <div class="dining-container">
-        <!-- Offers Section -->
-        <h2 class="section-main-title">Offers & Packages</h2>
-        <div class="offers-grid">
-            <div class="offer-card" style="background-image: url('ballroom.jpg');">
-                <div class="offer-text">
-                    <span class="date-tag">SEPTEMBER 16, 2026 - OCTOBER 31, 2026</span>
-                    <h3>Special Event "Disney Halloween" Stay - Exclusive Benefits Included</h3>
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">Culinary Arts · Sheraton Grande Tokyo Bay</p>
+            <h1 class="hero-title">Restaurants<br>&amp; Dining</h1>
+            <p class="hero-tagline">Where Every Course Tells a Story</p>
+            <div class="hero-scroll-hint">
+                <span>Explore</span>
+                <div class="scroll-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ INTRO CARD ============ -->
+    <section class="intro-section">
+        <div class="intro-card reveal">
+            <div class="intro-text">
+                <span class="subtitle-gold">A World of Culinary Excellence</span>
+                <h2>An Unrivalled Dining Destination</h2>
+
+                <p>Discover an array of extraordinary dining experiences at Sheraton Grande Tokyo Bay Hotel. From the theatre of live teppanyaki to the serenity of our rooftop lounge overlooking Tokyo Bay, every venue is a world unto itself — crafted for those who demand nothing but the finest.</p>
+
+                <p>Our culinary team, led by award-winning chefs sourcing the finest seasonal ingredients from across Japan and beyond, delivers menus that celebrate both tradition and innovation — always with an unwavering commitment to elegance.</p>
+
+                <div class="feature-badges">
+                    <span class="badge"><i class="fa-solid fa-award"></i> Michelin-Calibre Chefs</span>
+                    <span class="badge"><i class="fa-solid fa-leaf"></i> Seasonal Ingredients</span>
+                    <span class="badge"><i class="fa-solid fa-wine-glass"></i> Curated Wine Cellar</span>
+                    <span class="badge"><i class="fa-solid fa-utensils"></i> 5 Dining Venues</span>
+                </div>
+
+                <div class="highlights-grid">
+                    <div class="highlight-item"><i class="fa-solid fa-fire-flame-curved"></i><span>Live Teppanyaki Theatre</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-fish"></i><span>Fresh Omakase Sushi</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-champagne-glasses"></i><span>Sky Lounge & Cocktail Bar</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-mug-hot"></i><span>Luxury Afternoon Tea</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-star"></i><span>In-Room Fine Dining</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-cake-candles"></i><span>Artisan Pastry Atelier</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-wine-bottle"></i><span>Private Dining Rooms</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-clock"></i><span>24/7 Room Service</span></div>
+                </div>
+
+                <div class="cta-group">
+                    <a href="#reservation-section" class="btn-primary" id="reserveTopBtn">Reserve a Table</a>
+                    <a href="#restaurants-section" class="btn-outline">Explore Venues</a>
                 </div>
             </div>
-            <div class="offer-card" style="background-image: url('community_table.jpg');">
-                <div class="offer-text">
-                    <span class="date-tag">JANUARY 1, 2026 - DECEMBER 23, 2026</span>
-                    <h3>Dinner Buffet and Breakfast Package - Dine, Delight, Discover</h3>
+
+            <div class="intro-gallery">
+                <div class="img-wrap">
+                    <img src="grand-dining-premium.jpg" alt="Grand dining hall with ocean views" loading="lazy">
+                </div>
+                <div class="img-wrap">
+                    <img src="teppanyaki-premium.jpg" alt="Live teppanyaki experience" loading="lazy">
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- News Section -->
-        <h2 class="section-main-title text-center"><i class="fa-regular fa-calendar-days"></i> News</h2>
-        <div class="news-grid">
-            <div class="news-card">
-                <img src="bed.jpg" alt="North American Food Fair">
-                <h4>North American Food Fair</h4>
-                <p>Embark on a culinary journey across North America with our themed buffet, featuring the unique and vibrant food cultures.</p>
+    <!-- ============ STATS STRIP ============ -->
+    <section class="stats-strip reveal">
+        <div class="stats-inner">
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-store"></i></div>
+                <div class="stat-value">5</div>
+                <div class="stat-label">Dining Venues</div>
             </div>
-            <div class="news-card">
-                <img src="download.webp" alt="Asian Tropical Sweets">
-                <h4>Asian Tropical Sweets & Bakery</h4>
-                <p>To welcome the arrival of summer, we invite you to indulge in our new selection of sweets and bakery items.</p>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-user-tie"></i></div>
+                <div class="stat-value">12</div>
+                <div class="stat-label">Master Chefs</div>
             </div>
-            <div class="news-card">
-                <img src="lobby.jpg" alt="Dinner Course">
-                <h4>Maihama Teppanyaki+ "Dinner Course"</h4>
-                <p>Enjoy teppanyaki dishes in Tokyo prepared with professional skill using superior ingredients from all over Japan.</p>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-wine-glass-empty"></i></div>
+                <div class="stat-value">300<sup style="font-size:1rem">+</sup></div>
+                <div class="stat-label">Wine Labels</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="stat-value">5<sup style="font-size:1rem">★</sup></div>
+                <div class="stat-label">Luxury Rating</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-clock"></i></div>
+                <div class="stat-value">24<sup style="font-size:1rem">h</sup></div>
+                <div class="stat-label">In-Room Dining</div>
             </div>
         </div>
+    </section>
 
-        <!-- At This Hotel Section -->
-        <h2 class="section-main-title">At This Hotel</h2>
-        <div class="restaurant-list-card">
-            <div class="res-img-box">
-                <img src="public_space.jpg" alt="Maihama Teppanyaki">
+    <!-- ============ GOLD DIVIDER ============ -->
+    <div class="gold-divider">
+        <div class="divider-diamond"></div>
+    </div>
+
+    <!-- ============ RESTAURANTS SECTION ============ -->
+    <section class="restaurants-section" id="restaurants-section">
+        <div class="section-header reveal">
+            <span class="eyebrow">At This Hotel</span>
+            <h2>Our Signature Venues</h2>
+            <p>Each restaurant and lounge is a destination in its own right — a unique setting where artistry, atmosphere, and flavour converge.</p>
+        </div>
+
+        <!-- Restaurant 1: Maihama Teppanyaki -->
+        <div class="restaurant-card reveal">
+            <div class="res-img-panel">
+                <img src="teppanyaki-premium.jpg" alt="Maihama Teppanyaki+ restaurant" loading="lazy">
+                <span class="res-category-tag">Steakhouse</span>
             </div>
-            <div class="res-info-box">
-                <span class="res-category">Steakhouse</span>
+            <div class="res-info-panel">
+                <span class="res-sub-cat">Live Fire Theatre</span>
                 <h3>Maihama Teppanyaki+</h3>
-                <p class="res-desc">Maihama Teppanyaki+ restaurant brings superb teppanyaki to Tokyo. Let us stimulate all five senses at our teppanyaki restaurant...</p>
-                <div class="res-hours">
-                    <p><strong>Mon-Fri:</strong> 5:00 PM - 9:30 PM</p>
-                    <p><strong>Sat-Sun:</strong> 11:30 AM - 3:00 PM, 5:00 PM - 9:30 PM</p>
+                <p>Engage all five senses at our legendary teppanyaki counter. Watch our master chefs transform A5 Wagyu, Hokkaido scallops, and the finest seasonal vegetables into theatrical masterpieces on the iron griddle — all just inches from your seat.</p>
+
+                <div class="res-menu-highlights">
+                    <div class="menu-item-row">
+                        <div>
+                            <div class="menu-item-name">A5 Wagyu Teppanyaki</div>
+                            <div class="menu-item-desc">Miyazaki premium cut, truffle butter, seasonal garnish</div>
+                        </div>
+                        <div class="menu-item-price">¥18,000</div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div>
+                            <div class="menu-item-name">Lobster & Scallop Set</div>
+                            <div class="menu-item-desc">Hokkaido scallop, Boston lobster, saffron jus</div>
+                        </div>
+                        <div class="menu-item-price">¥14,500</div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div>
+                            <div class="menu-item-name">Chef's Tasting Course</div>
+                            <div class="menu-item-desc">8-course omakase with seasonal selections</div>
+                        </div>
+                        <div class="menu-item-price">¥32,000</div>
+                    </div>
                 </div>
+
+                <div class="res-hours-block">
+                    <div class="hours-col">
+                        <div class="day">Mon – Fri</div>
+                        <div class="time">5:00 PM – 9:30 PM</div>
+                    </div>
+                    <div class="hours-col">
+                        <div class="day">Sat – Sun</div>
+                        <div class="time">11:30 AM – 3:00 PM<br>5:00 PM – 9:30 PM</div>
+                    </div>
+                </div>
+
                 <div class="res-actions">
-                    <button class="btn-more">More <i class="fa-solid fa-chevron-down"></i></button>
-                    <a href="#" class="btn-book">Book a Table</a>
+                    <a href="maihama-teppanyaki.html" class="btn-gold">Book a Table</a>
+                    <a href="maihama-teppanyaki.html" class="btn-ghost">View Full Menu</a>
                 </div>
             </div>
         </div>
+
+        <!-- Restaurant 2: Grand Dining Hall -->
+        <div class="restaurant-card reverse reveal">
+            <div class="res-img-panel">
+                <img src="grand-dining-premium.jpg" alt="Grand Dining Hall" loading="lazy">
+                <span class="res-category-tag">Fine Dining</span>
+            </div>
+            <div class="res-info-panel">
+                <span class="res-sub-cat">Mediterranean & International Cuisine</span>
+                <h3>The Grand Dining Hall</h3>
+                <p>Bathed in natural light through floor-to-ceiling windows overlooking Tokyo Bay, The Grand Dining Hall is our flagship fine dining restaurant. White tablecloths, crystal stemware, and impeccable service frame a menu inspired by the Mediterranean coastline and Japan's finest produce.</p>
+
+                <div class="res-menu-highlights">
+                    <div class="menu-item-row">
+                        <div>
+                            <div class="menu-item-name">Truffle Risotto</div>
+                            <div class="menu-item-desc">Carnaroli rice, black truffle, aged Parmigiano, gold leaf</div>
+                        </div>
+                        <div class="menu-item-price">¥6,800</div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div>
+                            <div class="menu-item-name">Pan-Seared Foie Gras</div>
+                            <div class="menu-item-desc">Brioche, Muscat grape reduction, microgreens</div>
+                        </div>
+                        <div class="menu-item-price">¥5,200</div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div>
+                            <div class="menu-item-name">Grand Tasting Menu</div>
+                            <div class="menu-item-desc">6-course degustation with wine pairing</div>
+                        </div>
+                        <div class="menu-item-price">¥28,000</div>
+                    </div>
+                </div>
+
+                <div class="res-hours-block">
+                    <div class="hours-col">
+                        <div class="day">Breakfast</div>
+                        <div class="time">6:30 AM – 10:00 AM</div>
+                    </div>
+                    <div class="hours-col">
+                        <div class="day">Dinner</div>
+                        <div class="time">6:00 PM – 10:30 PM</div>
+                    </div>
+                </div>
+
+                <div class="res-actions">
+                    <a href="grand-dining-hall.html" class="btn-gold">Reserve Now</a>
+                    <a href="grand-dining-hall.html" class="btn-ghost">View Menu</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Restaurant 3: Sky Lounge & Bar -->
+        <div class="restaurant-card reveal">
+            <div class="res-img-panel">
+                <img src="rooftop-lounge-premium.jpg" alt="Sky Lounge & Bar" loading="lazy">
+                <span class="res-category-tag">Rooftop Lounge</span>
+            </div>
+            <div class="res-info-panel">
+                <span class="res-sub-cat">Premium Cocktails & Japanese Whisky</span>
+                <h3>Skyline Bar &amp; Lounge</h3>
+                <p>Ascend to our exclusive rooftop retreat where the Tokyo Bay skyline becomes your backdrop. Curated by our master mixologist, the cocktail programme celebrates rare Japanese spirits, Champagne, and seasonal botanicals in an atmosphere of intimate refinement.</p>
+
+                <div class="res-menu-highlights">
+                    <div class="menu-item-row">
+                        <div>
+                            <div class="menu-item-name">Yamazaki Old Fashioned</div>
+                            <div class="menu-item-desc">18yr single malt, demerara, aromatic bitters, orange zest</div>
+                        </div>
+                        <div class="menu-item-price">¥4,200</div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div>
+                            <div class="menu-item-name">Tokyo Martini</div>
+                            <div class="menu-item-desc">Hendrick's gin, yuzu, shiso, lychee foam</div>
+                        </div>
+                        <div class="menu-item-price">¥3,600</div>
+                    </div>
+                    <div class="menu-item-row">
+                        <div>
+                            <div class="menu-item-name">Champagne Flight</div>
+                            <div class="menu-item-desc">Krug, Dom Pérignon & Bollinger — curated trio</div>
+                        </div>
+                        <div class="menu-item-price">¥12,000</div>
+                    </div>
+                </div>
+
+                <div class="res-hours-block">
+                    <div class="hours-col">
+                        <div class="day">Mon – Thu</div>
+                        <div class="time">4:00 PM – 12:00 AM</div>
+                    </div>
+                    <div class="hours-col">
+                        <div class="day">Fri – Sun</div>
+                        <div class="time">2:00 PM – 1:00 AM</div>
+                    </div>
+                </div>
+
+                <div class="res-actions">
+                    <a href="booking.html" class="btn-gold">Make a Reservation</a>
+                    <a href="#" class="btn-ghost">Cocktail Menu</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ GOLD DIVIDER ============ -->
+    <div class="gold-divider" style="background:var(--cream)">
+        <div class="divider-diamond"></div>
     </div>
+
+    <!-- ============ SIGNATURE DISHES MOSAIC ============ -->
+    <section class="dishes-section" id="photo-gallery">
+        <div class="section-header reveal">
+            <span class="eyebrow">Culinary Artistry</span>
+            <h2>Signature Dishes &amp; Delicacies</h2>
+            <p>Each plate is a canvas — painted with the finest ingredients, composed with meticulous technique, and served with warmth and ceremony.</p>
+        </div>
+
+        <div class="dishes-mosaic">
+            <div class="dish-item" onclick="openLightbox('wagyu-beef-premium.jpg')">
+                <img src="wagyu-beef-premium.jpg" alt="A5 Wagyu Teppanyaki" loading="lazy">
+                <div class="dish-caption">
+                    <p class="cap-label">Maihama Teppanyaki+</p>
+                    <p class="cap-title">A5 Wagyu with Gold Leaf</p>
+                </div>
+            </div>
+            <div class="dish-item" onclick="openLightbox('sushi-omakase-premium.jpg')">
+                <img src="sushi-omakase-premium.jpg" alt="Premium Omakase Sushi" loading="lazy">
+                <div class="dish-caption">
+                    <p class="cap-label">Japanese Cuisine</p>
+                    <p class="cap-title">Omakase Nigiri Course</p>
+                </div>
+            </div>
+            <div class="dish-item" onclick="openLightbox('pastry-dessert-premium.jpg')">
+                <img src="pastry-dessert-premium.jpg" alt="Artisan Pastry & Desserts" loading="lazy">
+                <div class="dish-caption">
+                    <p class="cap-label">Pastry Atelier</p>
+                    <p class="cap-title">Artisan Dessert Collection</p>
+                </div>
+            </div>
+            <div class="dish-item" onclick="openLightbox('afternoon-tea-premium.jpg')">
+                <img src="afternoon-tea-premium.jpg" alt="Afternoon High Tea" loading="lazy">
+                <div class="dish-caption">
+                    <p class="cap-label">Afternoon Tea</p>
+                    <p class="cap-title">Grand High Tea Service</p>
+                </div>
+            </div>
+            <div class="dish-item" onclick="openLightbox('grand-dining-premium.jpg')">
+                <img src="grand-dining-premium.jpg" alt="Grand Dining Hall" loading="lazy">
+                <div class="dish-caption">
+                    <p class="cap-label">Grand Dining Hall</p>
+                    <p class="cap-title">Bay-View Fine Dining</p>
+                </div>
+            </div>
+            <div class="dish-item" onclick="openLightbox('rooftop-lounge-premium.jpg')">
+                <img src="rooftop-lounge-premium.jpg" alt="Skyline Bar" loading="lazy">
+                <div class="dish-caption">
+                    <p class="cap-label">Skyline Bar</p>
+                    <p class="cap-title">Tokyo Bay at Night</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SPECIAL OFFERS ============ -->
+    <section class="offers-section">
+        <div class="section-header reveal">
+            <span class="eyebrow">Curated Experiences</span>
+            <h2>Offers &amp; Packages</h2>
+            <p>Bespoke dining packages crafted to make every occasion exceptional — from romantic dinners to landmark celebrations.</p>
+        </div>
+
+        <div class="offers-grid">
+            <div class="offer-card reveal" style="background-image: url('ballroom.jpg');">
+                <div class="offer-text">
+                    <span class="offer-date-tag">Sep 16 – Oct 31, 2026</span>
+                    <h3>Disney Halloween Gala Dinner</h3>
+                    <p>An enchanted evening of theatrical dining with exclusive Halloween menus, themed cocktails, and live entertainment.</p>
+                    <a href="#" class="offer-link">Discover More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="offer-card reveal" style="background-image: url('community_table.jpg');">
+                <div class="offer-text">
+                    <span class="offer-date-tag">Jan 1 – Dec 23, 2026</span>
+                    <h3>Dinner Buffet &amp; Breakfast Package</h3>
+                    <p>Begin and end each day in culinary grandeur — lavish breakfast spreads and an exquisite dinner buffet, included in your stay.</p>
+                    <a href="#" class="offer-link">Discover More <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="offer-card reveal" style="background-image: url('skyline_bar.jpg');">
+                <div class="offer-text">
+                    <span class="offer-date-tag">Year-Round</span>
+                    <h3>Private Chef's Table Experience</h3>
+                    <p>An intimate, exclusive 12-course meal prepared personally by our Executive Chef at a private table — the ultimate culinary privilege.</p>
+                    <a href="booking.html" class="offer-link">Enquire Now <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ AFTERNOON TEA & LOUNGE FEATURE ============ -->
+    <section class="lounge-section">
+        <div class="lounge-inner">
+            <div class="lounge-imagery reveal">
+                <img class="lounge-main-img" src="afternoon-tea-premium.jpg" alt="Luxury Afternoon Tea" loading="lazy">
+                <img class="lounge-accent-img" src="pastry-dessert-premium.jpg" alt="Artisan Pastries" loading="lazy">
+            </div>
+
+            <div class="lounge-text reveal">
+                <span class="subtitle-gold">Daily Ritual</span>
+                <h2>The Art of Afternoon Tea</h2>
+                <p>A cherished Sheraton tradition elevated to an art form. Each afternoon, our tea salon transforms into a sanctuary of calm refinement — where each tier tells a story of craftsmanship, sweetness, and savoury perfection.</p>
+
+                <ul class="tea-menu-list">
+                    <li><i class="fa-solid fa-check"></i> Finger sandwiches with wagyu beef & foie gras mousse</li>
+                    <li><i class="fa-solid fa-check"></i> Warm plain & raisin scones, Devonshire clotted cream & preserve</li>
+                    <li><i class="fa-solid fa-check"></i> Seasonal French pastries by our award-winning pâtissier</li>
+                    <li><i class="fa-solid fa-check"></i> Japanese matcha mochi & azuki tart selection</li>
+                    <li><i class="fa-solid fa-check"></i> Choice of 30 rare teas, Champagne or matcha latte</li>
+                    <li><i class="fa-solid fa-check"></i> Personalised celebration setups available</li>
+                </ul>
+
+                <p style="font-size:0.82rem; color:var(--gold); letter-spacing:2px; text-transform:uppercase; font-weight:500; margin-bottom:24px;">
+                    <i class="fa-regular fa-clock" style="margin-right:8px;"></i>
+                    Daily · 2:00 PM – 5:00 PM &nbsp;|&nbsp; From ¥6,800 per person
+                </p>
+
+                <div class="cta-group">
+                    <a href="booking.html" class="btn-primary">Reserve Afternoon Tea</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ QUOTE SECTION ============ -->
+    <section class="quote-section">
+        <p class="quote-text">"Dining at the Sheraton Grande Tokyo Bay is not merely a meal — it is a performance, a ceremony, a memory etched in gold. From the theatre of the teppanyaki flames to the last sip of Krug overlooking the bay, every moment was extraordinary."</p>
+        <p class="quote-author">— Isabelle M., Michelin Guide Reviewer &amp; Sheraton Bonvoy Member</p>
+    </section>
+
+    <!-- ============ TABLE RESERVATION CTA ============ -->
+    <section class="reservation-cta reveal" id="reservation-section">
+        <h2>Reserve Your Table</h2>
+        <p>Secure your place at one of our world-class dining venues. Our team will personally confirm your reservation within 2 hours.</p>
+
+        <div class="reservation-box">
+            <div class="booking-field">
+                <label for="diningVenue">Venue</label>
+                <select id="diningVenue" name="diningVenue">
+                    <option value="">Select a Restaurant</option>
+                    <option>Maihama Teppanyaki+</option>
+                    <option>The Grand Dining Hall</option>
+                    <option>Skyline Bar &amp; Lounge</option>
+                    <option>Afternoon Tea Salon</option>
+                    <option>Chef's Private Table</option>
+                </select>
+            </div>
+            <div class="booking-field">
+                <label for="diningDate">Date</label>
+                <input type="date" id="diningDate" name="diningDate">
+            </div>
+            <div class="booking-field">
+                <label for="diningGuests">Guests</label>
+                <select id="diningGuests" name="diningGuests">
+                    <option>1 Guest</option>
+                    <option>2 Guests</option>
+                    <option>3 Guests</option>
+                    <option>4 Guests</option>
+                    <option>5+ Guests</option>
+                    <option>Private Event</option>
+                </select>
+            </div>
+            <button class="btn-reserve" onclick="handleReservation()" id="reserveBtn">Check Availability</button>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="page-footer">
+        <p>
+            &copy; 2026 Sheraton Hotels &amp; Resorts &nbsp;|&nbsp;
+            <a href="index.html">Home</a>
+            <a href="gallery.html">Gallery</a>
+            <a href="Rooms/rooms.html">Rooms</a>
+            <a href="dining.html">Dining</a>
+            <a href="booking.html">Book Now</a>
+        </p>
+    </footer>
+
+    <!-- ============ LIGHTBOX ============ -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <button class="lb-close" onclick="closeLightbox()" aria-label="Close lightbox">&times;</button>
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E" alt="Dining preview" id="lightboxImg">
+    </div>
+
+    <!-- ============ JAVASCRIPT ============ -->
+    <script>
+        // Sticky header
+        const header = document.getElementById('siteHeader');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 80);
+        });
+
+        // Hero parallax
+        const heroBg = document.getElementById('heroBg');
+        window.addEventListener('scroll', () => {
+            heroBg.style.transform = `scale(1.07) translateY(${window.scrollY * 0.3}px)`;
+        });
+
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                    revealObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealEls.forEach(el => revealObs.observe(el));
+
+        // Lightbox
+        function openLightbox(src) {
+            document.getElementById('lightboxImg').src = src;
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+        // Reservation handler
+        function handleReservation() {
+            const venue = document.getElementById('diningVenue').value;
+            const date  = document.getElementById('diningDate').value;
+            if (!venue || !date) {
+                alert('Please select a venue and date to proceed.');
+                return;
+            }
+            window.location.href = 'booking.html';
+        }
+
+        // Set min date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('diningDate').min = today;
+    </script>
 
 </body>
 </html>
