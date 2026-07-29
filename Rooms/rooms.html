@@ -3,368 +3,1145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rooms & Suites | Sheraton Hotels & Resorts</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>Accommodations & Suites | Sheraton Grande Tokyo Bay</title>
+    <meta name="description" content="Experience unparalleled luxury in the suites and guest rooms at Sheraton Grande Tokyo Bay. Featuring ocean panoramas, signature bedding, and world-class amenities.">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
         :root {
-            --primary-navy: #1a2b4c;
-            --accent-gold: #c5a059;
-            --text-dark: #222222;
-            --text-gray: #666666;
-            --bg-light: #faf9f6;
+            --gold: #c5a059;
+            --gold-light: #e8d5a3;
+            --dark-navy: #1a2b4c;
+            --deep-dark: #0d1a2e;
+            --cream: #faf9f6;
+            --text-muted: #888;
             --white: #ffffff;
-            --border-color: #e5e5e5;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: var(--bg-light);
-            color: var(--text-dark);
-            line-height: 1.6;
+            background-color: var(--cream);
+            color: #222;
+            overflow-x: hidden;
         }
 
-        /* Top Header Navigation */
-        header {
-            background-color: var(--white);
-            border-bottom: 1px solid var(--border-color);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px 0;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 35px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-gray);
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-            padding-bottom: 4px;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--primary-navy);
-            border-bottom: 2px solid var(--primary-navy);
-        }
-
-        /* Hero Banner Section */
-        .rooms-hero {
-            text-align: center;
-            padding: 60px 20px 40px;
-            background: linear-gradient(rgba(26, 43, 76, 0.03), rgba(26, 43, 76, 0.08));
-        }
-
-        .rooms-hero h1 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3.2rem;
-            font-weight: 500;
-            color: var(--primary-navy);
-            margin-bottom: 12px;
-        }
-
-        .rooms-hero p {
-            font-size: 1.05rem;
-            color: var(--text-gray);
-            max-width: 720px;
-            margin: 0 auto;
-            font-weight: 300;
-        }
-
-        /* Main Container & Cards Grid */
-        .rooms-container {
-            max-width: 1200px;
-            margin: 50px auto 80px;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 45px;
-        }
-
-        /* Room Card Layout */
-        .room-card {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            background-color: var(--white);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.06);
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .room-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
-        }
-
-        .room-image {
-            position: relative;
-            height: 100%;
-            min-height: 350px;
-            overflow: hidden;
-        }
-
-        .room-image img {
+        /* ══════════════════════════════
+           FLOATING HEADER / NAV
+        ══════════════════════════════ */
+        .site-header {
+            position: fixed;
+            top: 0; left: 0;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
+            z-index: 1000;
+            padding: 22px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.5s ease, padding 0.4s ease;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.65), transparent);
         }
 
-        .room-card:hover .room-image img {
-            transform: scale(1.04);
+        .site-header.scrolled {
+            background: rgba(13,26,46,0.97);
+            backdrop-filter: blur(12px);
+            padding: 14px 60px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.3);
+        }
+
+        .logo-wrap {
+            display: flex; align-items: center; gap: 14px;
+            color: var(--white); text-decoration: none;
+        }
+
+        .logo-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem; font-weight: 500;
+            letter-spacing: 7px; text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .header-nav {
+            display: flex; gap: 35px; list-style: none;
+        }
+
+        .header-nav a {
+            text-decoration: none;
+            color: rgba(255,255,255,0.85);
+            font-size: 0.78rem; font-weight: 500;
+            letter-spacing: 2px; text-transform: uppercase;
+            transition: color 0.3s;
+        }
+
+        .header-nav a:hover,
+        .header-nav a.active { color: var(--gold-light); }
+
+        .back-btn {
+            background: rgba(197,160,89,0.15);
+            border: 1px solid rgba(197,160,89,0.5);
+            color: var(--gold-light);
+            padding: 9px 22px;
+            font-size: 0.75rem; font-family: 'Montserrat', sans-serif;
+            letter-spacing: 2px; text-transform: uppercase;
+            text-decoration: none; cursor: pointer;
+            border-radius: 2px; transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+        }
+
+        /* ══════════════════════════════
+           HERO — FULL PARALLAX
+        ══════════════════════════════ */
+        .hero {
+            position: relative;
+            height: 100vh; min-height: 700px;
+            display: flex; align-items: flex-end;
+            justify-content: center; overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute; inset: 0;
+            background: url('rooms-hero-premium.jpg') center center / cover no-repeat;
+            transform: scale(1.07);
+            transition: transform 0.1s linear;
+            will-change: transform;
+        }
+
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(13,26,46,0.3) 0%,
+                rgba(13,26,46,0.1) 35%,
+                rgba(13,26,46,0.6) 70%,
+                rgba(13,26,46,0.97) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative; z-index: 2;
+            text-align: center;
+            padding: 0 20px 80px;
+            max-width: 960px;
+            animation: heroFade 1.6s cubic-bezier(0.2,0.8,0.2,1) both;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.78rem; letter-spacing: 5px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 18px; font-weight: 500;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 7vw, 6rem);
+            font-weight: 300; color: var(--white);
+            line-height: 1.1; letter-spacing: 1px;
+            margin-bottom: 22px;
+            text-shadow: 0 8px 40px rgba(0,0,0,0.5);
+        }
+
+        .hero-tagline {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.75);
+            letter-spacing: 3px; text-transform: uppercase;
+            font-weight: 300; margin-bottom: 40px;
+        }
+
+        .hero-scroll-hint {
+            display: flex; flex-direction: column;
+            align-items: center; gap: 8px;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.7rem; letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: pulse 2.5s infinite;
+        }
+
+        .scroll-line {
+            width: 1px; height: 50px;
+            background: linear-gradient(to bottom, transparent, var(--gold));
+            margin-top: 8px;
+        }
+
+        @keyframes heroFade {
+            from { opacity: 0; transform: translateY(40px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ══════════════════════════════
+           INTRO CARD
+        ══════════════════════════════ */
+        .intro-section {
+            background: var(--white);
+            padding: 0 8% 80px;
+        }
+
+        .intro-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 4px;
+            padding: 80px;
+            box-shadow: 0 20px 80px rgba(26,43,76,0.08);
+            margin-top: -100px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .intro-text h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400; color: var(--dark-navy);
+            line-height: 1.2; margin-bottom: 8px;
+        }
+
+        .subtitle-gold {
+            font-size: 0.78rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 30px; display: block;
+        }
+
+        .intro-text p {
+            font-size: 1rem; line-height: 1.9;
+            color: #555; font-weight: 300;
+            margin-bottom: 22px;
+        }
+
+        /* Feature badges */
+        .feature-badges {
+            display: flex; gap: 12px; flex-wrap: wrap;
+            margin-bottom: 36px;
         }
 
         .badge {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: var(--primary-navy);
-            color: var(--white);
-            font-size: 0.75rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            padding: 6px 14px;
-            border-radius: 4px;
-        }
-
-        /* Room Details Content */
-        .room-info {
-            padding: 40px 35px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .room-info h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.1rem;
-            color: var(--primary-navy);
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .room-description {
-            color: var(--text-gray);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
-
-        /* Amenities List */
-        .amenities-list {
-            display: flex;
-            gap: 20px;
-            list-style: none;
-            margin-bottom: 30px;
-            border-top: 1px solid #f0f0f0;
-            border-bottom: 1px solid #f0f0f0;
-            padding: 15px 0;
-            flex-wrap: wrap;
-        }
-
-        .amenities-list li {
-            font-size: 0.85rem;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .amenities-list i {
-            color: var(--accent-gold);
-        }
-
-        /* Bottom Action Bar */
-        .room-action {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .price-tag {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .price-tag .amount {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--primary-navy);
-        }
-
-        .price-tag .unit {
-            font-size: 0.75rem;
-            color: var(--text-gray);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-reserve {
-            background-color: var(--primary-navy);
-            color: var(--white);
-            border: 1px solid var(--primary-navy);
-            padding: 12px 28px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 0.8rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            border-radius: 4px;
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--cream);
+            border: 1px solid #e8e0d0;
+            border-radius: 100px;
+            padding: 8px 18px;
+            font-size: 0.75rem; font-weight: 500;
+            color: var(--dark-navy); letter-spacing: 1px;
             transition: all 0.3s ease;
         }
 
-        .btn-reserve:hover {
-            background-color: var(--accent-gold);
-            border-color: var(--accent-gold);
+        .badge i { color: var(--gold); font-size: 0.8rem; }
+
+        .badge:hover {
+            background: var(--dark-navy);
+            border-color: var(--dark-navy);
+            color: var(--white);
         }
 
-        /* Responsive Design */
-        @media (max-width: 868px) {
-            .room-card {
+        .badge:hover i { color: var(--gold-light); }
+
+        /* Highlights */
+        .highlights-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px; margin-bottom: 40px;
+        }
+
+        .highlight-item {
+            display: flex; align-items: center; gap: 14px;
+            padding: 14px 16px;
+            border: 1px solid #f0ece4;
+            border-radius: 4px;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .highlight-item:hover {
+            border-color: var(--gold);
+            background: #fdf9f1;
+        }
+
+        .highlight-item i {
+            color: var(--gold); font-size: 1.1rem;
+            width: 22px; text-align: center; flex-shrink: 0;
+        }
+
+        .highlight-item span {
+            font-size: 0.88rem; font-weight: 500; color: #333;
+        }
+
+        /* CTA buttons */
+        .cta-group { display: flex; gap: 16px; flex-wrap: wrap; }
+
+        .btn-primary {
+            display: inline-block;
+            padding: 16px 40px;
+            background: var(--dark-navy); color: var(--white);
+            text-decoration: none;
+            font-size: 0.82rem; font-weight: 600;
+            letter-spacing: 3px; text-transform: uppercase;
+            border-radius: 3px; border: 2px solid var(--dark-navy);
+            transition: all 0.4s ease; cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: transparent; color: var(--dark-navy);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(26,43,76,0.15);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            padding: 16px 40px;
+            background: transparent; color: var(--dark-navy);
+            text-decoration: none;
+            font-size: 0.82rem; font-weight: 600;
+            letter-spacing: 3px; text-transform: uppercase;
+            border-radius: 3px; border: 2px solid var(--dark-navy);
+            transition: all 0.4s ease;
+        }
+
+        .btn-outline:hover {
+            background: var(--dark-navy); color: var(--white);
+            transform: translateY(-3px);
+        }
+
+        /* Right-side stacked gallery */
+        .intro-gallery {
+            display: grid;
+            grid-template-rows: 1.4fr 1fr;
+            gap: 18px;
+        }
+
+        .intro-gallery .img-wrap {
+            overflow: hidden; border-radius: 4px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .intro-gallery img {
+            width: 100%; height: 100%;
+            object-fit: cover; display: block;
+            transition: transform 0.7s cubic-bezier(0.25,1,0.5,1);
+        }
+
+        .intro-gallery .img-wrap:hover img { transform: scale(1.05); }
+
+        /* ══════════════════════════════
+           STATS STRIP
+        ══════════════════════════════ */
+        .stats-strip {
+            background: var(--dark-navy);
+            padding: 60px 8%;
+        }
+
+        .stats-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+        }
+
+        .stat-block {
+            text-align: center; padding: 20px 20px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .stat-block:last-child { border-right: none; }
+
+        .stat-icon { font-size: 1.6rem; color: var(--gold); margin-bottom: 14px; }
+
+        .stat-value {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.4rem; font-weight: 400;
+            color: var(--white); line-height: 1; margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.7rem; letter-spacing: 3px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        /* ══════════════════════════════
+           GOLD DIVIDER
+        ══════════════════════════════ */
+        .gold-divider {
+            display: flex; align-items: center;
+            justify-content: center; gap: 20px;
+            padding: 60px 20px;
+        }
+
+        .gold-divider::before, .gold-divider::after {
+            content: ''; flex: 1; max-width: 180px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--gold));
+        }
+
+        .gold-divider::after {
+            background: linear-gradient(to left, transparent, var(--gold));
+        }
+
+        .divider-diamond {
+            width: 10px; height: 10px;
+            background: var(--gold); transform: rotate(45deg);
+        }
+
+        /* ══════════════════════════════
+           ROOMS & SUITES CATALOG
+        ══════════════════════════════ */
+        .rooms-catalog-section {
+            background: var(--white);
+            padding: 20px 8% 100px;
+        }
+
+        .section-header {
+            text-align: center; margin-bottom: 70px;
+        }
+
+        .section-header .eyebrow {
+            display: block; font-size: 0.72rem;
+            letter-spacing: 5px; text-transform: uppercase;
+            color: var(--gold); margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400; color: var(--dark-navy); line-height: 1.2;
+        }
+
+        .section-header p {
+            max-width: 650px; margin: 16px auto 0;
+            font-size: 0.92rem; color: #777;
+            line-height: 1.8; font-weight: 300;
+        }
+
+        /* Room card — alternating layout */
+        .room-card-luxury {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            gap: 0;
+            max-width: 1300px; margin: 0 auto 60px;
+            border-radius: 6px; overflow: hidden;
+            box-shadow: 0 20px 60px rgba(26,43,76,0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            background: var(--white);
+        }
+
+        .room-card-luxury:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 80px rgba(26,43,76,0.15);
+        }
+
+        .room-card-luxury.reverse { direction: rtl; }
+        .room-card-luxury.reverse > * { direction: ltr; }
+
+        .room-img-panel {
+            position: relative; overflow: hidden;
+            min-height: 440px;
+        }
+
+        .room-img-panel img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25,1,0.5,1);
+        }
+
+        .room-card-luxury:hover .room-img-panel img { transform: scale(1.06); }
+
+        .room-tag {
+            position: absolute; top: 24px; left: 24px;
+            background: var(--gold);
+            color: var(--white); padding: 6px 16px;
+            font-size: 0.68rem; letter-spacing: 3px;
+            text-transform: uppercase; font-weight: 600;
+            border-radius: 2px;
+        }
+
+        .room-info-panel {
+            background: var(--white);
+            padding: 56px 56px;
+            display: flex; flex-direction: column;
+            justify-content: center;
+        }
+
+        .room-sub-tag {
+            font-size: 0.7rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 12px; font-weight: 600;
+        }
+
+        .room-info-panel h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 400; color: var(--dark-navy);
+            line-height: 1.2; margin-bottom: 16px;
+        }
+
+        .room-info-panel > p {
+            font-size: 0.92rem; line-height: 1.85;
+            color: #666; font-weight: 300; margin-bottom: 24px;
+        }
+
+        .room-specs-list {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 12px; margin-bottom: 30px;
+        }
+
+        .spec-item {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 0.82rem; color: #444; font-weight: 500;
+        }
+
+        .spec-item i { color: var(--gold); font-size: 0.95rem; width: 18px; text-align: center; }
+
+        .room-price-box {
+            display: flex; align-items: baseline; gap: 8px;
+            margin-bottom: 30px;
+        }
+
+        .room-price-box .from { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: #888; }
+        .room-price-box .amount { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 500; color: var(--dark-navy); }
+        .room-price-box .per { font-size: 0.75rem; color: #888; letter-spacing: 1px; }
+
+        .room-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+        .btn-gold {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--gold); color: var(--white);
+            text-decoration: none; font-size: 0.78rem;
+            font-weight: 600; letter-spacing: 3px;
+            text-transform: uppercase; border-radius: 3px;
+            border: 2px solid var(--gold);
+            transition: all 0.3s ease; cursor: pointer;
+        }
+
+        .btn-gold:hover {
+            background: var(--dark-navy);
+            border-color: var(--dark-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26,43,76,0.2);
+        }
+
+        .btn-ghost {
+            display: inline-block;
+            padding: 14px 32px;
+            background: transparent;
+            color: var(--dark-navy);
+            text-decoration: none; font-size: 0.78rem;
+            font-weight: 600; letter-spacing: 3px;
+            text-transform: uppercase; border-radius: 3px;
+            border: 2px solid rgba(26,43,76,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--dark-navy);
+            background: var(--dark-navy);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+        /* ══════════════════════════════
+           EXPERIENCES & AMENITIES
+        ══════════════════════════════ */
+        .amenities-section {
+            background: var(--cream);
+            padding: 100px 8%;
+        }
+
+        .amenities-grid-luxury {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px; margin: 60px auto 0;
+        }
+
+        .amenity-card-luxury {
+            text-align: center; padding: 50px 30px;
+            background: var(--white);
+            border: 1px solid #eee; border-radius: 4px;
+            transition: all 0.4s ease; position: relative;
+            overflow: hidden;
+        }
+
+        .amenity-card-luxury::before {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; right: 0; height: 3px;
+            background: var(--gold); transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .amenity-card-luxury:hover {
+            border-color: transparent;
+            box-shadow: 0 20px 60px rgba(26,43,76,0.1);
+            transform: translateY(-8px);
+        }
+
+        .amenity-card-luxury:hover::before { transform: scaleX(1); }
+
+        .amenity-icon-box {
+            width: 70px; height: 70px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--dark-navy), #2a4070);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 25px;
+        }
+
+        .amenity-icon-box i { color: var(--gold); font-size: 1.4rem; }
+
+        .amenity-card-luxury h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem; font-weight: 500;
+            color: var(--dark-navy); margin-bottom: 14px;
+        }
+
+        .amenity-card-luxury p {
+            font-size: 0.88rem; color: #777;
+            line-height: 1.8; font-weight: 300;
+        }
+
+        /* ══════════════════════════════
+           QUOTE SECTION
+        ══════════════════════════════ */
+        .quote-section {
+            background: linear-gradient(135deg, var(--deep-dark), var(--dark-navy));
+            padding: 120px 8%; text-align: center; position: relative; overflow: hidden;
+        }
+
+        .quote-section::before {
+            content: '\201C';
+            position: absolute; top: -30px; left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20rem;
+            color: rgba(197,160,89,0.06);
+            line-height: 1; pointer-events: none;
+        }
+
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 300; font-style: italic;
+            color: var(--white);
+            max-width: 860px; margin: 0 auto 30px;
+            line-height: 1.6; position: relative; z-index: 1;
+        }
+
+        .quote-author {
+            font-size: 0.75rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            z-index: 1; position: relative;
+        }
+
+        /* ══════════════════════════════
+           BOOKING / RESERVATION CTA
+        ══════════════════════════════ */
+        .booking-cta {
+            background: var(--cream);
+            padding: 100px 8%; text-align: center;
+        }
+
+        .booking-cta h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400; color: var(--dark-navy); margin-bottom: 16px;
+        }
+
+        .booking-cta > p {
+            font-size: 0.95rem; color: #777;
+            margin-bottom: 50px; font-weight: 300;
+        }
+
+        .booking-box {
+            max-width: 900px; margin: 0 auto;
+            background: var(--white); border-radius: 6px;
+            box-shadow: 0 20px 80px rgba(26,43,76,0.1);
+            padding: 50px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 20px; align-items: end;
+        }
+
+        .booking-field label {
+            display: block; font-size: 0.7rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--text-muted); margin-bottom: 8px; font-weight: 500;
+        }
+
+        .booking-field select,
+        .booking-field input {
+            width: 100%; padding: 14px 16px;
+            border: 1px solid #e0dbd0; border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem; color: #333;
+            background: var(--cream); outline: none;
+            transition: border-color 0.3s;
+            appearance: none;
+        }
+
+        .booking-field select:focus,
+        .booking-field input:focus { border-color: var(--gold); }
+
+        .btn-book {
+            padding: 15px 32px;
+            background: var(--gold); color: var(--white);
+            border: none; border-radius: 3px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.78rem; font-weight: 600;
+            letter-spacing: 3px; text-transform: uppercase;
+            cursor: pointer; white-space: nowrap;
+            transition: all 0.3s ease;
+        }
+
+        .btn-book:hover {
+            background: var(--dark-navy);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26,43,76,0.25);
+        }
+
+        /* ══════════════════════════════
+           FOOTER
+        ══════════════════════════════ */
+        .page-footer {
+            background: var(--deep-dark);
+            color: rgba(255,255,255,0.5);
+            text-align: center; padding: 40px 20px;
+            font-size: 0.78rem; letter-spacing: 1.5px;
+        }
+
+        .page-footer a {
+            color: var(--gold); text-decoration: none;
+            margin: 0 12px; transition: color 0.3s;
+        }
+
+        .page-footer a:hover { color: var(--gold-light); }
+
+        /* ══════════════════════════════
+           SCROLL REVEAL UTILITY
+        ══════════════════════════════ */
+        .reveal {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1; transform: translateY(0);
+        }
+
+        /* ══════════════════════════════
+           RESPONSIVE
+        ══════════════════════════════ */
+        @media (max-width: 1100px) {
+            .intro-card {
                 grid-template-columns: 1fr;
+                padding: 50px; gap: 50px;
             }
-            .room-image {
-                height: 260px;
+            .intro-gallery { grid-template-rows: 300px 220px; }
+            .stats-inner { grid-template-columns: repeat(3, 1fr); }
+            .stat-block { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .room-card-luxury, .room-card-luxury.reverse {
+                grid-template-columns: 1fr; direction: ltr;
             }
-            .rooms-hero h1 {
-                font-size: 2.3rem;
-            }
+            .room-card-luxury.reverse { direction: ltr; }
+            .amenities-grid-luxury { grid-template-columns: 1fr; }
+            .booking-box { grid-template-columns: 1fr 1fr; }
+            .booking-box .btn-book { grid-column: 1/3; }
+        }
+
+        @media (max-width: 768px) {
+            .site-header { padding: 16px 24px; }
+            .header-nav { display: none; }
+            .hero-title { font-size: 2.8rem; }
+            .intro-card { padding: 36px; margin-top: -60px; }
+            .highlights-grid { grid-template-columns: 1fr; }
+            .stats-inner { grid-template-columns: 1fr 1fr; }
+            .room-info-panel { padding: 36px 28px; }
+            .booking-box { grid-template-columns: 1fr; padding: 30px; }
+            .booking-box .btn-book { grid-column: 1; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Header -->
-    <header>
-        <div class="nav-container">
-            <ul class="nav-links">
-                <li><a href="../index.html">Overview</a></li>
-                <li><a href="../gallery.html">Gallery</a></li>
-                <li><a href="../Rooms/rooms.html">Rooms</a></li>
-                <li><a href="../dining.html">Dining</a></li>
-                <li><a href="#">Experiences</a></li>
-            </ul>
-        </div>
+    <!-- ============ FLOATING HEADER ============ -->
+    <header class="site-header" id="siteHeader">
+        <a href="../index.html" class="logo-wrap" aria-label="Sheraton Home">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="46" height="46">
+                <circle cx="30" cy="30" r="27.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                <circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 1.6"/>
+                <text x="30" y="39" text-anchor="middle" font-family="Cormorant Garamond, Georgia, serif" font-size="23" font-weight="400" fill="currentColor">S</text>
+            </svg>
+            <span class="logo-name">Sheraton</span>
+        </a>
+
+        <ul class="header-nav">
+            <li><a href="../index.html">Overview</a></li>
+            <li><a href="../gallery.html">Gallery</a></li>
+            <li><a href="rooms.html" class="active">Rooms</a></li>
+            <li><a href="../dining.html">Dining</a></li>
+            <li><a href="#">Experiences</a></li>
+        </ul>
+
+        <a href="../index.html" class="back-btn">← Back to Home</a>
     </header>
 
-    <!-- Main Headline Section -->
-    <section class="rooms-hero">
-        <h1>Accommodations & Suites</h1>
-        <p>Rest peacefully in thoughtfully designed rooms featuring signature Sheraton Sleep Experience beds, serene ocean or city views, and modern luxury amenities.</p>
+    <!-- ============ HERO SECTION ============ -->
+    <section class="hero" id="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">Sanctuary of Comfort · Sheraton Grande Tokyo Bay</p>
+            <h1 class="hero-title">Accommodations<br>&amp; Suites</h1>
+            <p class="hero-tagline">Rest, Recharge, and Rediscover Elegance</p>
+            <div class="hero-scroll-hint">
+                <span>Explore Suites</span>
+                <div class="scroll-line"></div>
+            </div>
+        </div>
     </section>
 
-    <!-- Rooms List Section -->
-    <main class="rooms-container">
+    <!-- ============ INTRO CARD ============ -->
+    <section class="intro-section">
+        <div class="intro-card reveal">
+            <div class="intro-text">
+                <span class="subtitle-gold">Refined Luxury Living</span>
+                <h2>An Invitation to Pure Indulgence</h2>
 
-        <!-- Room 1 -->
-        <article class="room-card">
-            <div class="room-image">
-                <span class="badge">Ocean View</span>
-                <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=80" alt="Deluxe Ocean Guest Room">
-            </div>
-            <div class="room-info">
-                <div>
-                    <h2>Deluxe Ocean Guest Room</h2>
-                    <p class="room-description">Unwind with elevated ocean panoramas, a plush King bed, ergonomically designed workspace, and a marble bath with premium toiletries.</p>
-                    <ul class="amenities-list">
-                        <li><i class="fa-solid fa-bed"></i> 1 King Bed</li>
-                        <li><i class="fa-solid fa-maximize"></i> 42 m²</li>
-                        <li><i class="fa-solid fa-wifi"></i> Free Wi-Fi</li>
-                        <li><i class="fa-solid fa-water"></i> Ocean View</li>
-                    </ul>
-                </div>
-                <div class="room-action">
-                    <div class="price-tag">
-                        <span class="amount">$280</span>
-                        <span class="unit">/ Per Night + Tax</span>
-                    </div>
-                    <button class="btn-reserve">Reserve Room</button>
-                </div>
-            </div>
-        </article>
+                <p>Immerse yourself in thoughtfully curated spaces designed for discerning global travelers. Every room and suite at Sheraton Grande Tokyo Bay blends architectural harmony, serene color palettes, and panoramic ocean or skyline vistas.</p>
 
-        <!-- Room 2 -->
-        <article class="room-card">
-            <div class="room-image">
-                <span class="badge">Club Level</span>
-                <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1000&q=80" alt="Sheraton Club Executive Room">
-            </div>
-            <div class="room-info">
-                <div>
-                    <h2>Sheraton Club Executive Room</h2>
-                    <p class="room-description">Includes exclusive access to the Sheraton Club Lounge with complimentary breakfast, afternoon refreshments, and private concierge service.</p>
-                    <ul class="amenities-list">
-                        <li><i class="fa-solid fa-bed"></i> 1 King / 2 Double</li>
-                        <li><i class="fa-solid fa-maximize"></i> 50 m²</li>
-                        <li><i class="fa-solid fa-martini-glass"></i> Lounge Access</li>
-                        <li><i class="fa-solid fa-city"></i> Skyline View</li>
-                    </ul>
-                </div>
-                <div class="room-action">
-                    <div class="price-tag">
-                        <span class="amount">$390</span>
-                        <span class="unit">/ Per Night + Tax</span>
-                    </div>
-                    <button class="btn-reserve">Reserve Room</button>
-                </div>
-            </div>
-        </article>
+                <p>Featuring our signature Sheraton Sleep Experience beds, Carrara marble bathrooms, custom artisan furnishings, and intuitive smart room controls, your stay is elevated into a masterclass of luxury and tranquility.</p>
 
-        <!-- Room 3 -->
-        <article class="room-card">
-            <div class="room-image">
-                <span class="badge">Luxury Suite</span>
-                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1000&q=80" alt="Presidential Oceanfront Suite">
-            </div>
-            <div class="room-info">
-                <div>
-                    <h2>Presidential Oceanfront Suite</h2>
-                    <p class="room-description">Our pinnacle accommodation features an expansive living room, private dining space, private balcony, soaking tub, and dedicated butler service.</p>
-                    <ul class="amenities-list">
-                        <li><i class="fa-solid fa-bed"></i> Master King Suite</li>
-                        <li><i class="fa-solid fa-maximize"></i> 110 m²</li>
-                        <li><i class="fa-solid fa-hot-tub-person"></i> Soaking Tub</li>
-                        <li><i class="fa-solid fa-concierge-bell"></i> Butler Service</li>
-                    </ul>
+                <div class="feature-badges">
+                    <span class="badge"><i class="fa-solid fa-bed"></i> Signature Sleep Beds</span>
+                    <span class="badge"><i class="fa-solid fa-water"></i> Ocean & Skyline Views</span>
+                    <span class="badge"><i class="fa-solid fa-bath"></i> Carrara Marble Baths</span>
+                    <span class="badge"><i class="fa-solid fa-bell-concierge"></i> 24/7 Butler Service</span>
                 </div>
-                <div class="room-action">
-                    <div class="price-tag">
-                        <span class="amount">$850</span>
-                        <span class="unit">/ Per Night + Tax</span>
-                    </div>
-                    <button class="btn-reserve">Reserve Room</button>
-                </div>
-            </div>
-        </article>
 
-    </main>
+                <div class="highlights-grid">
+                    <div class="highlight-item"><i class="fa-solid fa-expand"></i><span>680 - 2,200 sq ft Layouts</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-wifi"></i><span>Ultra High-Speed Wi-Fi</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-tv"></i><span>Bang & Olufsen Sound</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-champagne-glasses"></i><span>Sheraton Club Lounge</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-shirt"></i><span>Private Dressing Room</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-mug-hot"></i><span>Nespresso Coffee Atelier</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-shower"></i><span>Rainfall & Jet Showers</span></div>
+                    <div class="highlight-item"><i class="fa-solid fa-moon"></i><span>Aromatherapy Turn Down</span></div>
+                </div>
+
+                <div class="cta-group">
+                    <a href="#rooms-catalog" class="btn-primary">Explore Rooms</a>
+                    <a href="../booking.html" class="btn-outline">Check Availability</a>
+                </div>
+            </div>
+
+            <div class="intro-gallery">
+                <div class="img-wrap">
+                    <img src="deluxe-king-premium.jpg" alt="Deluxe King Suite overview" loading="lazy">
+                </div>
+                <div class="img-wrap">
+                    <img src="presidential-suite-premium.jpg" alt="Presidential suite lounge" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ STATS STRIP ============ -->
+    <section class="stats-strip reveal">
+        <div class="stats-inner">
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-building-user"></i></div>
+                <div class="stat-value">1,022</div>
+                <div class="stat-label">Luxury Rooms</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <div class="stat-value">32</div>
+                <div class="stat-label">Floors of Elegance</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-water"></i></div>
+                <div class="stat-value">100<sup style="font-size:1rem">%</sup></div>
+                <div class="stat-label">Panoramic Views</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-star"></i></div>
+                <div class="stat-value">5<sup style="font-size:1rem">★</sup></div>
+                <div class="stat-label">Luxury Rating</div>
+            </div>
+            <div class="stat-block">
+                <div class="stat-icon"><i class="fa-solid fa-concierge-bell"></i></div>
+                <div class="stat-value">24<sup style="font-size:1rem">h</sup></div>
+                <div class="stat-label">Personal Butler</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ GOLD DIVIDER ============ -->
+    <div class="gold-divider">
+        <div class="divider-diamond"></div>
+    </div>
+
+    <!-- ============ ROOMS CATALOG SECTION ============ -->
+    <section class="rooms-catalog-section" id="rooms-catalog">
+        <div class="section-header reveal">
+            <span class="eyebrow">Select Your Haven</span>
+            <h2>Rooms &amp; Signature Suites</h2>
+            <p>Each suite is meticulously crafted to deliver supreme tranquility, panoramic beauty, and refined sophistication.</p>
+        </div>
+
+        <!-- Room 1: Deluxe King Bedroom -->
+        <div class="room-card-luxury reveal">
+            <div class="room-img-panel">
+                <img src="deluxe-king-premium.jpg" alt="Deluxe King Bedroom" loading="lazy">
+                <span class="room-tag">Signature Suite</span>
+            </div>
+            <div class="room-info-panel">
+                <span class="room-sub-tag">Master Residence</span>
+                <h3>Deluxe King Bedroom</h3>
+                <p>A masterpiece of refined comfort featuring hand-stitched linen, sweeping bay panoramas, a lavish marble bathroom with gold fixtures, and custom seating for ultimate relaxation.</p>
+
+                <div class="room-specs-list">
+                    <div class="spec-item"><i class="fa-solid fa-expand"></i> 68 sq m / 730 sq ft</div>
+                    <div class="spec-item"><i class="fa-solid fa-bed"></i> 1 Signature King Bed</div>
+                    <div class="spec-item"><i class="fa-solid fa-city"></i> Panoramic City &amp; Bay View</div>
+                    <div class="spec-item"><i class="fa-solid fa-bath"></i> Marble Soaking Tub</div>
+                </div>
+
+                <div class="room-price-box">
+                    <span class="from">From</span>
+                    <span class="amount">$485</span>
+                    <span class="per">/ night</span>
+                </div>
+
+                <div class="room-actions">
+                    <a href="../deluxe-king-bedroom.html" class="btn-gold">View Full Details</a>
+                    <a href="../booking.html" class="btn-ghost">Reserve Suite</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room 2: Tokyo Bay Horizon Room -->
+        <div class="room-card-luxury reverse reveal">
+            <div class="room-img-panel">
+                <img src="ocean-horizon-premium.jpg" alt="Tokyo Bay Horizon View Room" loading="lazy">
+                <span class="room-tag">Ocean Front</span>
+            </div>
+            <div class="room-info-panel">
+                <span class="room-sub-tag">Ocean Panorama</span>
+                <h3>Tokyo Bay Horizon Room</h3>
+                <p>Positioned on our high-rise levels, this room frames breath-taking ocean horizons. Step onto your private balcony and savor sunsets over Tokyo Bay with a chilled flute of Champagne.</p>
+
+                <div class="room-specs-list">
+                    <div class="spec-item"><i class="fa-solid fa-expand"></i> 72 sq m / 775 sq ft</div>
+                    <div class="spec-item"><i class="fa-solid fa-bed"></i> 1 King or 2 Doubles</div>
+                    <div class="spec-item"><i class="fa-solid fa-water"></i> Full Ocean View</div>
+                    <div class="spec-item"><i class="fa-solid fa-umbrella-beach"></i> Private Glass Balcony</div>
+                </div>
+
+                <div class="room-price-box">
+                    <span class="from">From</span>
+                    <span class="amount">$520</span>
+                    <span class="per">/ night</span>
+                </div>
+
+                <div class="room-actions">
+                    <a href="../tokyo-bay-horizon-view.html" class="btn-gold">View Full Details</a>
+                    <a href="../booking.html" class="btn-ghost">Reserve Room</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room 3: Presidential Oceanfront Suite -->
+        <div class="room-card-luxury reveal">
+            <div class="room-img-panel">
+                <img src="presidential-suite-premium.jpg" alt="Presidential Oceanfront Suite" loading="lazy">
+                <span class="room-tag">Pinnacle Luxury</span>
+            </div>
+            <div class="room-info-panel">
+                <span class="room-sub-tag">Penthouse Residence</span>
+                <h3>Presidential Oceanfront Suite</h3>
+                <p>Our top-tier accommodation boasts an expansive living domain, private dining hall, grand piano, private outdoor Jacuzzi, and 24-hour dedicated butler service.</p>
+
+                <div class="room-specs-list">
+                    <div class="spec-item"><i class="fa-solid fa-expand"></i> 150 sq m / 1,614 sq ft</div>
+                    <div class="spec-item"><i class="fa-solid fa-bed"></i> Grand Master Suite</div>
+                    <div class="spec-item"><i class="fa-solid fa-hot-tub-person"></i> Terrace Private Jacuzzi</div>
+                    <div class="spec-item"><i class="fa-solid fa-bell-concierge"></i> Dedicated Butler</div>
+                </div>
+
+                <div class="room-price-box">
+                    <span class="from">From</span>
+                    <span class="amount">$1,250</span>
+                    <span class="per">/ night</span>
+                </div>
+
+                <div class="room-actions">
+                    <a href="../presidential-ocean-suite.html" class="btn-gold">View Full Details</a>
+                    <a href="../booking.html" class="btn-ghost">Reserve Penthouse</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Room 4: Sheraton Club Executive Room -->
+        <div class="room-card-luxury reverse reveal">
+            <div class="room-img-panel">
+                <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=1200&q=80" alt="Sheraton Club Executive Room" loading="lazy">
+                <span class="room-tag">Club Level</span>
+            </div>
+            <div class="room-info-panel">
+                <span class="room-sub-tag">VIP Privileges</span>
+                <h3>Sheraton Club Executive Room</h3>
+                <p>Enjoy executive floor elevated views alongside exclusive access to the 26th Floor Club Lounge, featuring complimentary hot breakfast, evening cocktails, and private check-in.</p>
+
+                <div class="room-specs-list">
+                    <div class="spec-item"><i class="fa-solid fa-expand"></i> 85 sq m / 915 sq ft</div>
+                    <div class="spec-item"><i class="fa-solid fa-bed"></i> 1 King Bed</div>
+                    <div class="spec-item"><i class="fa-solid fa-martini-glass"></i> VIP Lounge Access</div>
+                    <div class="spec-item"><i class="fa-solid fa-user-tie"></i> Private Concierge</div>
+                </div>
+
+                <div class="room-price-box">
+                    <span class="from">From</span>
+                    <span class="amount">$650</span>
+                    <span class="per">/ night</span>
+                </div>
+
+                <div class="room-actions">
+                    <a href="../booking.html" class="btn-gold">Reserve Executive</a>
+                    <a href="../booking.html" class="btn-ghost">Check Privileges</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ GOLD DIVIDER ============ -->
+    <div class="gold-divider" style="background:var(--cream)">
+        <div class="divider-diamond"></div>
+    </div>
+
+    <!-- ============ EXPERIENCES & AMENITIES ============ -->
+    <section class="amenities-section">
+        <div class="section-header reveal">
+            <span class="eyebrow">The Sheraton Standard</span>
+            <h2>Included In Every Stay</h2>
+        </div>
+
+        <div class="amenities-grid-luxury">
+            <div class="amenity-card-luxury reveal">
+                <div class="amenity-icon-box"><i class="fa-solid fa-bed"></i></div>
+                <h3>Sheraton Sleep Experience</h3>
+                <p>Custom-designed plush mattresses, high-thread-count Egyptian cotton linens, and a personalized pillow menu tailored for deep rejuvenation.</p>
+            </div>
+            <div class="amenity-card-luxury reveal">
+                <div class="amenity-icon-box"><i class="fa-solid fa-bath"></i></div>
+                <h3>Carrara Marble Bathrooms</h3>
+                <p>Spacious marble sanctuaries complete with deep soaking tubs, rainfall showers, plush bathrobes, and bespoke Hermès amenities.</p>
+            </div>
+            <div class="amenity-card-luxury reveal">
+                <div class="amenity-icon-box"><i class="fa-solid fa-bell-concierge"></i></div>
+                <h3>24/7 Butler & Concierge</h3>
+                <p>Discreet, world-class personal butler service ready to assist with unpacking, private dining, transportation, and custom itineraries.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ QUOTE SECTION ============ -->
+    <section class="quote-section">
+        <p class="quote-text">"Waking up to the golden sunrise over Tokyo Bay from our suite was unforgettable. The attention to detail, quiet elegance, and warmth of service make Sheraton Grande Tokyo Bay our absolute favorite retreat."</p>
+        <p class="quote-author">— Lord Alexander H., Frequent Guest &amp; Bonvoy Ambassador</p>
+    </section>
+
+    <!-- ============ BOOKING CTA SECTION ============ -->
+    <section class="booking-cta reveal">
+        <h2>Reserve Your Suite</h2>
+        <p>Select your dates to check real-time room availability and luxury package rates.</p>
+
+        <div class="booking-box">
+            <div class="booking-field">
+                <label for="roomType">Room Type</label>
+                <select id="roomType" name="roomType">
+                    <option value="">Select Room or Suite</option>
+                    <option>Deluxe King Bedroom</option>
+                    <option>Tokyo Bay Horizon Room</option>
+                    <option>Presidential Oceanfront Suite</option>
+                    <option>Sheraton Club Executive Room</option>
+                </select>
+            </div>
+            <div class="booking-field">
+                <label for="checkIn">Check-In</label>
+                <input type="date" id="checkIn" name="checkIn">
+            </div>
+            <div class="booking-field">
+                <label for="checkOut">Check-Out</label>
+                <input type="date" id="checkOut" name="checkOut">
+            </div>
+            <button class="btn-book" onclick="handleBooking()" id="bookBtn">Check Availability</button>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="page-footer">
+        <p>
+            &copy; 2026 Sheraton Hotels &amp; Resorts &nbsp;|&nbsp;
+            <a href="../index.html">Home</a>
+            <a href="../gallery.html">Gallery</a>
+            <a href="rooms.html">Rooms</a>
+            <a href="../dining.html">Dining</a>
+            <a href="../booking.html">Book Now</a>
+        </p>
+    </footer>
+
+    <!-- ============ JAVASCRIPT ============ -->
+    <script>
+        // Sticky header
+        const header = document.getElementById('siteHeader');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 80);
+        });
+
+        // Hero parallax
+        const heroBg = document.getElementById('heroBg');
+        window.addEventListener('scroll', () => {
+            heroBg.style.transform = `scale(1.07) translateY(${window.scrollY * 0.3}px)`;
+        });
+
+        // Scroll reveal
+        const revealEls = document.querySelectorAll('.reveal');
+        const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach((entry, i) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => entry.target.classList.add('visible'), i * 80);
+                    revealObs.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealEls.forEach(el => revealObs.observe(el));
+
+        // Booking handler
+        function handleBooking() {
+            const checkIn  = document.getElementById('checkIn').value;
+            const checkOut = document.getElementById('checkOut').value;
+            if (!checkIn || !checkOut) {
+                alert('Please select both check-in and check-out dates.');
+                return;
+            }
+            window.location.href = '../booking.html';
+        }
+
+        // Set min date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('checkIn').min  = today;
+        document.getElementById('checkOut').min = today;
+    </script>
 
 </body>
 </html>
