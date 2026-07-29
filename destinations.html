@@ -3,43 +3,395 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sheraton Destinations</title>
+    <title>Sheraton Destinations & Luxury Sanctuaries | Official Site</title>
+    <meta name="description" content="Explore Sheraton's worldwide collection of luxury resorts, beach retreats, and vibrant city center hotels across the globe.">
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
     <style>
-        /* Base page styling */
+        :root {
+            --gold: #c5a059;
+            --gold-light: #e8d5a3;
+            --dark-navy: #0d1a2e;
+            --navy-secondary: #1a2b4c;
+            --cream: #faf9f6;
+            --white: #ffffff;
+            --text-dark: #1f2937;
+            --text-muted: #6b7280;
+            --border-light: rgba(197, 160, 89, 0.25);
+            --card-shadow: 0 15px 35px rgba(13, 26, 46, 0.08);
+            --card-hover-shadow: 0 25px 50px rgba(13, 26, 46, 0.18);
+        }
+
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #fafafa;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           1. LUXURY FIXED HEADER / NAVIGATION
+        ════════════════════════════════════════════════════════════ */
+        .dest-site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: linear-gradient(to bottom, rgba(13, 26, 46, 0.95), rgba(13, 26, 46, 0.65) 70%, transparent);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .dest-site-header.scrolled {
+            background: rgba(13, 26, 46, 0.98);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            padding-bottom: 5px;
+        }
+
+        .dest-nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dest-brand-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            color: var(--white);
+        }
+
+        .dest-brand-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .dest-nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
             margin: 0;
             padding: 0;
         }
 
-        /* The Grid Container */
-        .destinations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 40px auto; 
-            padding: 0 20px;
+        .dest-nav-links a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-bottom: 4px;
         }
 
-        /* Individual Card Styling */
-        .destination-card {
-            background-color: #ffffff;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        .dest-nav-links a:hover,
+        .dest-nav-links a.active {
+            color: var(--gold-light);
+        }
+
+        .dest-nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .dest-reserve-btn {
+            background: linear-gradient(135deg, var(--gold) 0%, #ab8237 100%);
+            color: var(--white);
+            border: none;
+            padding: 11px 24px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);
+        }
+
+        .dest-reserve-btn:hover {
+            background: linear-gradient(135deg, #d4af37 0%, var(--gold) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.5);
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           2. HERO & FILTER BAR SECTION ("WHEN OPENED")
+        ════════════════════════════════════════════════════════════ */
+        .destinations-hero {
+            position: relative;
+            min-height: 65vh;
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s ease;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(13, 26, 46, 0.72), rgba(13, 26, 46, 0.85)), url('skyline_bar.jpg') center/cover no-repeat fixed;
+            padding: 140px 20px 80px 20px;
+            color: var(--white);
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 18px;
+        }
+
+        .hero-eyebrow::before,
+        .hero-eyebrow::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--gold-light);
+        }
+
+        .destinations-hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.8rem;
+            font-weight: 600;
+            line-height: 1.15;
+            letter-spacing: 1px;
+            margin: 0 0 20px 0;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .destinations-hero p {
+            max-width: 720px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0 auto 40px auto;
+            letter-spacing: 0.5px;
+        }
+
+        /* Live Filter & Search Toolbar */
+        .dest-toolbar-container {
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 6px;
+            padding: 16px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .search-box-wrapper {
+            position: relative;
+            flex: 1;
+            min-width: 260px;
+        }
+
+        .search-box-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-light);
+            font-size: 0.95rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            background: rgba(13, 26, 46, 0.6);
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            border-radius: 4px;
+            color: var(--white);
+            font-size: 0.88rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .search-input:focus {
+            border-color: var(--gold-light);
+            background: rgba(13, 26, 46, 0.85);
+            box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(13, 26, 46, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 9px 18px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--gold);
+            border-color: var(--gold);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.4);
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           3. LUXURY FEATURE STRIP
+        ════════════════════════════════════════════════════════════ */
+        .luxury-stats-strip {
+            background: var(--dark-navy);
+            border-bottom: 2px solid var(--gold);
+            padding: 30px 20px;
+            color: var(--white);
+        }
+
+        .stats-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            text-align: center;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 10px;
+        }
+
+        .stat-icon {
+            font-size: 1.8rem;
+            color: var(--gold);
+        }
+
+        .stat-text h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            margin: 0;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+
+        .stat-text p {
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 4px 0 0 0;
+            letter-spacing: 0.5px;
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           4. DESTINATIONS GRID & ELEVATED CARDS
+        ════════════════════════════════════════════════════════════ */
+        .destinations-main-section {
+            max-width: 1350px;
+            margin: 0 auto;
+            padding: 70px 25px 100px 25px;
+        }
+
+        .section-header-wrap {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header-wrap h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.8rem;
+            color: var(--dark-navy);
+            margin: 0 0 10px 0;
+            letter-spacing: 1px;
+            text-shadow: none;
+        }
+
+        .section-header-wrap p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 40px;
+        }
+
+        /* Elevated Card Styling */
+        .destination-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid rgba(197, 160, 89, 0.18);
+            position: relative;
         }
 
         .destination-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: var(--card-hover-shadow);
+            border-color: var(--gold);
         }
 
         /* Image Area */
         .destination-image {
             position: relative;
-            height: 250px;
+            height: 280px;
             overflow: hidden;
         }
 
@@ -47,215 +399,752 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.8s ease;
         }
 
-        /* The Dark Label on the image */
+        .destination-card:hover .destination-image img {
+            transform: scale(1.08);
+        }
+
+        .image-gradient-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 40%, rgba(13,26,46,0.6) 100%);
+        }
+
+        /* The Dark Badge on the image */
         .destination-badge {
             position: absolute;
             top: 20px;
             left: 20px;
-            background-color: rgba(17, 17, 17, 0.85);
-            color: #fff;
-            padding: 6px 12px;
-            font-size: 0.75rem;
+            background-color: rgba(13, 26, 46, 0.88);
+            backdrop-filter: blur(8px);
+            color: var(--gold-light);
+            padding: 6px 14px;
+            font-size: 0.72rem;
             font-weight: 600;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            border-radius: 2px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-transform: uppercase;
         }
 
-        /* Text and Button Area */
+        /* Star Rating Badge */
+        .destination-rating {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(6px);
+            color: var(--dark-navy);
+            padding: 5px 12px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .destination-rating i {
+            color: #d4af37;
+        }
+
+        /* Price Pill */
+        .destination-price-pill {
+            position: absolute;
+            bottom: 18px;
+            right: 20px;
+            background: rgba(13, 26, 46, 0.9);
+            border: 1px solid var(--gold);
+            color: var(--white);
+            padding: 5px 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            border-radius: 3px;
+        }
+
+        .destination-price-pill strong {
+            color: var(--gold-light);
+            font-size: 0.9rem;
+        }
+
+        /* Card Content Area */
         .destination-info {
-            padding: 30px;
+            padding: 28px 30px 30px 30px;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
+            background: var(--white);
+        }
+
+        .card-location {
+            font-size: 0.78rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .destination-info h3 {
-            font-family: 'Times New Roman', Times, serif; 
-            font-size: 1.6rem;
-            color: #222;
-            margin: 0 0 15px 0;
-            font-weight: normal;
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: 1.75rem;
+            color: var(--dark-navy);
+            margin: 0 0 14px 0;
+            font-weight: 600;
+            line-height: 1.25;
+            transition: color 0.3s ease;
+            text-shadow: none;
+        }
+
+        .destination-card:hover .destination-info h3 {
+            color: var(--gold);
         }
 
         .destination-info p {
-            font-size: 0.95rem;
-            color: #666;
-            line-height: 1.6;
-            margin: 0 0 30px 0;
+            font-size: 0.9rem;
+            color: #555555;
+            line-height: 1.65;
+            margin: 0 0 20px 0;
             flex-grow: 1; 
+            font-weight: 400;
         }
 
-        /* Footer of the card for links/buttons */
+        /* Luxury Highlights Chips */
+        .destination-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 25px;
+            padding-top: 15px;
+            border-top: 1px dashed rgba(197, 160, 89, 0.25);
+        }
+
+        .highlight-tag {
+            background-color: var(--cream);
+            color: var(--dark-navy);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            border-radius: 3px;
+            letter-spacing: 0.3px;
+        }
+
+        /* Actions Footer */
         .destination-actions {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-top: auto;
+            padding-top: 10px;
         }
 
         .explore-link {
             text-decoration: none;
-            color: #111;
-            font-weight: bold;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
+            color: var(--dark-navy);
+            font-weight: 600;
+            font-size: 0.78rem;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .explore-link::after {
-            content: "▶";
-            font-size: 0.6rem;
-            margin-left: 6px;
+        .explore-link i {
+            font-size: 0.65rem;
+            color: var(--gold);
+            transition: transform 0.3s ease;
+        }
+
+        .explore-link:hover {
+            color: var(--gold);
+        }
+
+        .explore-link:hover i {
+            transform: translateX(4px);
         }
 
         .book-now-btn {
             text-decoration: none;
-            border: 1px solid #111;
+            border: 1px solid var(--dark-navy);
             background: transparent;
-            color: #111;
-            padding: 10px 20px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            letter-spacing: 1px;
+            color: var(--dark-navy);
+            padding: 10px 22px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
             transition: all 0.3s ease;
+            border-radius: 2px;
+            display: inline-block;
         }
 
         .book-now-btn:hover {
-            background: #111;
-            color: #fff;
+            background: var(--dark-navy);
+            border-color: var(--dark-navy);
+            color: var(--gold-light);
+            box-shadow: 0 4px 12px rgba(13, 26, 46, 0.25);
+        }
+
+        /* Empty State */
+        .no-results-msg {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--white);
+            border: 1px dashed var(--gold);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .no-results-msg h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--dark-navy);
+            margin-bottom: 10px;
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           5. DARK LUXURY FOOTER
+        ════════════════════════════════════════════════════════════ */
+        .site-footer {
+            background: var(--dark-navy);
+            color: var(--white);
+            padding: 70px 40px 30px 40px;
+            border-top: 3px solid var(--gold);
+        }
+
+        .footer-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h5 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.85rem;
+            letter-spacing: 0.8px;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 15px;
+        }
+
+        .footer-social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            color: var(--gold-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-social-icons a:hover {
+            background: var(--gold);
+            color: var(--dark-navy);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 992px) {
+            .destinations-hero h1 { font-size: 3rem; }
+            .dest-nav-links { display: none; }
+            .destinations-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+        }
+
+        @media (max-width: 600px) {
+            .destinations-hero h1 { font-size: 2.2rem; }
+            .destinations-hero p { font-size: 0.95rem; }
+            .dest-toolbar-container { padding: 14px; }
+            .filter-buttons { width: 100%; justify-content: center; }
+            .destinations-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <section class="destinations-grid">
-        <!-- Card 1 -->
-        <div class="destination-card">
-            <div class="destination-image">
-                <img src="download.webp" alt="Sheraton Maldives">
-                <span class="destination-badge">TROPICAL ESCAPE</span>
+    <!-- 1. PREMIUM NAVIGATION HEADER -->
+    <header class="dest-site-header" id="header">
+        <div class="dest-nav-container">
+            <a href="index.html" class="dest-brand-area">
+                <svg class="sheraton-medallion" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="44" height="44" aria-label="Sheraton S emblem">
+                    <circle cx="30" cy="30" r="27.5" fill="none" stroke="#c5a059" stroke-width="1.2"/>
+                    <circle cx="30" cy="30" r="21.5" fill="none" stroke="#c5a059" stroke-width="0.8" stroke-dasharray="3 1.6"/>
+                    <text x="30" y="39" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-size="23" font-weight="400" fill="#e8d5a3">S</text>
+                </svg>
+                <span class="dest-brand-name">SHERATON</span>
+            </a>
+
+            <nav>
+                <ul class="dest-nav-links">
+                    <li><a href="index.html">Overview</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="Rooms/rooms.html">Rooms</a></li>
+                    <li><a href="dining.html">Dining</a></li>
+                    <li><a href="destinations.html" class="active">Destinations</a></li>
+                    <li><a href="place-details.html">Place Details</a></li>
+                    <li><a href="experiences/index.html">Experiences</a></li>
+                </ul>
+            </nav>
+
+            <a href="booking.html" class="dest-reserve-btn">RESERVE NOW</a>
+        </div>
+    </header>
+
+    <!-- 2. HIGH-END LUXURY HERO SECTION ("WHEN OPENED") -->
+    <section class="destinations-hero">
+        <div class="hero-eyebrow">THE SHERATON PORTFOLIO</div>
+        <h1>Worldwide Sanctuaries &amp; Destinations</h1>
+        <p>Immerse yourself in extraordinary hospitality across the globe. From pristine private island lagoons to legendary city center landmarks, discover your next signature stay.</p>
+
+        <!-- Live Interactive Search & Filter Toolbar -->
+        <div class="dest-toolbar-container">
+            <div class="search-box-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="dest-search" class="search-input" placeholder="Search destination, city, or resort name..." onkeyup="filterDestinations()">
             </div>
-            <div class="destination-info">
-                <h3>Sheraton Maldives Full Moon Resort</h3>
-                <p>Escape to paradise. Set on a private island with turquoise lagoons, lush gardens, and overwater bungalows.</p>
-                <div class="destination-actions">
-                    <a href="#" class="explore-link">EXPLORE RESORT</a>
-                    <a href="booking.html?hotel=Maldives" class="book-now-btn">BOOK NOW</a>
-                </div>
+
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="setFilter('all', this)">ALL SANCTUARIES</button>
+                <button class="filter-btn" onclick="setFilter('tropical', this)">TROPICAL &amp; BEACH</button>
+                <button class="filter-btn" onclick="setFilter('city', this)">CITY LUXURY</button>
+                <button class="filter-btn" onclick="setFilter('urban', this)">URBAN &amp; TRAVEL</button>
             </div>
         </div>
+    </section>
 
-        <!-- Card 2 -->
-        <div class="destination-card">
-            <div class="destination-image">
-                <img src="OIP.webp" alt="Sheraton Colombo">
-                <span class="destination-badge">CITY LUXURY</span>
-            </div>
-            <div class="destination-info">
-                <h3>Sheraton Colombo Hotel</h3>
-                <p>Located in the heart of Sri Lanka's bustling capital. Enjoy stunning ocean vistas and rooftop dining.</p>
-                <div class="destination-actions">
-                    <a href="#" class="explore-link">EXPLORE HOTEL</a>
-                    <a href="booking.html?hotel=Colombo" class="book-now-btn">BOOK NOW</a>
+    <!-- 3. LUXURY FEATURE STRIP -->
+    <section class="luxury-stats-strip">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <i class="fa-solid fa-globe stat-icon"></i>
+                <div class="stat-text">
+                    <h4>400+ Global Destinations</h4>
+                    <p>Iconic locations in over 75 countries</p>
                 </div>
             </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="destination-card">
-            <div class="destination-image">
-                <img src="lobby.jpg" alt="Sheraton Tokyo Bay">
-                <span class="destination-badge">URBAN RETREAT</span>
-            </div>
-            <div class="destination-info">
-                <h3>Sheraton Grand Tokyo Bay Hotel</h3>
-                <p>Experience Japan in style. Located adjacent to Tokyo Disney Resort, our hotel features beautiful bay views.</p>
-                <div class="destination-actions">
-                    <a href="place-details.html" class="explore-link">EXPLORE HOTEL</a>
-                    <a href="booking.html?hotel=Tokyo" class="book-now-btn">BOOK NOW</a>
+            <div class="stat-item">
+                <i class="fa-solid fa-award stat-icon"></i>
+                <div class="stat-text">
+                    <h4>Marriott Bonvoy® Elite</h4>
+                    <p>Exclusive rewards & VIP privileges</p>
                 </div>
             </div>
-        </div>
-
-        <!-- Card 4 -->
-        <div class="destination-card">
-            <div class="destination-image">
-                <img src="skytour.jpg" alt="Sheraton Waikiki">
-                <span class="destination-badge">TROPICAL RESORT</span>
-            </div>
-            <div class="destination-info">
-                <h3>Sheraton Waikiki</h3>
-                <p>Set on the best stretch of legendary Waikiki Beach. Enjoy our oceanfront resort featuring stunning views and world-class amenities.</p>
-                <div class="destination-actions">
-                    <a href="waikiki-details.html" class="explore-link">EXPLORE RESORT</a>
-                    <a href="booking.html?hotel=Waikiki" class="book-now-btn">BOOK NOW</a>
+            <div class="stat-item">
+                <i class="fa-solid fa-bell-concierge stat-icon"></i>
+                <div class="stat-text">
+                    <h4>24/7 Bespoke Concierge</h4>
+                    <p>Curated local experiences & service</p>
                 </div>
             </div>
-        </div>
-
-        <!-- Card 5 -->
-        <div class="destination-card">
-            <div class="destination-image">
-                <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80" alt="Sheraton New York Times Square">
-                <span class="destination-badge">CITY CENTER</span>
-            </div>
-            <div class="destination-info">
-                <h3>Sheraton New York Times Square</h3>
-                <p>Feel the pulse of NYC from our Midtown Manhattan hotel. Steps from Broadway, Central Park, and premier shopping.</p>
-                <div class="destination-actions">
-                    <a href="new-york-details.html" class="explore-link">EXPLORE HOTEL</a>
-                    <a href="booking.html?hotel=NewYork" class="book-now-btn">BOOK NOW</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 6 -->
-        <div class="destination-card">
-            <div class="destination-image">
-                <img src="loung.jpg" alt="Sheraton Paris Airport Hotel">
-                <span class="destination-badge">SEAMLESS TRAVEL</span>
-            </div>
-            <div class="destination-info">
-                <h3>Sheraton Paris Airport Hotel</h3>
-                <p>The only hotel built directly within Terminal 2 of Charles de Gaulle Airport. Offering the ultimate seamless travel experience.</p>
-                <div class="destination-actions">
-                    <a href="paris-details.html" class="explore-link">EXPLORE HOTEL</a>
-                    <a href="booking.html?hotel=Paris" class="book-now-btn">BOOK NOW</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 7 -->
-        <div class="destination-card">
-            <div class="destination-image">
-                <img src="ballroom.jpg" alt="Sheraton Grand Sydney Hyde Park">
-                <span class="destination-badge">LUXURY ESCAPE</span>
-            </div>
-            <div class="destination-info">
-                <h3>Sheraton Grand Sydney Hyde Park</h3>
-                <p>Overlooking spectacular Hyde Park, combining classic elegance with modern luxury in the heart of Sydney's CBD.</p>
-                <div class="destination-actions">
-                    <a href="sydney-details.html" class="explore-link">EXPLORE HOTEL</a>
-                    <a href="booking.html?hotel=Sydney" class="book-now-btn">BOOK NOW</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card 8 -->
-        <div class="destination-card">
-            <div class="destination-image">
-                <img src="public_space.jpg" alt="Sheraton Maui Resort">
-                <span class="destination-badge">ISLAND PARADISE</span>
-            </div>
-            <div class="destination-info">
-                <h3>Sheraton Maui Resort & Spa</h3>
-                <p>Nestled on the legendary Black Rock of Ka'anapali Beach. A tropical escape with a sprawling lagoon pool and oceanfront dining.</p>
-                <div class="destination-actions">
-                    <a href="maui-details.html" class="explore-link">EXPLORE RESORT</a>
-                    <a href="booking.html?hotel=Maui" class="book-now-btn">BOOK NOW</a>
+            <div class="stat-item">
+                <i class="fa-solid fa-water-ladders stat-icon"></i>
+                <div class="stat-text">
+                    <h4>World-Class Amenities</h4>
+                    <p>Thermal spas, infinity pools & dining</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- 4. DESTINATIONS GRID (ALL 8 ORIGINAL CARDS PRESERVED & ELEVATED) -->
+    <section class="destinations-main-section">
+        <div class="section-header-wrap">
+            <h2>Curated Hotel &amp; Resort Collection</h2>
+            <p>Select your sanctuary to explore luxury amenities and reservations</p>
+        </div>
+
+        <div class="destinations-grid" id="destinations-grid">
+            
+            <!-- Card 1 -->
+            <div class="destination-card" data-category="tropical" data-keywords="maldives tropical escape resort island beach overwater">
+                <div class="destination-image">
+                    <img src="download.webp" alt="Sheraton Maldives Full Moon Resort" loading="lazy">
+                    <div class="image-gradient-overlay"></div>
+                    <span class="destination-badge">TROPICAL ESCAPE</span>
+                    <span class="destination-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+                    <div class="destination-price-pill">From <strong>$580</strong> / night</div>
+                </div>
+                <div class="destination-info">
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> North Malé Atoll, Maldives</div>
+                    <h3>Sheraton Maldives Full Moon Resort</h3>
+                    <p>Escape to paradise. Set on a private island with turquoise lagoons, lush gardens, and overwater bungalows.</p>
+
+                    <div class="destination-highlights">
+                        <span class="highlight-tag">Overwater Bungalows</span>
+                        <span class="highlight-tag">Turquoise Lagoon</span>
+                        <span class="highlight-tag">Shine Spa</span>
+                    </div>
+
+                    <div class="destination-actions">
+                        <a href="place-details.html?hotel=Maldives" class="explore-link">EXPLORE RESORT <i class="fa-solid fa-chevron-right"></i></a>
+                        <a href="booking.html?hotel=Maldives" class="book-now-btn">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="destination-card" data-category="city" data-keywords="colombo sri lanka city luxury ocean rooftop dining hotel">
+                <div class="destination-image">
+                    <img src="OIP.webp" alt="Sheraton Colombo Hotel" loading="lazy">
+                    <div class="image-gradient-overlay"></div>
+                    <span class="destination-badge">CITY LUXURY</span>
+                    <span class="destination-rating"><i class="fa-solid fa-star"></i> 4.8</span>
+                    <div class="destination-price-pill">From <strong>$240</strong> / night</div>
+                </div>
+                <div class="destination-info">
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Galle Face, Colombo, Sri Lanka</div>
+                    <h3>Sheraton Colombo Hotel</h3>
+                    <p>Located in the heart of Sri Lanka's bustling capital. Enjoy stunning ocean vistas and rooftop dining.</p>
+
+                    <div class="destination-highlights">
+                        <span class="highlight-tag">Rooftop Sky Bar</span>
+                        <span class="highlight-tag">Ocean Views</span>
+                        <span class="highlight-tag">Infinity Pool</span>
+                    </div>
+
+                    <div class="destination-actions">
+                        <a href="place-details.html?hotel=Colombo" class="explore-link">EXPLORE HOTEL <i class="fa-solid fa-chevron-right"></i></a>
+                        <a href="booking.html?hotel=Colombo" class="book-now-btn">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="destination-card" data-category="urban" data-keywords="tokyo japan grand tokyo bay urban retreat disney hotel">
+                <div class="destination-image">
+                    <img src="lobby.jpg" alt="Sheraton Grand Tokyo Bay Hotel" loading="lazy">
+                    <div class="image-gradient-overlay"></div>
+                    <span class="destination-badge">URBAN RETREAT</span>
+                    <span class="destination-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+                    <div class="destination-price-pill">From <strong>$390</strong> / night</div>
+                </div>
+                <div class="destination-info">
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Urayasu, Tokyo Bay, Japan</div>
+                    <h3>Sheraton Grand Tokyo Bay Hotel</h3>
+                    <p>Experience Japan in style. Located adjacent to Tokyo Disney Resort, our hotel features beautiful bay views.</p>
+
+                    <div class="destination-highlights">
+                        <span class="highlight-tag">Tokyo Disney® Partner</span>
+                        <span class="highlight-tag">Oasis Thermal Spa</span>
+                        <span class="highlight-tag">Teppanyaki Dining</span>
+                    </div>
+
+                    <div class="destination-actions">
+                        <a href="place-details.html" class="explore-link">EXPLORE HOTEL <i class="fa-solid fa-chevron-right"></i></a>
+                        <a href="booking.html?hotel=Tokyo" class="book-now-btn">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="destination-card" data-category="tropical" data-keywords="waikiki hawaii tropical resort beach oceanfront honolulu">
+                <div class="destination-image">
+                    <img src="skytour.jpg" alt="Sheraton Waikiki" loading="lazy">
+                    <div class="image-gradient-overlay"></div>
+                    <span class="destination-badge">TROPICAL RESORT</span>
+                    <span class="destination-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+                    <div class="destination-price-pill">From <strong>$490</strong> / night</div>
+                </div>
+                <div class="destination-info">
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Honolulu, Oahu, Hawaii</div>
+                    <h3>Sheraton Waikiki</h3>
+                    <p>Set on the best stretch of legendary Waikiki Beach. Enjoy our oceanfront resort featuring stunning views and world-class amenities.</p>
+
+                    <div class="destination-highlights">
+                        <span class="highlight-tag">Edge Infinity Pool</span>
+                        <span class="highlight-tag">RumFire Lounge</span>
+                        <span class="highlight-tag">Oceanfront Views</span>
+                    </div>
+
+                    <div class="destination-actions">
+                        <a href="waikiki-details.html" class="explore-link">EXPLORE RESORT <i class="fa-solid fa-chevron-right"></i></a>
+                        <a href="booking.html?hotel=Waikiki" class="book-now-btn">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="destination-card" data-category="city" data-keywords="new york times square city center midtown manhattan broadway hotel">
+                <div class="destination-image">
+                    <img src="https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=600&q=80" alt="Sheraton New York Times Square" loading="lazy">
+                    <div class="image-gradient-overlay"></div>
+                    <span class="destination-badge">CITY CENTER</span>
+                    <span class="destination-rating"><i class="fa-solid fa-star"></i> 4.7</span>
+                    <div class="destination-price-pill">From <strong>$350</strong> / night</div>
+                </div>
+                <div class="destination-info">
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Midtown Manhattan, New York</div>
+                    <h3>Sheraton New York Times Square</h3>
+                    <p>Feel the pulse of NYC from our Midtown Manhattan hotel. Steps from Broadway, Central Park, and premier shopping.</p>
+
+                    <div class="destination-highlights">
+                        <span class="highlight-tag">Steps from Broadway</span>
+                        <span class="highlight-tag">Sheraton Club Lounge</span>
+                        <span class="highlight-tag">Fitness Center</span>
+                    </div>
+
+                    <div class="destination-actions">
+                        <a href="new-york-details.html" class="explore-link">EXPLORE HOTEL <i class="fa-solid fa-chevron-right"></i></a>
+                        <a href="booking.html?hotel=NewYork" class="book-now-btn">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="destination-card" data-category="urban" data-keywords="paris france airport charles de gaulle seamless travel cdg terminal hotel">
+                <div class="destination-image">
+                    <img src="loung.jpg" alt="Sheraton Paris Airport Hotel" loading="lazy">
+                    <div class="image-gradient-overlay"></div>
+                    <span class="destination-badge">SEAMLESS TRAVEL</span>
+                    <span class="destination-rating"><i class="fa-solid fa-star"></i> 4.8</span>
+                    <div class="destination-price-pill">From <strong>$290</strong> / night</div>
+                </div>
+                <div class="destination-info">
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> CDG Terminal 2, Paris, France</div>
+                    <h3>Sheraton Paris Airport Hotel</h3>
+                    <p>The only hotel built directly within Terminal 2 of Charles de Gaulle Airport. Offering the ultimate seamless travel experience.</p>
+
+                    <div class="destination-highlights">
+                        <span class="highlight-tag">Terminal 2 Direct</span>
+                        <span class="highlight-tag">Soundproof Suites</span>
+                        <span class="highlight-tag">French Bistro</span>
+                    </div>
+
+                    <div class="destination-actions">
+                        <a href="paris-details.html" class="explore-link">EXPLORE HOTEL <i class="fa-solid fa-chevron-right"></i></a>
+                        <a href="booking.html?hotel=Paris" class="book-now-btn">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="destination-card" data-category="city" data-keywords="sydney australia hyde park luxury escape cbd park view hotel">
+                <div class="destination-image">
+                    <img src="ballroom.jpg" alt="Sheraton Grand Sydney Hyde Park" loading="lazy">
+                    <div class="image-gradient-overlay"></div>
+                    <span class="destination-badge">LUXURY ESCAPE</span>
+                    <span class="destination-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+                    <div class="destination-price-pill">From <strong>$410</strong> / night</div>
+                </div>
+                <div class="destination-info">
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Elizabeth St, Sydney, Australia</div>
+                    <h3>Sheraton Grand Sydney Hyde Park</h3>
+                    <p>Overlooking spectacular Hyde Park, combining classic elegance with modern luxury in the heart of Sydney's CBD.</p>
+
+                    <div class="destination-highlights">
+                        <span class="highlight-tag">Hyde Park Vistas</span>
+                        <span class="highlight-tag">On The Park Feast</span>
+                        <span class="highlight-tag">Rooftop Pool</span>
+                    </div>
+
+                    <div class="destination-actions">
+                        <a href="sydney-details.html" class="explore-link">EXPLORE HOTEL <i class="fa-solid fa-chevron-right"></i></a>
+                        <a href="booking.html?hotel=Sydney" class="book-now-btn">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="destination-card" data-category="tropical" data-keywords="maui hawaii resort spa island paradise black rock beach oceanfront">
+                <div class="destination-image">
+                    <img src="public_space.jpg" alt="Sheraton Maui Resort & Spa" loading="lazy">
+                    <div class="image-gradient-overlay"></div>
+                    <span class="destination-badge">ISLAND PARADISE</span>
+                    <span class="destination-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+                    <div class="destination-price-pill">From <strong>$520</strong> / night</div>
+                </div>
+                <div class="destination-info">
+                    <div class="card-location"><i class="fa-solid fa-location-dot"></i> Ka'anapali Beach, Maui, Hawaii</div>
+                    <h3>Sheraton Maui Resort &amp; Spa</h3>
+                    <p>Nestled on the legendary Black Rock of Ka'anapali Beach. A tropical escape with a sprawling lagoon pool and oceanfront dining.</p>
+
+                    <div class="destination-highlights">
+                        <span class="highlight-tag">Black Rock Cliff Diving</span>
+                        <span class="highlight-tag">Sprawling Lagoon Pool</span>
+                        <span class="highlight-tag">Coral Reef Snorkeling</span>
+                    </div>
+
+                    <div class="destination-actions">
+                        <a href="maui-details.html" class="explore-link">EXPLORE RESORT <i class="fa-solid fa-chevron-right"></i></a>
+                        <a href="booking.html?hotel=Maui" class="book-now-btn">BOOK NOW</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- No Results Message -->
+            <div class="no-results-msg" id="no-results">
+                <h3>No Matching Sanctuaries Found</h3>
+                <p>Try searching for another destination, city, or filter option.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. DARK LUXURY FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h5>Sheraton Store</h5>
+                <ul>
+                    <li><a href="#">Sheraton Bed &amp; Linens</a></li>
+                    <li><a href="#">Sheraton Vacation Club</a></li>
+                    <li><a href="#">News &amp; Press Releases</a></li>
+                    <li><a href="#">Careers &amp; Culture</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h5>About Marriott</h5>
+                <ul>
+                    <li><a href="#">Marriott Bonvoy® Program</a></li>
+                    <li><a href="#">Corporate Responsibility</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Center</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h5>Destinations</h5>
+                <ul>
+                    <li><a href="place-details.html?hotel=Maldives">Sheraton Maldives</a></li>
+                    <li><a href="place-details.html?hotel=Colombo">Sheraton Colombo</a></li>
+                    <li><a href="place-details.html">Sheraton Grand Tokyo Bay</a></li>
+                    <li><a href="waikiki-details.html">Sheraton Waikiki</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h5>Connect With Us</h5>
+                <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6;">Stay inspired with our luxury stories and exclusive destination offers.</p>
+                <div class="footer-social-icons">
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div>&copy; 2026 Sheraton Hotels &amp; Resorts. All rights reserved. Marriott International, Inc.</div>
+            <div>Luxury Sanctuaries &amp; Global Resorts</div>
+        </div>
+    </footer>
+
+    <!-- 6. INTERACTIVE FILTERING & SCROLL SCRIPT -->
+    <script>
+        let currentFilter = 'all';
+
+        // Sticky Header effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Filter button click handler
+        function setFilter(category, btnElement) {
+            currentFilter = category;
+            
+            // Update active state on buttons
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
+
+            filterDestinations();
+        }
+
+        // Search & Category Filter logic
+        function filterDestinations() {
+            const searchInput = document.getElementById('dest-search').value.toLowerCase().trim();
+            const cards = document.querySelectorAll('.destination-card');
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const keywords = card.getAttribute('data-keywords').toLowerCase();
+                const cardText = card.innerText.toLowerCase();
+
+                const matchesCategory = (currentFilter === 'all' || category === currentFilter);
+                const matchesSearch = (searchInput === '' || keywords.includes(searchInput) || cardText.includes(searchInput));
+
+                if (matchesCategory && matchesSearch) {
+                    card.style.display = 'flex';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            const noResultsMsg = document.getElementById('no-results');
+            if (visibleCount === 0) {
+                noResultsMsg.style.display = 'block';
+            } else {
+                noResultsMsg.style.display = 'none';
+            }
+        }
+    </script>
 </body>
 </html>
