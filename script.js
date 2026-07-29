@@ -1,43 +1,63 @@
 // --- HERO VIDEO AUTOPLAY FALLBACK HELPERS ---
 function removeGestureListeners(onGesture) {
-    const events = ['click', 'scroll', 'keydown', 'touchstart'];
+    const events = ['click', 'scroll', 'keydown', 'touchstart', 'pointerdown'];
     events.forEach(evt => document.removeEventListener(evt, onGesture));
 }
 
 function addGestureListeners(onGesture) {
-    const events = ['click', 'scroll', 'keydown', 'touchstart'];
+    const events = ['click', 'scroll', 'keydown', 'touchstart', 'pointerdown'];
     events.forEach(evt => document.addEventListener(evt, onGesture, { once: true }));
 }
 
 function setupGestureAutoplay(video) {
     const onGesture = () => {
-        video.play();
+        if (video && video.paused) {
+            video.muted = true;
+            video.play().catch(() => {});
+        }
         removeGestureListeners(onGesture);
     };
     addGestureListeners(onGesture);
 }
 
 function tryPlayVideo(video) {
-    video.play().catch(() => {
-        // Autoplay blocked — start on first user gesture
-        setupGestureAutoplay(video);
-    });
+    if (!video) return;
+    video.muted = true;
+    video.defaultMuted = true;
+    video.setAttribute('muted', '');
+    video.setAttribute('playsinline', '');
+    
+    const promise = video.play();
+    if (promise !== undefined) {
+        promise.catch(() => {
+            setupGestureAutoplay(video);
+        });
+    }
 }
 
 function forceAutoplay(video) {
     if (!video) return;
-    video.muted = true;
-    video.playsInline = true;
-
+    
     tryPlayVideo(video);
-    setTimeout(() => tryPlayVideo(video), 500);
+
+    video.addEventListener('canplay', () => tryPlayVideo(video), { once: true });
+    video.addEventListener('loadeddata', () => tryPlayVideo(video), { once: true });
+
+    setTimeout(() => {
+        if (video.paused) {
+            tryPlayVideo(video);
+        }
+    }, 500);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Apply to both page videos
-    forceAutoplay(document.querySelector('.hero-bg-video'));
-    forceAutoplay(document.getElementById('tokyo-hero-video'));
+    // Apply to main hero video and tokyo hero video
+    const mainHeroVideo = document.getElementById('main-hero-video') || document.querySelector('.hero-bg-video');
+    const tokyoHeroVideo = document.getElementById('tokyo-hero-video');
+
+    if (mainHeroVideo) forceAutoplay(mainHeroVideo);
+    if (tokyoHeroVideo) forceAutoplay(tokyoHeroVideo);
 
     // --- MOBILE MENU TOGGLE ---
     const mobileToggle = document.getElementById('mobile-toggle');

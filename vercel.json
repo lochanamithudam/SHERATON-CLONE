@@ -26,6 +26,10 @@
       "use": "@vercel/static"
     },
     {
+      "src": "experiences/**",
+      "use": "@vercel/static"
+    },
+    {
       "src": "*.{jpg,jpeg,png,webp,avif,svg,ico,mp4,gif}",
       "use": "@vercel/static"
     }
@@ -33,6 +37,10 @@
   "routes": [
     {
       "handle": "filesystem"
+    },
+    {
+      "src": "/experiences",
+      "dest": "/experiences.html"
     },
     {
       "src": "/api/bookings",

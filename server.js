@@ -59,6 +59,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname));
 app.use('/Gallery', express.static(path.join(__dirname, 'Gallery')));
 app.use('/Rooms',   express.static(path.join(__dirname, 'Rooms')));
+app.use('/experiences', express.static(path.join(__dirname, 'experiences')));
 
 // ── MongoDB Connection ──────────────────────────────────────
 // Fix 5: Move credentials to environment variables          (security best practice)

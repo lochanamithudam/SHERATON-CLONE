@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curated Experiences | Sheraton Grand Hotel & Resort</title>
+    <meta name="description" content="Discover world-class hotel experiences at Sheraton Grand. From thermal spa sanctuaries and Michelin teppanyaki to Tokyo Bay private yacht cruises.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Dedicated Experiences CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ════════════════════════════════════════════════════════
+         PREMIUM NAVIGATION HEADER
+    ════════════════════════════════════════════════════════ -->
+    <header class="site-header" id="header">
+        <div class="nav-utility-bar">
+            <div class="utility-right">
+                <span class="utility-item"><i class="fa-solid fa-earth-americas"></i> ENGLISH <i class="fa-solid fa-chevron-down small-arrow"></i></span>
+                <span class="utility-item"><i class="fa-regular fa-user"></i> SIGN IN OR JOIN</span>
+                <span class="utility-brand">MARRIOTT <b>BONVOY</b></span>
+            </div>
+        </div>
+
+        <div class="nav-main-bar">
+            <a href="../index.html" class="logo-area">
+                <svg class="sheraton-medallion" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="46" height="46" aria-label="Sheraton S emblem">
+                    <circle cx="30" cy="30" r="27.5" fill="none" stroke="currentColor" stroke-width="1.2"/>
+                    <circle cx="30" cy="30" r="21.5" fill="none" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 1.6"/>
+                    <text x="30" y="39" text-anchor="middle" font-family="Playfair Display, Georgia, serif" font-size="23" font-weight="400" fill="currentColor">S</text>
+                </svg>
+                <span class="brand-name">SHERATON</span>
+            </a>
+
+            <nav class="nav-links" id="nav-menu">
+                <ul>
+                    <li><a href="../index.html">Overview</a></li>
+                    <li><a href="../gallery.html">Gallery</a></li>
+                    <li><a href="../Rooms/rooms.html">Rooms</a></li>
+                    <li><a href="../dining.html">Dining</a></li>
+                    <li><a href="../place-details.html">Place Details</a></li>
+                    <li><a href="index.html" class="active">Experiences</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-right-action">
+                <button class="reserve-btn" onclick="openReservationModal('General Sheraton Experience')">RESERVE NOW</button>
+                <button class="mobile-menu-toggle" id="mobile-toggle" onclick="toggleMobileMenu()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ════════════════════════════════════════════════════════
+         HERO BANNER
+    ════════════════════════════════════════════════════════ -->
+    <section class="experiences-hero">
+        <div class="hero-overlay-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fa-solid fa-crown"></i> Curated Hotel Experiences
+            </div>
+            <h1 class="hero-title">
+                Craft Extraordinary Moments at <span>Sheraton Grand</span>
+            </h1>
+            <p class="hero-subtitle">
+                Immerse yourself in world-class thermal wellness sanctuaries, Michelin-caliber gastronomy, Tokyo Bay sunset yachting, and bespoke Japanese hospitality designed for discerning luxury travelers.
+            </p>
+            <div class="hero-actions">
+                <a href="#experiencesGrid" class="btn-gold"><i class="fa-solid fa-compass"></i> Explore All Experiences</a>
+                <button class="btn-outline" onclick="openReservationModal('VIP Concierge Consultation')"><i class="fa-solid fa-calendar-check"></i> Book VIP Experience</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         STATS HIGHLIGHT BAR
+    ════════════════════════════════════════════════════════ -->
+    <section class="stats-bar">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>15+</h3>
+                <p>Curated Experiences</p>
+            </div>
+            <div class="stat-item">
+                <h3>4.9 ★</h3>
+                <p>Guest Rating Average</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>Private Concierge Host</p>
+            </div>
+            <div class="stat-item">
+                <h3>24/7</h3>
+                <p>VIP Bespoke Butler Service</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         EXPERIENCE CATEGORIES & FILTER TABS
+    ════════════════════════════════════════════════════════ -->
+    <section class="filter-section" id="experiencesGrid">
+        <div class="section-header">
+            <span class="section-tag">UNRIVALED LUXURY</span>
+            <h2 class="section-title">Explore Featured Resort Experiences</h2>
+            <p class="section-desc">Select from our tailored collection of Signature Wellness, High-End Dining, Coastal Yacht Adventures, and Cultural Excursions.</p>
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active" onclick="filterExperiences('all')">
+                <i class="fa-solid fa-layer-group"></i> All Experiences
+            </button>
+            <button class="filter-tab" onclick="filterExperiences('wellness')">
+                <i class="fa-solid fa-spa"></i> Wellness & Spa
+            </button>
+            <button class="filter-tab" onclick="filterExperiences('culinary')">
+                <i class="fa-solid fa-utensils"></i> Culinary & Sommelier
+            </button>
+            <button class="filter-tab" onclick="filterExperiences('ocean')">
+                <i class="fa-solid fa-water"></i> Ocean & Adventure
+            </button>
+            <button class="filter-tab" onclick="filterExperiences('culture')">
+                <i class="fa-solid fa-torii-gate"></i> Culture & VIP Tours
+            </button>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         EXPERIENCES GRID
+    ════════════════════════════════════════════════════════ -->
+    <section class="experiences-grid-section">
+        <div class="experiences-grid">
+
+            <!-- Card 1: Wellness -->
+            <div class="exp-card wellness">
+                <div class="exp-card-image">
+                    <span class="card-badge">Wellness & Spa</span>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+                    <img src="../spa-hero.jpg" alt="Oasis Thermal Spa & Onsen">
+                </div>
+                <div class="exp-card-content">
+                    <div class="meta-info">
+                        <span><i class="fa-regular fa-clock"></i> 90 Mins</span>
+                        <span><i class="fa-solid fa-location-dot"></i> Spa Wing 4F</span>
+                    </div>
+                    <h3 class="exp-card-title">Oasis Thermal Spa & Volcanic Onsen Sanctuary</h3>
+                    <p class="exp-card-desc">Indulge in hydrotherapy thermal pools, traditional volcanic stone sauna, hot stone massages, and organic aromatherapy rituals.</p>
+                    <div class="exp-card-footer">
+                        <div class="price-tag">
+                            <span class="price-label">Starting From</span>
+                            <span class="price-value">¥18,000</span>
+                        </div>
+                        <button class="btn-view-details" onclick="openDetailsModal(0)">View Details <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Culinary -->
+            <div class="exp-card culinary">
+                <div class="exp-card-image">
+                    <span class="card-badge">Culinary</span>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 5.0</span>
+                    <img src="../teppanyaki-premium.jpg" alt="Live Teppanyaki Chef Table">
+                </div>
+                <div class="exp-card-content">
+                    <div class="meta-info">
+                        <span><i class="fa-regular fa-clock"></i> 2.5 Hours</span>
+                        <span><i class="fa-solid fa-location-dot"></i> Maihama Dining</span>
+                    </div>
+                    <h3 class="exp-card-title">Master Chef Teppanyaki & Rare Sake Pairing</h3>
+                    <p class="exp-card-desc">A 9-course theatrical dining feast featuring dry-aged A5 Kobe beef, live Tokyo Bay spiny lobster, and rare vintage sake pairings.</p>
+                    <div class="exp-card-footer">
+                        <div class="price-tag">
+                            <span class="price-label">Starting From</span>
+                            <span class="price-value">¥28,000</span>
+                        </div>
+                        <button class="btn-view-details" onclick="openDetailsModal(1)">View Details <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Ocean -->
+            <div class="exp-card ocean">
+                <div class="exp-card-image">
+                    <span class="card-badge">Ocean & Sky</span>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+                    <img src="../ocean-horizon-premium.jpg" alt="Tokyo Bay Sunset Yachting">
+                </div>
+                <div class="exp-card-content">
+                    <div class="meta-info">
+                        <span><i class="fa-regular fa-clock"></i> 2 Hours</span>
+                        <span><i class="fa-solid fa-location-dot"></i> Private Marina</span>
+                    </div>
+                    <h3 class="exp-card-title">Tokyo Bay Sunset Private Yacht & Champagne Cruise</h3>
+                    <p class="exp-card-desc">Sail across coastal waters aboard a private 45ft motor yacht with chilled Moët & Chandon champagne and artisan charcuterie.</p>
+                    <div class="exp-card-footer">
+                        <div class="price-tag">
+                            <span class="price-label">Starting From</span>
+                            <span class="price-value">¥35,000</span>
+                        </div>
+                        <button class="btn-view-details" onclick="openDetailsModal(2)">View Details <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Culinary / Rooftop -->
+            <div class="exp-card culinary">
+                <div class="exp-card-image">
+                    <span class="card-badge">Sommelier</span>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 4.8</span>
+                    <img src="../rooftop-lounge-premium.jpg" alt="Rooftop Cocktail Masterclass">
+                </div>
+                <div class="exp-card-content">
+                    <div class="meta-info">
+                        <span><i class="fa-regular fa-clock"></i> 1.5 Hours</span>
+                        <span><i class="fa-solid fa-location-dot"></i> Skyline Bar 12F</span>
+                    </div>
+                    <h3 class="exp-card-title">Twilight Skyline Lounge Cocktail & Craft Spirits Session</h3>
+                    <p class="exp-card-desc">Learn mixology secrets from award-winning bartenders while savoring custom artisanal cocktails overlooking illuminated Mount Fuji.</p>
+                    <div class="exp-card-footer">
+                        <div class="price-tag">
+                            <span class="price-label">Starting From</span>
+                            <span class="price-value">¥12,500</span>
+                        </div>
+                        <button class="btn-view-details" onclick="openDetailsModal(3)">View Details <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5: Culture -->
+            <div class="exp-card culture">
+                <div class="exp-card-image">
+                    <span class="card-badge">Culture</span>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 5.0</span>
+                    <img src="../public_space.jpg" alt="Japanese Tea Ceremony">
+                </div>
+                <div class="exp-card-content">
+                    <div class="meta-info">
+                        <span><i class="fa-regular fa-clock"></i> 2 Hours</span>
+                        <span><i class="fa-solid fa-location-dot"></i> Garden Pavilion</span>
+                    </div>
+                    <h3 class="exp-card-title">Authentic Japanese Tea Ceremony & Silk Kimono Styling</h3>
+                    <p class="exp-card-desc">Experience timeless Omotenashi hospitality guided by tea masters inside a serene Japanese zen garden with handcrafted matcha.</p>
+                    <div class="exp-card-footer">
+                        <div class="price-tag">
+                            <span class="price-label">Starting From</span>
+                            <span class="price-value">¥15,000</span>
+                        </div>
+                        <button class="btn-view-details" onclick="openDetailsModal(4)">View Details <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 6: Wellness / Pool -->
+            <div class="exp-card wellness">
+                <div class="exp-card-image">
+                    <span class="card-badge">Wellness</span>
+                    <span class="card-rating"><i class="fa-solid fa-star"></i> 4.9</span>
+                    <img src="../spa-lounge.jpg" alt="Midnight Infinity Pool Cabana">
+                </div>
+                <div class="exp-card-content">
+                    <div class="meta-info">
+                        <span><i class="fa-regular fa-clock"></i> 3 Hours</span>
+                        <span><i class="fa-solid fa-location-dot"></i> Pool Deck</span>
+                    </div>
+                    <h3 class="exp-card-title">Moonlight Infinity Pool & VIP Heated Cabana Suite</h3>
+                    <p class="exp-card-desc">Exclusive late-night access to heated oceanfront infinity pools, ambient poolside fireplace, stargazing lounges, and butler service.</p>
+                    <div class="exp-card-footer">
+                        <div class="price-tag">
+                            <span class="price-label">Starting From</span>
+                            <span class="price-value">¥22,000</span>
+                        </div>
+                        <button class="btn-view-details" onclick="openDetailsModal(5)">View Details <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         SPOTLIGHT FEATURED EXPERIENCES (DARK DEEP NAVY SECTION)
+    ════════════════════════════════════════════════════════ -->
+    <section class="spotlight-section">
+        <div class="spotlight-container">
+            <div class="spotlight-text">
+                <h4>HOTEL HIGHLIGHT SPOTLIGHT</h4>
+                <h2>Oasis Thermal Onsen & Mineral Spa Experience</h2>
+                <p>Step into an sanctuary of pure tranquility. Drawing mineral-rich geothermal thermal waters from deep underground, our private indoor & outdoor onsen baths provide healing relaxation for body and soul.</p>
+
+                <ul class="spotlight-features">
+                    <li><i class="fa-solid fa-circle-check"></i> Natural Volcanic Geothermal Thermal Water Springs</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Private Couple Mineral Bath Suites & Sauna</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Signature Organic Aromatherapy & Hot Stone Massage</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Complimentary Herbal Detox Teas & Refreshment Lounge</li>
+                </ul>
+
+                <button class="btn-gold" onclick="openReservationModal('Oasis Thermal Onsen Experience')">
+                    <i class="fa-solid fa-calendar-plus"></i> Reserve Spa Package
+                </button>
+            </div>
+
+            <div class="spotlight-media">
+                <img src="../spa-treatment.jpg" alt="Oasis Thermal Spa">
+                <div class="spotlight-floating-card">
+                    <div class="floating-card-info">
+                        <h5>Signature Onsen Ritual</h5>
+                        <p>Available daily from 7:00 AM – 11:00 PM</p>
+                    </div>
+                    <i class="fa-solid fa-sparkles" style="color: var(--accent-gold); font-size: 1.5rem;"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         GUEST TESTIMONIALS CAROUSEL
+    ════════════════════════════════════════════════════════ -->
+    <section class="testimonials-section">
+        <span class="section-tag">GUEST PRAISE</span>
+        <h2 class="section-title">Memories Made at Sheraton</h2>
+        <div class="testimonial-card">
+            <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
+            <p class="testimonial-text">"The Teppanyaki live cooking and the private sunset yacht cruise across Tokyo Bay were the absolute highlights of our stay. The level of luxury and personalized care from the concierge team was second to none."</p>
+            <h4 class="author-name">ELEANOR & MARCUS V.</h4>
+            <p class="author-title">Executive Suite Guests · Zurich, Switzerland</p>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         FAQ ACCORDION SECTION
+    ════════════════════════════════════════════════════════ -->
+    <section class="faq-section">
+        <div class="section-header">
+            <span class="section-tag">NEED ASSISTANCE?</span>
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-desc">Here are answers to commonly asked questions regarding experience bookings and special arrangements.</p>
+        </div>
+
+        <div class="faq-accordion">
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    How far in advance should I reserve experiences?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    We recommend reserving dining masterclasses, private yacht charters, and thermal spa packages at least 24–48 hours in advance to guarantee your preferred time slot and custom preparations.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    Are non-hotel guests allowed to book experiences?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    Yes! Day visitors and local guests are welcome to enjoy our Maihama Teppanyaki dinners, Oasis Spa packages, and Skyline Lounge mixology sessions upon reservation.
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    Can I arrange custom private celebrations or proposals?
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    Absolutely. Our dedicated VIP Concierge team specializes in bespoke wedding anniversary surprises, private yacht proposals, and tailored family celebrations complete with live music and floral arrangements.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════════════════
+         INTERACTIVE DETAILS & BOOKING MODAL
+    ════════════════════════════════════════════════════════ -->
+    <div class="exp-modal" id="detailsModal">
+        <div class="modal-container">
+            <button class="modal-close-btn" onclick="closeDetailsModal()"><i class="fa-solid fa-xmark"></i></button>
+            <img id="modalImg" class="modal-hero-img" src="../spa-hero.jpg" alt="Experience Image">
+            
+            <div class="modal-body">
+                <div class="modal-header-info">
+                    <div class="modal-title-group">
+                        <span class="modal-badge" id="modalBadge">Wellness & Spa</span>
+                        <h2 id="modalTitle">Oasis Thermal Spa & Onsen Sanctuary</h2>
+                    </div>
+                    <div class="modal-price-box">
+                        <span style="font-size: 0.72rem; text-transform: uppercase; color: var(--text-muted); display: block;">Experience Rate</span>
+                        <span class="amount" id="modalPrice">¥18,000</span>
+                    </div>
+                </div>
+
+                <div class="modal-grid">
+                    <div class="modal-details">
+                        <h4>Experience Highlights & Inclusions</h4>
+                        <p id="modalDesc">Indulge in hydrotherapy thermal pools, traditional volcanic stone sauna, hot stone massages, and organic aromatherapy rituals.</p>
+                        
+                        <ul class="inclusions-list" id="modalInclusions">
+                            <li><i class="fa-solid fa-check"></i> Full access to indoor & outdoor thermal mineral pools</li>
+                            <li><i class="fa-solid fa-check"></i> Private locker, plush robes & slippers</li>
+                            <li><i class="fa-solid fa-check"></i> Organic herbal infusion tea service</li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-booking-side">
+                        <h4>Reserve This Experience</h4>
+                        <form class="modal-booking-form" id="modalBookingForm" onsubmit="handleModalSubmit(event)">
+                            <input type="hidden" id="formExperienceTitle" name="roomType" value="">
+                            
+                            <div class="form-group">
+                                <label for="guestName">Guest Full Name</label>
+                                <input type="text" id="guestName" required placeholder="e.g. Sarah Jenkins">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="guestEmail">Email Address</label>
+                                <input type="email" id="guestEmail" required placeholder="sarah@example.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="checkIn">Preferred Date</label>
+                                <input type="date" id="checkIn" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="checkInTime">Preferred Time Slot</label>
+                                <select id="checkInTime">
+                                    <option value="10:00 AM">10:00 AM (Morning Session)</option>
+                                    <option value="02:00 PM">02:00 PM (Afternoon Session)</option>
+                                    <option value="06:00 PM">06:00 PM (Sunset Session)</option>
+                                    <option value="08:30 PM">08:30 PM (Evening Session)</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn-submit-booking" id="submitBookingBtn">
+                                Confirm & Book Reservation
+                            </button>
+                            <div class="booking-status-msg" id="bookingStatus"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════════════════
+         DARK FOOTER
+    ════════════════════════════════════════════════════════ -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-links-column">
+                <h5>SHERATON STORE</h5>
+                <ul>
+                    <li>SHERATON VACATION CLUB</li>
+                    <li>NEWS & PRESS</li>
+                    <li>CAREERS</li>
+                    <li>GLOBAL DEVELOPERS</li>
+                </ul>
+            </div>
+            <div class="footer-links-column">
+                <h5>ABOUT US</h5>
+                <ul>
+                    <li>CORPORATE RESPONSIBILITY</li>
+                    <li>MARRIOTT.COM</li>
+                    <li>TERMS OF USE</li>
+                    <li>PRIVACY STATEMENT</li>
+                </ul>
+            </div>
+            <div class="footer-social-column">
+                <h5>STAY CONNECTED</h5>
+                <div class="social-icons" style="margin-top: 15px;">
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div style="text-align: center; font-size: 0.78rem; color: rgba(255,255,255,0.5); border-top: 1px solid rgba(255,255,255,0.05); padding-top: 25px;">
+            Sheraton Hotels & Resorts &copy; 2026. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Dedicated Experiences Script -->
+    <script src="script.js"></script>
+</body>
+</html>
