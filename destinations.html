@@ -339,7 +339,7 @@
         .destinations-main-section {
             max-width: 1350px;
             margin: 0 auto;
-            padding: 70px 25px 100px 25px;
+            padding: 70px 25px 80px 25px;
         }
 
         .section-header-wrap {
@@ -616,13 +616,235 @@
         }
 
         /* ════════════════════════════════════════════════════════════
-           5. DARK LUXURY FOOTER
+           5. NEW LUXURY EXPERIENCES & MEMBERSHIP SECTION (SEAMLESS FOOTER TRANSITION)
+        ════════════════════════════════════════════════════════════ */
+        .bonvoy-membership-section {
+            background: linear-gradient(135deg, #0b1526 0%, #162642 50%, #0d1a2e 100%);
+            border-top: 3px solid var(--gold);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+            padding: 90px 30px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bonvoy-bg-decoration {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 350px;
+            height: 350px;
+            border: 1px solid rgba(197, 160, 89, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .bonvoy-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .bonvoy-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+        }
+
+        .bonvoy-header .eyebrow {
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            color: var(--gold-light);
+            text-transform: uppercase;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .bonvoy-header h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3.2rem;
+            font-weight: 600;
+            color: var(--white);
+            margin: 0 0 18px 0;
+            line-height: 1.18;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .bonvoy-header p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+            margin: 0;
+        }
+
+        /* Benefits Grid */
+        .benefits-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(197, 160, 89, 0.25);
+            border-radius: 8px;
+            padding: 40px 32px;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .benefit-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--gold);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .benefit-icon-wrap {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(197, 160, 89, 0.15);
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold-light);
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+        }
+
+        .benefit-card h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            margin: 0 0 14px 0;
+            letter-spacing: 0.5px;
+            text-shadow: none;
+        }
+
+        .benefit-card p {
+            font-size: 0.88rem;
+            line-height: 1.65;
+            color: rgba(255, 255, 255, 0.75);
+            margin: 0 0 20px 0;
+            flex-grow: 1;
+            font-weight: 300;
+        }
+
+        .benefit-card-link {
+            text-decoration: none;
+            color: var(--gold);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .benefit-card-link:hover {
+            color: var(--gold-light);
+        }
+
+        /* Interactive Newsletter / Directory Bar */
+        .directory-subscribe-box {
+            background: rgba(13, 26, 46, 0.85);
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            padding: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+
+        .subscribe-text h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--gold-light);
+            margin: 0 0 6px 0;
+            text-shadow: none;
+        }
+
+        .subscribe-text p {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin: 0;
+            font-weight: 300;
+        }
+
+        .subscribe-form-wrap {
+            display: flex;
+            gap: 12px;
+            flex: 1;
+            max-width: 480px;
+            min-width: 280px;
+        }
+
+        .subscribe-email-input {
+            flex: 1;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            border-radius: 4px;
+            color: var(--white);
+            font-size: 0.88rem;
+            font-family: 'Montserrat', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .subscribe-email-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .subscribe-email-input:focus {
+            border-color: var(--gold-light);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .subscribe-submit-btn {
+            background: var(--gold);
+            color: var(--dark-navy);
+            border: none;
+            padding: 14px 28px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .subscribe-submit-btn:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
+        }
+
+        /* ════════════════════════════════════════════════════════════
+           6. DARK LUXURY FOOTER
         ════════════════════════════════════════════════════════════ */
         .site-footer {
             background: var(--dark-navy);
             color: var(--white);
             padding: 70px 40px 30px 40px;
-            border-top: 3px solid var(--gold);
         }
 
         .footer-container {
@@ -711,6 +933,7 @@
             .destinations-hero h1 { font-size: 3rem; }
             .dest-nav-links { display: none; }
             .destinations-grid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+            .bonvoy-header h2 { font-size: 2.6rem; }
         }
 
         @media (max-width: 600px) {
@@ -719,6 +942,7 @@
             .dest-toolbar-container { padding: 14px; }
             .filter-buttons { width: 100%; justify-content: center; }
             .destinations-grid { grid-template-columns: 1fr; }
+            .subscribe-form-wrap { flex-direction: column; width: 100%; }
         }
     </style>
 </head>
@@ -1042,7 +1266,66 @@
         </div>
     </section>
 
-    <!-- 5. DARK LUXURY FOOTER -->
+    <!-- 5. NEW LUXURY EXPERIENCES & MEMBERSHIP SECTION (SEAMLESS FOOTER TRANSITION) -->
+    <section class="bonvoy-membership-section">
+        <div class="bonvoy-bg-decoration"></div>
+        <div class="bonvoy-container">
+            
+            <div class="bonvoy-header">
+                <span class="eyebrow">THE MARRIOTT BONVOY® EXPERIENCE</span>
+                <h2>The Art of Global Luxury Hospitality</h2>
+                <p>Unlock extraordinary privileges, bespoke concierge services, and signature member awards across all 400+ Sheraton sanctuaries around the globe.</p>
+            </div>
+
+            <!-- Benefits Feature Grid -->
+            <div class="benefits-cards-grid">
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon-wrap">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <h3>Elite Suite Upgrades</h3>
+                    <p>Enjoy complimentary ocean-view upgrades, flexible check-in schedules, and priority reservation privileges across every resort stay.</p>
+                    <a href="booking.html" class="benefit-card-link">EXPLORE PRIVILEGES <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon-wrap">
+                        <i class="fa-solid fa-martini-glass-citrus"></i>
+                    </div>
+                    <h3>Executive Club Lounges</h3>
+                    <p>Exclusive access to private lounge spaces offering complimentary chef-curated breakfasts, afternoon high teas, and evening wine pairings.</p>
+                    <a href="dining.html" class="benefit-card-link">DISCOVER LOUNGES <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon-wrap">
+                        <i class="fa-solid fa-compass"></i>
+                    </div>
+                    <h3>Bespoke Curated Escapes</h3>
+                    <p>Immerse yourself in private lagoon yacht charters, Michelin-caliber teppanyaki tastings, and holistic thermal spa rituals.</p>
+                    <a href="experiences/index.html" class="benefit-card-link">VIEW EXPERIENCES <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+
+            </div>
+
+            <!-- Interactive Newsletter / Directory Subscription Box -->
+            <div class="directory-subscribe-box">
+                <div class="subscribe-text">
+                    <h4>Stay Inspired by Exceptional Journeys</h4>
+                    <p>Receive private sanctuary openings, luxury travel guides, and exclusive member offers.</p>
+                </div>
+
+                <form class="subscribe-form-wrap" onsubmit="handleSubscribe(event)">
+                    <input type="email" id="subscriber-email" class="subscribe-email-input" placeholder="Enter your email address..." required>
+                    <button type="submit" class="subscribe-submit-btn">JOIN THE PORTFOLIO</button>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 6. DARK LUXURY FOOTER -->
     <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-column">
@@ -1090,7 +1373,7 @@
         </div>
     </footer>
 
-    <!-- 6. INTERACTIVE FILTERING & SCROLL SCRIPT -->
+    <!-- 7. INTERACTIVE FILTERING, SUBSCRIBE & SCROLL SCRIPT -->
     <script>
         let currentFilter = 'all';
 
@@ -1143,6 +1426,16 @@
                 noResultsMsg.style.display = 'block';
             } else {
                 noResultsMsg.style.display = 'none';
+            }
+        }
+
+        // Subscription form handler
+        function handleSubscribe(event) {
+            event.preventDefault();
+            const emailInput = document.getElementById('subscriber-email');
+            if (emailInput.value) {
+                alert('Thank you for subscribing to the Sheraton Luxury Portfolio! Exclusive invitations will be delivered to ' + emailInput.value);
+                emailInput.value = '';
             }
         }
     </script>
