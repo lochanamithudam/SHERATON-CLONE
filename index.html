@@ -10,10 +10,7 @@
     <!-- Google Font (Updated) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,500;1,600;1,700&family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
-        rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
     <!-- Font Awesome Icons -->
@@ -75,27 +72,55 @@
         </video>
         <div class="hero-video-overlay">
             <div class="hero-floating-card">
-                <h1 class="card-title">The World's Gathering Place</h1>
+          <h1 style="font-family: 'Cinzel', serif; text-transform: uppercase; letter-spacing: 3px; font-weight: 400; color: #ffffff; font-size: 3.5rem">The World's Gathering Place</h1>
             </div>
         </div>
     </section>
 
     <!-- INTRODUCTION TEXT -->
     <section class="intro-section">
-        <h2>Better Together</h2>
-        <p>CONNECTING PEOPLE AT OVER 400 LOCATIONS ACROSS THE GLOBE</p>
+        <div class="intro-content">
+            <span class="luxury-badge-pill"><i class="fa-solid fa-gem"></i> GLOBAL HERITAGE</span>
+            <h2>Better Together</h2>
+            <div class="luxury-ornament">
+                <span class="line"></span>
+                <i class="fa-solid fa-hotel logo-icon"></i>
+                <span class="line"></span>
+            </div>
+            <p>CONNECTING PEOPLE AT OVER 400 LOCATIONS ACROSS THE GLOBE</p>
+        </div>
     </section>
 
     <!-- FEATURE GRID SECTION -->
     <section class="feature-grid-section">
         <div class="grid-card text-first">
             <div class="card-text-content">
+                <span class="card-category-tag">OUR NEW VISION</span>
                 <h3>The New Sheraton</h3>
+                <div class="gold-accent-bar"></div>
                 <p>A global icon with deep roots in communities around the world, we are transforming our hotels to
                     create new spaces where guests and locals can connect in unique and innovative ways.</p>
+                <div class="feature-highlights">
+                    <div class="highlight-item">
+                        <i class="fa-solid fa-earth-americas"></i>
+                        <span>400+ Locations</span>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fa-solid fa-wifi"></i>
+                        <span>Tech-Forward</span>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fa-solid fa-utensils"></i>
+                        <span>Curated Dining</span>
+                    </div>
+                </div>
+                <a href="about.html" class="card-luxury-link">DISCOVER OUR TRANSFORMATION <i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
             <div class="card-image-content">
-                <img src="lobby.jpg" alt="New Sheraton Spaces">
+                <div class="image-wrapper">
+                    <img src="lobby.jpg" alt="New Sheraton Spaces">
+                    <div class="image-floating-tag">TRANSFORMED SPACES 2026</div>
+                </div>
             </div>
         </div>
     </section>
@@ -116,21 +141,46 @@
     </section>
 
     <!-- DUAL SPLIT GRID -->
-    <section class="split-grid-section">
-        <div class="split-card">
-            <img src="public_space.jpg" alt="The Public Space">
-            <div class="split-text-box">
-                <h4>The Public Space</h4>
-                <p>At the heart of the hotel, our new public space is designed to make guests feel welcome, facilitate
-                    meetings or safely gather with friends and coworkers.</p>
+    <section class="split-grid-wrapper">
+        <div class="section-header-centered">
+            <span class="luxury-badge-pill"><i class="fa-solid fa-compass"></i> ARCHITECTURAL SPACES</span>
+            <h3 class="section-title-serif">Spaces Designed for Connection</h3>
+            <div class="luxury-ornament">
+                <span class="line"></span>
+                <i class="fa-solid fa-star logo-icon"></i>
+                <span class="line"></span>
             </div>
+            <p class="section-subtext">EXPERIENCE THE ART OF MODERN LUXURY</p>
         </div>
-        <div class="split-card">
-            <img src="community_table.jpg" alt="The Community Table">
-            <div class="split-text-box">
-                <h4>The Community Table</h4>
-                <p>With built-in wireless mobile charging and ergonomic seating, the comfortable, tech-friendly
-                    community worktable is designed for creativity and productivity.</p>
+
+        <div class="split-grid-section">
+            <div class="split-card">
+                <div class="split-img-wrapper">
+                    <img src="public_space.jpg" alt="The Public Space">
+                    <span class="split-card-badge">SOCIAL HUB</span>
+                </div>
+                <div class="split-text-box">
+                    <span class="card-category-tag">01 / EXPERIENCE</span>
+                    <h4>The Public Space</h4>
+                    <div class="gold-accent-bar"></div>
+                    <p>At the heart of the hotel, our new public space is designed to make guests feel welcome, facilitate
+                        meetings or safely gather with friends and coworkers.</p>
+                    <a href="place-details.html" class="split-card-link">EXPLORE PUBLIC SPACE <i class="fa-solid fa-arrow-right-long"></i></a>
+                </div>
+            </div>
+            <div class="split-card">
+                <div class="split-img-wrapper">
+                    <img src="community_table.jpg" alt="The Community Table">
+                    <span class="split-card-badge">WORK &amp; CONNECT</span>
+                </div>
+                <div class="split-text-box">
+                    <span class="card-category-tag">02 / PRODUCTIVITY</span>
+                    <h4>The Community Table</h4>
+                    <div class="gold-accent-bar"></div>
+                    <p>With built-in wireless mobile charging and ergonomic seating, the comfortable, tech-friendly
+                        community worktable is designed for creativity and productivity.</p>
+                    <a href="place-details.html" class="split-card-link">EXPLORE COMMUNITY TABLE <i class="fa-solid fa-arrow-right-long"></i></a>
+                </div>
             </div>
         </div>
     </section>

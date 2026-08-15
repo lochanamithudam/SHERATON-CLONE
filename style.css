@@ -253,101 +253,399 @@ h4 {
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Middle Sections */
+/* ==========================================================================
+   HIGH-END LUXURY SECTION STYLING (BETTER TOGETHER & SPACES DESIGNED)
+   ========================================================================== */
+
+/* Shared Luxury UI Elements */
+.luxury-badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #b89047;
+    text-transform: uppercase;
+    background: rgba(184, 144, 71, 0.08);
+    padding: 8px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(184, 144, 71, 0.25);
+    margin-bottom: 22px;
+}
+
+.luxury-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 18px 0 22px 0;
+}
+
+.luxury-ornament .line {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #c5a059, transparent);
+}
+
+.luxury-ornament .logo-icon {
+    color: #c5a059;
+    font-size: 0.85rem;
+}
+
+.gold-accent-bar {
+    width: 45px;
+    height: 2px;
+    background: linear-gradient(90deg, #c5a059, #e0c896);
+    margin: 14px 0 18px 0;
+    transition: width 0.4s ease;
+}
+
+.grid-card:hover .gold-accent-bar,
+.split-card:hover .gold-accent-bar {
+    width: 80px;
+}
+
+.card-category-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #b89047;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* 1. Introduction Section */
 .intro-section {
     text-align: center;
-    padding: 90px 20px;
-    background-color: #fff;
+    padding: 100px 20px 70px 20px;
+    background: linear-gradient(180deg, #ffffff 0%, #faf8f5 100%);
+    position: relative;
+}
+
+.intro-content {
+    max-width: 900px;
+    margin: 0 auto;
 }
 
 .intro-section h2 {
-    font-size: 2.8rem;
+    font-family: 'Cinzel', 'Cormorant Garamond', 'Playfair Display', serif;
+    font-size: 3.2rem;
     font-weight: 400;
-    margin-bottom: 15px;
+    color: #1a1918;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
     text-shadow: none;
 }
 
 .intro-section p {
-    font-size: 0.85rem;
-    letter-spacing: 3px;
-    color: #666;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.82rem;
+    letter-spacing: 4px;
+    color: #776e62;
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
+/* 2. Feature Grid Section ("The New Sheraton") */
 .feature-grid-section {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 40px 60px 40px;
+    padding: 0 40px 90px 40px;
+    background: #faf8f5;
 }
 
 .grid-card {
     display: flex;
-    background-color: #f9f9f9;
-    align-items: center;
+    background-color: #ffffff;
+    align-items: stretch;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(197, 160, 89, 0.22);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.grid-card:hover {
+    box-shadow: 0 30px 65px rgba(184, 144, 71, 0.12);
+    border-color: rgba(197, 160, 89, 0.45);
 }
 
 .card-text-content {
     flex: 1;
-    padding: 60px;
+    padding: 70px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .card-text-content h3 {
-    font-size: 2.2rem;
-    font-weight: 400;
-    margin-bottom: 20px;
+    font-family: 'Cinzel', 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: #1a1918;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
     text-shadow: none;
 }
 
 .card-text-content p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #555;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.8;
+    color: #55514b;
+}
+
+.feature-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    margin: 30px 0 35px 0;
+    padding-top: 25px;
+    border-top: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+.highlight-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.83rem;
+    color: #2c2a27;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.highlight-item i {
+    color: #c5a059;
+    font-size: 1.05rem;
+}
+
+.card-luxury-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Montserrat', sans-serif;
+    color: #1a1918;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border: 1.5px solid #c5a059;
+    border-radius: 4px;
+    background: transparent;
+    transition: all 0.35s ease;
+    align-self: flex-start;
+}
+
+.card-luxury-link:hover {
+    background: #1a1918;
+    color: #e5c583;
+    border-color: #1a1918;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.card-luxury-link i {
+    transition: transform 0.3s ease;
+}
+
+.card-luxury-link:hover i {
+    transform: translateX(6px);
 }
 
 .card-image-content {
     flex: 1.2;
-    height: 450px;
+    min-height: 480px;
 }
 
-.card-image-content img {
+.image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.image-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.grid-card:hover .image-wrapper img {
+    transform: scale(1.06);
+}
+
+.image-floating-tag {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: rgba(20, 20, 20, 0.85);
+    backdrop-filter: blur(10px);
+    color: #e5c583;
+    padding: 8px 18px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: 1px solid rgba(229, 197, 131, 0.35);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* 3. Dual Split Grid Section ("Spaces Designed for Connection") */
+.split-grid-wrapper {
+    background: linear-gradient(180deg, #faf8f5 0%, #ffffff 100%);
+    padding: 60px 0 110px 0;
+}
+
+.section-header-centered {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
+}
+
+.section-title-serif {
+    font-family: 'Cinzel', 'Cormorant Garamond', 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 400;
+    color: #1a1918;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    text-shadow: none;
+}
+
+.section-subtext {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    color: #887d6d;
+    font-weight: 600;
 }
 
 .split-grid-section {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 40px 100px 40px;
+    padding: 0 40px;
     display: flex;
     gap: 40px;
 }
 
 .split-card {
     flex: 1;
-    background-color: #f9f9f9;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(197, 160, 89, 0.2);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    display: flex;
+    flex-direction: column;
 }
 
-.split-card img {
+.split-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 25px 55px rgba(184, 144, 71, 0.14);
+    border-color: rgba(197, 160, 89, 0.45);
+}
+
+.split-img-wrapper {
+    position: relative;
+    height: 360px;
+    overflow: hidden;
+}
+
+.split-img-wrapper img {
     width: 100%;
-    height: 350px;
+    height: 100%;
     object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.split-card:hover .split-img-wrapper img {
+    transform: scale(1.07);
+}
+
+.split-card-badge {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(20, 20, 20, 0.82);
+    backdrop-filter: blur(8px);
+    color: #e5c583;
+    padding: 7px 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: 1px solid rgba(229, 197, 131, 0.3);
 }
 
 .split-text-box {
-    padding: 40px;
+    padding: 45px 40px 50px 40px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .split-text-box h4 {
-    font-size: 1.8rem;
+    font-family: 'Cinzel', 'Playfair Display', serif;
+    font-size: 2.1rem;
     font-weight: 400;
-    margin-bottom: 15px;
+    color: #1a1918;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
     text-shadow: none;
 }
 
 .split-text-box p {
+    font-family: 'Montserrat', sans-serif;
     font-size: 0.95rem;
-    line-height: 1.6;
-    color: #555;
+    line-height: 1.8;
+    color: #55514b;
+    margin-bottom: 30px;
+}
+
+.split-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Montserrat', sans-serif;
+    color: #1a1918;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border: 1px solid rgba(197, 160, 89, 0.5);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.split-card-link:hover {
+    background: #1a1918;
+    color: #e5c583;
+    border-color: #1a1918;
+}
+
+.split-card-link i {
+    transition: transform 0.3s ease;
+}
+
+.split-card-link:hover i {
+    transform: translateX(5px);
 }
 
 /* Footer Section */
