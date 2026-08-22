@@ -255,6 +255,17 @@ app.post('/api/test-submit', async (req, res) => {
     }
 });
 
+// GET all bookings from MongoDB
+app.get('/api/bookings', async (req, res) => {
+    try {
+        const bookings = await Booking.find().sort({ bookedAt: -1 });
+        res.json({ status: 'success', count: bookings.length, bookings });
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
+
+
 // ── Server Start (only when running locally, not on Vercel) ──
 if (!process.env.VERCEL) {
     app.listen(PORT, () => {
