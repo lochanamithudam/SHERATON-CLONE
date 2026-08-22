@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheraton Clone - Dual Storage & Fallback Configuration Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a2b4c;
+            --primary-dark: #0f1a30;
+            --gold: #c5a059;
+            --gold-light: #dfc287;
+            --gold-subtle: #fbf8f2;
+            --bg-page: #f8fafc;
+            --surface: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --success-bg: #ecfdf5;
+            --warning: #f59e0b;
+            --warning-bg: #fffbeb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            line-height: 1.65;
+            padding: 40px 20px;
+        }
+
+        .document-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--surface);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        /* Top Action Bar */
+        .action-bar {
+            background: #111827;
+            color: #ffffff;
+            padding: 16px 36px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .action-bar span {
+            font-size: 0.9rem;
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, var(--gold) 0%, #a37c37 100%);
+            color: #ffffff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(197, 160, 89, 0.35);
+            transition: all 0.2s ease;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(197, 160, 89, 0.45);
+        }
+
+        /* Header / Cover */
+        .doc-header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            color: #ffffff;
+            padding: 48px 40px;
+            position: relative;
+        }
+
+        .brand-badge {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .doc-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.25;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .doc-subtitle {
+            font-size: 1.05rem;
+            color: #cbd5e1;
+            max-width: 650px;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .meta-item {
+            font-size: 0.85rem;
+        }
+
+        .meta-label {
+            color: var(--gold-light);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .meta-value {
+            color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        /* Content Area */
+        .doc-body {
+            padding: 44px 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--gold-subtle);
+        }
+
+        .section-title .step-num {
+            background: var(--gold);
+            color: #ffffff;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: #334155;
+        }
+
+        /* Callout Box */
+        .callout {
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin: 18px 0;
+            border-left: 4px solid;
+        }
+
+        .callout-info {
+            background: #eff6ff;
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .callout-success {
+            background: var(--success-bg);
+            border-color: var(--success);
+            color: #065f46;
+        }
+
+        .callout-warning {
+            background: var(--warning-bg);
+            border-color: var(--warning);
+            color: #92400e;
+        }
+
+        /* Flow / Architecture Diagram */
+        .flow-diagram {
+            background: #0f172a;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 20px 0;
+            color: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.88rem;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 16px;
+            border-radius: 8px;
+            border-left: 3px solid var(--gold);
+        }
+
+        .flow-step-badge {
+            background: var(--gold);
+            color: #0f172a;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+
+        /* Code Snippets */
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin: 16px 0;
+            border: 1px solid #1e293b;
+        }
+
+        code {
+            font-family: 'Fira Code', monospace;
+            background: #f1f5f9;
+            color: #b45309;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.88em;
+        }
+
+        pre code {
+            background: transparent;
+            color: inherit;
+            padding: 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.92rem;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: #f8fafc;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .doc-footer {
+            background: #f8fafc;
+            border-top: 1px solid var(--border);
+            padding: 24px 40px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Print Media Styling for Clean PDF Export */
+        @media print {
+            body {
+                background: #ffffff;
+                padding: 0;
+            }
+
+            .action-bar {
+                display: none !important;
+            }
+
+            .document-container {
+                box-shadow: none;
+                border: none;
+                max-width: 100%;
+                border-radius: 0;
+            }
+
+            .doc-header {
+                padding: 30px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .doc-body {
+                padding: 30px;
+            }
+
+            pre, .flow-diagram {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                page-break-inside: avoid;
+            }
+
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="document-container">
+    
+    <!-- Top Action Bar with One-Click PDF Download -->
+    <div class="action-bar">
+        <span>📄 Sheraton Architecture Documentation</span>
+        <button class="btn-download" onclick="window.print()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Save as PDF / Print
+        </button>
+    </div>
+
+    <!-- Header / Cover -->
+    <header class="doc-header">
+        <span class="brand-badge">SHERATON HOTELS & RESORTS</span>
+        <h1 class="doc-title">Dual Storage Architecture & Local JSON Fallback Configuration Guide</h1>
+        <p class="doc-subtitle">A comprehensive step-by-step technical guide on the primary MongoDB storage, automatic JSON local backup fallback, and auto-sync mechanisms.</p>
+
+        <div class="meta-grid">
+            <div class="meta-item">
+                <span class="meta-label">Primary Database</span>
+                <span class="meta-value">MongoDB Atlas</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Fallback Storage</span>
+                <span class="meta-value">data/bookings_backup.json</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Email Service</span>
+                <span class="meta-value">Nodemailer (Gmail SMTP)</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-label">Status</span>
+                <span class="meta-value" style="color: #4ade80;">Active & Configured</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Body -->
+    <main class="doc-body">
+
+        <!-- Executive Summary -->
+        <section class="section">
+            <h2 class="section-title"><span class="step-num">1</span> Executive Overview</h2>
+            <p>
+                In standard operation, all guest reservations and booking submissions are stored directly in <strong>MongoDB</strong> (Primary Storage). To guarantee <strong>zero data loss</strong> during database downtime or network disconnections, a <strong>Local JSON Fallback System</strong> has been implemented in <code>server.js</code>.
+            </p>
+
+            <div class="callout callout-success">
+                <strong>Key Guarantee:</strong> A booking is NEVER lost. If MongoDB fails or is unreachable, the system writes the record to local disk (<code>data/bookings_backup.json</code>), sends out the confirmation email, and automatically synchronizes the data to MongoDB as soon as connectivity resumes.
+            </div>
+        </section>
+
+        <!-- Visual Flow -->
+        <section class="section">
+            <h2 class="section-title"><span class="step-num">2</span> Step-by-Step Architecture Flow</h2>
+            
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <span class="flow-step-badge">STEP 1</span>
+                    <span>User submits booking via Web Interface (/api/bookings)</span>
+                </div>
+                <div class="flow-step" style="border-left-color: #3b82f6;">
+                    <span class="flow-step-badge" style="background:#3b82f6;color:#fff;">STEP 2</span>
+                    <span>Server checks MongoDB status (mongoose.connection.readyState === 1)</span>
+                </div>
+                <div class="flow-step" style="border-left-color: #10b981;">
+                    <span class="flow-step-badge" style="background:#10b981;color:#fff;">CASE A: ONLINE</span>
+                    <span>Saved directly to MongoDB &rarr; Email confirmation sent &rarr; HTTP 200</span>
+                </div>
+                <div class="flow-step" style="border-left-color: #f59e0b;">
+                    <span class="flow-step-badge" style="background:#f59e0b;color:#fff;">CASE B: OFFLINE</span>
+                    <span>Saved to data/bookings_backup.json (synced: false) &rarr; Email sent &rarr; HTTP 200</span>
+                </div>
+                <div class="flow-step" style="border-left-color: #8b5cf6;">
+                    <span class="flow-step-badge" style="background:#8b5cf6;color:#fff;">STEP 3: RECONNECT</span>
+                    <span>On MongoDB reconnect &rarr; Auto-sync uploads unsynced JSON records to MongoDB</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- File Breakdown -->
+        <section class="section">
+            <h2 class="section-title"><span class="step-num">3</span> Files & Paths</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>File / Directory</th>
+                        <th>Role</th>
+                        <th>Behavior</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>server.js</code></td>
+                        <td>Main Express Backend</td>
+                        <td>Contains routing, MongoDB connection, fallback writer, and auto-sync triggers.</td>
+                    </tr>
+                    <tr>
+                        <td><code>data/bookings_backup.json</code></td>
+                        <td>Local JSON Storage File</td>
+                        <td>Holds records captured while MongoDB was offline. Marked with <code>syncedToMongo: false</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>.env</code></td>
+                        <td>Environment Variables</td>
+                        <td>Stores <code>MONGODB_URI</code>, <code>GMAIL_USER</code>, and <code>GMAIL_PASS</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- JSON Structure -->
+        <section class="section">
+            <h2 class="section-title"><span class="step-num">4</span> Local Backup JSON Structure</h2>
+            <p>When saved to <code>data/bookings_backup.json</code>, each entry contains tracking metadata:</p>
+
+            <pre><code>[
+  {
+    "backupId": "BKP-1724326543-412",
+    "guestName": "John Doe",
+    "guestEmail": "john@example.com",
+    "roomType": "Deluxe King Room",
+    "checkIn": "2026-09-01",
+    "checkOut": "2026-09-05",
+    "checkInTime": "14:00",
+    "hotelLocation": "Sheraton Tokyo Bay",
+    "totalPrice": "$850",
+    "syncedToMongo": false,
+    "fallbackReason": "MongoDB connection inactive",
+    "savedLocallyAt": "2026-08-22T11:20:00.000Z"
+  }
+]</code></pre>
+        </section>
+
+        <!-- API Endpoints -->
+        <section class="section">
+            <h2 class="section-title"><span class="step-num">5</span> API Endpoints Reference</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Endpoint</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>POST</code></td>
+                        <td><code>/api/bookings</code></td>
+                        <td>Receives reservations; writes to MongoDB or falls back to local JSON.</td>
+                    </tr>
+                    <tr>
+                        <td><code>GET</code></td>
+                        <td><code>/api/bookings</code></td>
+                        <td>Retrieves all bookings currently stored in MongoDB.</td>
+                    </tr>
+                    <tr>
+                        <td><code>GET</code></td>
+                        <td><code>/api/backup-bookings</code></td>
+                        <td>Inspects all local backup entries and count of unsynced records.</td>
+                    </tr>
+                    <tr>
+                        <td><code>POST</code></td>
+                        <td><code>/api/sync-backups</code></td>
+                        <td>Manually triggers an immediate push of unsynced JSON backups to MongoDB.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- How to Verify / Test -->
+        <section class="section">
+            <h2 class="section-title"><span class="step-num">6</span> How to Test & Verify</h2>
+            
+            <p><strong>1. Verify Standard MongoDB Storage:</strong></p>
+            <p>Submit a booking on the website with MongoDB connected. The server logs <code>✅ Booking saved to MongoDB</code>.</p>
+
+            <p><strong>2. Verify Offline Fallback Storage:</strong></p>
+            <p>Temporarily disconnect internet or comment out <code>MONGODB_URI</code> in <code>.env</code>. Submit a booking. The server logs <code>📁 [FALLBACK] Booking saved to local JSON: data/bookings_backup.json</code>.</p>
+
+            <p><strong>3. Verify Automatic Sync:</strong></p>
+            <p>Reconnect MongoDB and start the server. The server detects unsynced records and logs <code>✅ Successfully synced local booking(s) to MongoDB!</code>.</p>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="doc-footer">
+        Sheraton Hotels & Resorts Clone &copy; 2026 &middot; Technical Architecture & Systems Engineering
+    </footer>
+
+</div>
+
+</body>
+</html>

@@ -16,10 +16,96 @@ const cors       = require('cors');
 const mongoose   = require('mongoose');
 // Fix 3: Use 'node:path' prefix instead of 'path'  (SonarQube: prefer node: prefix)
 const path       = require('node:path');
+const fs         = require('node:fs/promises');
+const fsSync     = require('node:fs');
 const nodemailer = require('nodemailer');
 
 const app  = express();
 const PORT = process.env.PORT || 3000;
+
+// ── Local JSON Backup Storage Setup ────────────────────────
+const DATA_DIR = path.join(__dirname, 'data');
+const BACKUP_FILE = path.join(DATA_DIR, 'bookings_backup.json');
+
+// Ensure data folder exists
+if (!fsSync.existsSync(DATA_DIR)) {
+    fsSync.mkdirSync(DATA_DIR, { recursive: true });
+}
+
+// Helper: Read all local backup records
+async function getLocalBackups() {
+    try {
+        if (!fsSync.existsSync(BACKUP_FILE)) return [];
+        const content = await fs.readFile(BACKUP_FILE, 'utf8');
+        return content ? JSON.parse(content) : [];
+    } catch (err) {
+        console.error('⚠️  Failed to read local backup file:', err.message);
+        return [];
+    }
+}
+
+// Helper: Save booking to local JSON file when MongoDB is unavailable/fails
+async function saveBookingToLocalBackup(bookingData, reason = 'MongoDB unavailable') {
+    try {
+        const bookings = await getLocalBackups();
+        const newRecord = {
+            backupId: `BKP-${Date.now()}-${Math.floor(100 + Math.random() * 900)}`,
+            ...bookingData,
+            syncedToMongo: false,
+            fallbackReason: reason,
+            savedLocallyAt: new Date().toISOString()
+        };
+        bookings.push(newRecord);
+        await fs.writeFile(BACKUP_FILE, JSON.stringify(bookings, null, 2), 'utf8');
+        console.log(`📁  [FALLBACK] Booking saved to local JSON: data/bookings_backup.json (ID: ${newRecord.backupId})`);
+        return newRecord;
+    } catch (err) {
+        console.error('❌  Failed to write booking to local JSON backup:', err.message);
+        return null;
+    }
+}
+
+// Helper: Sync unpushed local backups to MongoDB when connection is active
+async function syncLocalBackupsToMongo() {
+    if (mongoose.connection.readyState !== 1) return;
+    try {
+        const bookings = await getLocalBackups();
+        const unsynced = bookings.filter(b => !b.syncedToMongo);
+        if (unsynced.length === 0) return;
+
+        console.log(`🔄  Found ${unsynced.length} unsynced local booking(s). Syncing to MongoDB...`);
+        let syncedCount = 0;
+
+        for (const item of unsynced) {
+            try {
+                const newBooking = new Booking({
+                    guestName:     item.guestName,
+                    guestEmail:    item.guestEmail,
+                    roomType:      item.roomType,
+                    checkIn:       item.checkIn || '',
+                    checkOut:      item.checkOut || '',
+                    checkInTime:   item.checkInTime || '',
+                    hotelLocation: item.hotelLocation || '',
+                    totalPrice:    item.totalPrice || '',
+                    bookedAt:      item.savedLocallyAt ? new Date(item.savedLocallyAt) : new Date()
+                });
+                await newBooking.save();
+                item.syncedToMongo = true;
+                item.syncedAt = new Date().toISOString();
+                syncedCount++;
+            } catch (err) {
+                console.error(`⚠️  Failed to sync backup record ${item.backupId}:`, err.message);
+            }
+        }
+
+        if (syncedCount > 0) {
+            await fs.writeFile(BACKUP_FILE, JSON.stringify(bookings, null, 2), 'utf8');
+            console.log(`✅  Successfully synced ${syncedCount}/${unsynced.length} local booking(s) to MongoDB!`);
+        }
+    } catch (err) {
+        console.error('⚠️  Error during local backup sync:', err.message);
+    }
+}
 
 // Fix 4: Disable X-Powered-By header            (SonarQube: framework version disclosure)
 app.disable('x-powered-by');
@@ -68,8 +154,16 @@ const dbURI = process.env.MONGODB_URI || process.env.MONGO_URI ||
     'mongodb+srv://lochanamithudam097_db_user:Mithu123456@cluster0.f51etmt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 
 mongoose.connect(dbURI, { serverSelectionTimeoutMS: 5000 })
-    .then(() => console.log('✅  Successfully connected to MongoDB!'))
+    .then(() => {
+        console.log('✅  Successfully connected to MongoDB!');
+        syncLocalBackupsToMongo(); // Auto-sync any offline backups upon connection
+    })
     .catch((err) => console.error('❌  MongoDB connection warning:', err.message));
+
+// Listen for reconnects to trigger sync
+mongoose.connection.on('connected', () => {
+    syncLocalBackupsToMongo();
+});
 
 // ── Booking Schema ──────────────────────────────────────────
 const BookingSchema = new mongoose.Schema({
@@ -186,28 +280,36 @@ app.post('/api/bookings', async (req, res) => {
             return res.status(400).json({ status: 'error', message: 'Name, email, and room type are required.' });
         }
 
-        // 1. Save to MongoDB gracefully (only if connected, avoiding buffering delay)
+        const bookingPayload = {
+            guestName,
+            guestEmail,
+            roomType,
+            checkIn: checkIn || '',
+            checkOut: checkOut || '',
+            checkInTime: checkInTime || '',
+            hotelLocation: hotelLocation || '',
+            totalPrice: totalPrice || ''
+        };
+
+        // 1. Save to MongoDB gracefully; if offline or fails, fallback to local JSON storage
         let dbSaved = false;
+        let localBackupSaved = false;
+
         if (mongoose.connection.readyState === 1) {
             try {
-                const newBooking = new Booking({
-                    guestName,
-                    guestEmail,
-                    roomType,
-                    checkIn: checkIn || '',
-                    checkOut: checkOut || '',
-                    checkInTime: checkInTime || '',
-                    hotelLocation: hotelLocation || '',
-                    totalPrice: totalPrice || ''
-                });
+                const newBooking = new Booking(bookingPayload);
                 await newBooking.save();
                 dbSaved = true;
                 console.log(`✅  Booking saved to MongoDB: ${guestName} (${guestEmail}) — ${roomType}`);
             } catch (dbErr) {
-                console.warn('⚠️  MongoDB save failed (proceeding to email):', dbErr.message);
+                console.warn('⚠️  MongoDB save failed — falling back to local JSON backup:', dbErr.message);
+                await saveBookingToLocalBackup(bookingPayload, `Save Error: ${dbErr.message}`);
+                localBackupSaved = true;
             }
         } else {
-            console.warn('⚠️  MongoDB not connected — proceeding directly to email dispatch.');
+            console.warn('⚠️  MongoDB not connected — falling back to local JSON backup.');
+            await saveBookingToLocalBackup(bookingPayload, 'MongoDB connection inactive');
+            localBackupSaved = true;
         }
 
         // 2. Try sending email notification
@@ -226,7 +328,13 @@ app.post('/api/bookings', async (req, res) => {
             message = `Booking processed! Email notice: ${emailResult.error}`;
         }
 
-        res.status(200).json({ status: 'success', message, emailResult });
+        res.status(200).json({
+            status: 'success',
+            message,
+            dbSaved,
+            localBackupSaved,
+            emailResult
+        });
 
     } catch (error) {
         console.error('❌  Booking endpoint error:', error);
@@ -260,6 +368,39 @@ app.get('/api/bookings', async (req, res) => {
     try {
         const bookings = await Booking.find().sort({ bookedAt: -1 });
         res.json({ status: 'success', count: bookings.length, bookings });
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
+
+// GET local JSON backup status and records
+app.get('/api/backup-bookings', async (req, res) => {
+    try {
+        const backups = await getLocalBackups();
+        const unsynced = backups.filter(b => !b.syncedToMongo);
+        res.json({
+            status: 'success',
+            totalBackups: backups.length,
+            unsyncedCount: unsynced.length,
+            backups
+        });
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
+
+// POST manually trigger sync from local JSON to MongoDB
+app.post('/api/sync-backups', async (req, res) => {
+    try {
+        await syncLocalBackupsToMongo();
+        const backups = await getLocalBackups();
+        const unsynced = backups.filter(b => !b.syncedToMongo);
+        res.json({
+            status: 'success',
+            message: 'Sync process completed.',
+            totalBackups: backups.length,
+            remainingUnsynced: unsynced.length
+        });
     } catch (err) {
         res.status(500).json({ status: 'error', message: err.message });
     }
