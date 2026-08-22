@@ -218,14 +218,12 @@
     <header>
         <div class="nav-container">
             <ul class="nav-links">
-              <ul class="nav-links">
-    <li><a href="index.html">Overview</a></li>
-    <li><a href="gallery.html" class="active">Gallery</a></li>
-    <li><a href="Rooms/rooms.html">Rooms</a></li>
-    <li><a href="dining.html">Dining</a></li>
-    <li><a href="place-details.html">Place Details</a></li>
-    <li><a href="experiences/index.html">Experiences</a></li>
-</ul>
+                <li><a href="index.html">Overview</a></li>
+                <li><a href="gallery.html" class="active">Gallery</a></li>
+                <li><a href="Rooms/rooms.html">Rooms</a></li>
+                <li><a href="dining.html">Dining</a></li>
+                <li><a href="place-details.html">Place Details</a></li>
+                <li><a href="experiences/index.html">Experiences</a></li>
             </ul>
         </div>
     </header>
@@ -322,14 +320,17 @@
         </div>
     </section>
 
-    <!-- JavaScript Filter Function -->
     <script>
-        function filterGallery(category) {
+        function filterGallery(category, btn) {
             const items = document.querySelectorAll('.gallery-item');
             const buttons = document.querySelectorAll('.filter-btn');
 
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
+            buttons.forEach(b => b.classList.remove('active'));
+            if (btn) {
+                btn.classList.add('active');
+            } else if (window.event && window.event.target) {
+                window.event.target.classList.add('active');
+            }
 
             items.forEach(item => {
                 if (category === 'all' || item.classList.contains(category)) {
