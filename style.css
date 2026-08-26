@@ -206,7 +206,7 @@ h4 {
     width: 100%;
     height: 100vh;
     overflow: hidden;
-    background: #000 url('public_space.jpg') center/cover no-repeat;
+    background: #000;
 }
 
 .hero-bg-video {
