@@ -1,6 +1,6 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const nodemailer = require('nodemailer');
+const emailService = require('../services/emailService');
 
 const dbURI = process.env.MONGODB_URI || process.env.MONGO_URI ||
     'mongodb+srv://lochanamithudam097_db_user:Mithu123456@cluster0.f51etmt.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
@@ -29,88 +29,6 @@ const BookingSchema = new mongoose.Schema({
 });
 
 const Booking = mongoose.models.Booking || mongoose.model('Booking', BookingSchema);
-
-async function sendBookingEmail(guestName, guestEmail, roomType, checkIn = '', checkOut = '', hotelLocation = '', totalPrice = '', checkInTime = '') {
-     const gmailUser = process.env.GMAIL_USER || 'lochanamithudam097@gmail.com';  
-     const gmailPass = process.env.GMAIL_PASS || 'fmquzkprfvgceexv';
-
-    if (!gmailUser || !gmailPass) {
-        console.warn('⚠️ Email skipped: GMAIL_USER / GMAIL_PASS not set.');
-        return { skipped: true };
-    }
-
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: { user: gmailUser, pass: gmailPass },
-        tls: { rejectUnauthorized: false }
-    });
-
-    const recipientList = [guestEmail, gmailUser].filter(Boolean).join(',');
-    const reservationRef = `SHR-${Math.floor(100000 + Math.random() * 900000)}`;
-
-    const formattedBookedTime = new Date().toLocaleString('en-US', {
-        dateStyle: 'medium',
-        timeStyle: 'medium',
-        hour12: true
-    });
-
-    const detailsRows = [
-        `<tr><td style="padding:10px 0;color:#888;width:160px;">Reservation Ref</td><td style="padding:10px 0;font-weight:700;color:#1a2b4c;">${reservationRef}</td></tr>`,
-        `<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Guest Name</td><td style="padding:10px 0;font-weight:600;color:#222;">${guestName}</td></tr>`,
-        `<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Guest Email</td><td style="padding:10px 0;font-weight:600;color:#222;">${guestEmail}</td></tr>`,
-        `<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Hotel Location</td><td style="padding:10px 0;font-weight:600;color:#222;">${hotelLocation || 'Sheraton Hotels & Resorts'}</td></tr>`,
-        `<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Room / Package</td><td style="padding:10px 0;font-weight:600;color:#222;">${roomType}</td></tr>`
-    ];
-
-    if (checkIn && checkOut) {
-        const timeFormatted = checkInTime ? ` (Check-In Time: ${checkInTime})` : '';
-        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Dates of Stay</td><td style="padding:10px 0;font-weight:600;color:#222;">${checkIn}${timeFormatted} &rarr; ${checkOut}</td></tr>`);
-    } else if (checkIn) {
-        const timeFormatted = checkInTime ? ` at ${checkInTime}` : '';
-        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Reservation Date/Time</td><td style="padding:10px 0;font-weight:600;color:#222;">${checkIn}${timeFormatted}</td></tr>`);
-    } else if (checkInTime) {
-        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Preferred Time</td><td style="padding:10px 0;font-weight:600;color:#222;">${checkInTime}</td></tr>`);
-    }
-
-    if (totalPrice) {
-        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Total Amount</td><td style="padding:10px 0;font-weight:700;color:#c5a059;">${totalPrice}</td></tr>`);
-    }
-    detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Booked Date & Time</td><td style="padding:10px 0;font-weight:600;color:#222;">${formattedBookedTime}</td></tr>`);
-
-    const mailOptions = {
-        from:    `"Sheraton Hotels & Resorts" <${gmailUser}>`,
-        to:      recipientList,
-        subject: `🏨 Sheraton Reservation Confirmed: ${reservationRef}`,
-        html: `
-            <div style="font-family:'Segoe UI',Arial,sans-serif;max-width:580px;margin:0 auto;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-                <div style="background:#1a2b4c;padding:28px 32px;text-align:center;">
-                    <h1 style="color:#c5a059;margin:0;font-size:1.6rem;letter-spacing:1px;">SHERATON</h1>
-                    <p style="color:rgba(255,255,255,0.85);margin:6px 0 0;font-size:0.85rem;letter-spacing:3px;text-transform:uppercase;">Official Reservation Confirmation</p>
-                </div>
-                <div style="padding:32px;background:#ffffff;">
-                    <h3 style="color:#1a2b4c;margin-top:0;font-size:1.2rem;">Dear ${guestName},</h3>
-                    <p style="color:#4a5568;line-height:1.6;font-size:0.95rem;">
-                        We are delighted to confirm your reservation with Sheraton. Your details have been registered in our system and are summarized below:
-                    </p>
-                    <table style="width:100%;border-collapse:collapse;font-size:0.95rem;margin-top:20px;">
-                        ${detailsRows.join('\n')}
-                    </table>
-                    <div style="margin-top:28px;padding:16px;background:#f8fafc;border-left:4px solid #c5a059;border-radius:4px;">
-                        <p style="margin:0;color:#2d3748;font-size:0.88rem;line-height:1.5;">
-                            <strong>Need to modify your reservation?</strong> Reply to this email or visit our website anytime.
-                        </p>
-                    </div>
-                </div>
-                <div style="background:#f1f5f9;padding:18px 32px;text-align:center;font-size:0.78rem;color:#64748b;">
-                    Sheraton Hotels & Resorts &copy; ${new Date().getFullYear()} · Automated Reservation System
-                </div>
-            </div>
-        `
-    };
-
-    const info = await transporter.sendMail(mailOptions);
-    return { sent: true, response: info.response };
-}
 
 module.exports = async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -148,8 +66,16 @@ module.exports = async (req, res) => {
             }
         }
 
-        const emailResult = await sendBookingEmail(guestName, guestEmail, roomType, checkIn, checkOut, hotelLocation, totalPrice, checkInTime)
-            .catch(err => ({ error: err.message }));
+        const emailResult = await emailService.sendBookingNotification({
+            guestName,
+            guestEmail,
+            roomType,
+            checkIn,
+            checkOut,
+            checkInTime,
+            hotelLocation,
+            totalPrice
+        }).catch(err => ({ sent: false, error: err.message }));
 
         let message = 'Booking processed successfully!';
         if (emailResult.sent) {

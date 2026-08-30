@@ -1,5 +1,5 @@
 require('dotenv').config();
-const nodemailer = require('nodemailer');
+const emailService = require('../services/emailService');
 
 module.exports = async (req, res) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -20,33 +20,19 @@ module.exports = async (req, res) => {
             return res.status(400).json({ status: 'error', message: 'Name and email are required.' });
         }
 
-        const gmailUser = process.env.GMAIL_USER || '';
-        const gmailPass = process.env.GMAIL_PASS || '';
-
-        let emailResult = { skipped: true };
-        if (gmailUser && gmailPass) {
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: { user: gmailUser, pass: gmailPass },
-                tls: { rejectUnauthorized: false }
-            });
-
-            try {
-                const info = await transporter.sendMail({
-                    from: `"Sheraton Hotels" <${gmailUser}>`,
-                    to: [email, gmailUser].filter(Boolean).join(','),
-                    subject: 'Test Submission Confirmation',
-                    text: `Hello ${name}, your request for ${preferredDate || 'today'} ${preferredTime || ''} was received!`
-                });
-                emailResult = { sent: true, response: info.response };
-            } catch (err) {
-                emailResult = { error: err.message };
-            }
-        }
+        const emailResult = await emailService.sendBookingNotification({
+            guestName: name,
+            guestEmail: email,
+            roomType: 'Sheraton Experience & Dining Reservation',
+            checkIn: preferredDate || '',
+            checkInTime: preferredTime || '',
+            hotelLocation: 'Sheraton Hotels & Resorts',
+            totalPrice: '$150.00'
+        }).catch(err => ({ sent: false, error: err.message }));
 
         return res.status(200).json({
             status: 'success',
-            message: emailResult.sent ? 'Data received & test email sent successfully!' : 'Data received successfully!',
+            message: emailResult.sent ? 'Data received & luxury confirmation email sent successfully!' : 'Data received successfully!',
             emailResult
         });
     } catch (err) {

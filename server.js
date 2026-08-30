@@ -5,10 +5,15 @@
 
 require('dotenv').config();
 
-// Fix 1: Use 'node:dns' prefix instead of 'dns'
+// Fix 1: Use 'node:dns' and default to public DNS (Google/Cloudflare) to resolve Atlas SRV records
 const dns = require('node:dns');
-if (process.env.DNS_SERVERS) {
-    dns.setServers(process.env.DNS_SERVERS.split(','));
+try {
+    const customDns = process.env.DNS_SERVERS 
+        ? process.env.DNS_SERVERS.split(',').map(s => s.trim()) 
+        : ['8.8.8.8', '8.8.4.4', '1.1.1.1'];
+    dns.setServers(customDns);
+} catch (dnsErr) {
+    console.warn('⚠️  DNS server configuration warning:', dnsErr.message);
 }
 
 const express    = require('express');
@@ -179,91 +184,9 @@ const BookingSchema = new mongoose.Schema({
 });
 const Booking = mongoose.model('Booking', BookingSchema);
 
-// ── Helper: Send Booking Email (graceful — never crashes the server) ──
-async function sendBookingEmail(guestName, guestEmail, roomType, checkIn = '', checkOut = '', hotelLocation = '', totalPrice = '', checkInTime = '') {
-    const gmailUser = process.env.GMAIL_USER || '';
-    const gmailPass = process.env.GMAIL_PASS || '';
+// ── Luxury Email Service ────────────────────────────────────
+const emailService = require('./services/emailService');
 
-    console.log("Email from env:", process.env.GMAIL_USER);
-
-    if (!gmailUser || !gmailPass) {
-        console.warn('⚠️  Email skipped: GMAIL_USER / GMAIL_PASS not set in environment.');
-        return { skipped: true };
-    }
-
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: { user: gmailUser, pass: gmailPass },
-        tls: { rejectUnauthorized: false }
-    });
-
-    const recipientList = [guestEmail, gmailUser].filter(Boolean).join(',');
-    const reservationRef = `SHR-${Math.floor(100000 + Math.random() * 900000)}`;
-
-    const formattedBookedTime = new Date().toLocaleString('en-US', {
-        dateStyle: 'medium',
-        timeStyle: 'medium',
-        hour12: true
-    });
-
-    const detailsRows = [
-        `<tr><td style="padding:10px 0;color:#888;width:160px;">Reservation Ref</td><td style="padding:10px 0;font-weight:700;color:#1a2b4c;">${reservationRef}</td></tr>`,
-        `<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Guest Name</td><td style="padding:10px 0;font-weight:600;color:#222;">${guestName}</td></tr>`,
-        `<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Guest Email</td><td style="padding:10px 0;font-weight:600;color:#222;">${guestEmail}</td></tr>`,
-        `<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Hotel Location</td><td style="padding:10px 0;font-weight:600;color:#222;">${hotelLocation || 'Sheraton Hotels & Resorts'}</td></tr>`,
-        `<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Room / Package</td><td style="padding:10px 0;font-weight:600;color:#222;">${roomType}</td></tr>`
-    ];
-
-    if (checkIn && checkOut) {
-        const timeFormatted = checkInTime ? ` (Check-In Time: ${checkInTime})` : '';
-        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Dates of Stay</td><td style="padding:10px 0;font-weight:600;color:#222;">${checkIn}${timeFormatted} &rarr; ${checkOut}</td></tr>`);
-    } else if (checkIn) {
-        const timeFormatted = checkInTime ? ` at ${checkInTime}` : '';
-        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Reservation Date/Time</td><td style="padding:10px 0;font-weight:600;color:#222;">${checkIn}${timeFormatted}</td></tr>`);
-    } else if (checkInTime) {
-        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Preferred Time</td><td style="padding:10px 0;font-weight:600;color:#222;">${checkInTime}</td></tr>`);
-    }
-
-    if (totalPrice) {
-        detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Total Amount</td><td style="padding:10px 0;font-weight:700;color:#c5a059;">${totalPrice}</td></tr>`);
-    }
-    detailsRows.push(`<tr style="border-top:1px solid #f0ece4;"><td style="padding:10px 0;color:#888;">Booked Date & Time</td><td style="padding:10px 0;font-weight:600;color:#222;">${formattedBookedTime}</td></tr>`);
-
-    const mailOptions = {
-        from:    `"Sheraton Hotels & Resorts" <${gmailUser}>`,
-        to:      recipientList,               // sends confirmation to guest and alert to admin
-        subject: `🏨 Sheraton Reservation Confirmed: ${reservationRef}`,
-        html: `
-            <div style="font-family:'Segoe UI',Arial,sans-serif;max-width:580px;margin:0 auto;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.05);">
-                <div style="background:#1a2b4c;padding:28px 32px;text-align:center;">
-                    <h1 style="color:#c5a059;margin:0;font-size:1.6rem;letter-spacing:1px;">SHERATON</h1>
-                    <p style="color:rgba(255,255,255,0.85);margin:6px 0 0;font-size:0.85rem;letter-spacing:3px;text-transform:uppercase;">Official Reservation Confirmation</p>
-                </div>
-                <div style="padding:32px;background:#ffffff;">
-                    <h3 style="color:#1a2b4c;margin-top:0;font-size:1.2rem;">Dear ${guestName},</h3>
-                    <p style="color:#4a5568;line-height:1.6;font-size:0.95rem;">
-                        We are delighted to confirm your reservation with Sheraton. Your details have been registered in our system and are summarized below:
-                    </p>
-                    <table style="width:100%;border-collapse:collapse;font-size:0.95rem;margin-top:20px;">
-                        ${detailsRows.join('\n')}
-                    </table>
-                    <div style="margin-top:28px;padding:16px;background:#f8fafc;border-left:4px solid #c5a059;border-radius:4px;">
-                        <p style="margin:0;color:#2d3748;font-size:0.88rem;line-height:1.5;">
-                            <strong>Need to modify your reservation?</strong> Reply to this email or visit our website anytime.
-                        </p>
-                    </div>
-                </div>
-                <div style="background:#f1f5f9;padding:18px 32px;text-align:center;font-size:0.78rem;color:#64748b;">
-                    Sheraton Hotels & Resorts &copy; ${new Date().getFullYear()} · Automated Reservation System
-                </div>
-            </div>
-        `
-    };
-
-    const info = await transporter.sendMail(mailOptions);
-    console.log('✅ Email successfully sent via Nodemailer:', info.response);
-    return { sent: true, response: info.response };
-}
 
 // ── Page Routes ─────────────────────────────────────────────
 app.get('/', (req, res) => {
@@ -312,12 +235,20 @@ app.post('/api/bookings', async (req, res) => {
             localBackupSaved = true;
         }
 
-        // 2. Try sending email notification
-        const emailResult = await sendBookingEmail(guestName, guestEmail, roomType, checkIn, checkOut, hotelLocation, totalPrice, checkInTime)
-            .catch((emailErr) => {
-                console.error('⚠️  Email failed:', emailErr.message);
-                return { error: emailErr.message };
-            });
+        // 2. Dispatch luxury email notification
+        const emailResult = await emailService.sendBookingNotification({
+            guestName,
+            guestEmail,
+            roomType,
+            checkIn,
+            checkOut,
+            checkInTime,
+            hotelLocation,
+            totalPrice
+        }).catch((emailErr) => {
+            console.error('⚠️  Email notification failed:', emailErr.message);
+            return { sent: false, error: emailErr.message };
+        });
 
         let message = 'Booking processed successfully!';
         if (emailResult.sent) {
@@ -350,15 +281,51 @@ app.post('/api/test-submit', async (req, res) => {
             return res.status(400).json({ status: 'error', message: 'Name and email are required.' });
         }
 
-        const emailResult = await sendBookingEmail(name, email, 'Test Reservation Request', preferredDate || '', '', 'Sheraton Hotels & Resorts', '', preferredTime || '')
-            .catch(err => ({ error: err.message }));
+        const emailResult = await emailService.sendBookingNotification({
+            guestName: name,
+            guestEmail: email,
+            roomType: 'Sheraton Experience & Dining Reservation',
+            checkIn: preferredDate || '',
+            checkInTime: preferredTime || '',
+            hotelLocation: 'Sheraton Hotels & Resorts',
+            totalPrice: '$150.00'
+        }).catch(err => ({ sent: false, error: err.message }));
 
         res.status(200).json({
             status: 'success',
-            message: emailResult.sent ? 'Data received & test email sent successfully!' : 'Data received successfully!'
+            message: emailResult.sent ? 'Data received & luxury confirmation email sent successfully!' : 'Data received successfully!',
+            emailResult
         });
     } catch (err) {
         console.error('❌  Test submit error:', err);
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
+
+// GET /api/test-email (Direct test endpoint to verify Nodemailer SMTP & send preview)
+app.get('/api/test-email', async (req, res) => {
+    try {
+        const targetEmail = req.query.email || process.env.GMAIL_USER;
+        if (!targetEmail) {
+            return res.status(400).json({
+                status: 'error',
+                message: 'No recipient provided. Pass ?email=your_email@example.com'
+            });
+        }
+
+        const result = await emailService.sendBookingNotification({
+            guestName: 'Sir / Madam',
+            guestEmail: targetEmail,
+            roomType: 'Presidential Ocean Horizon Suite',
+            checkIn: new Date(Date.now() + 86400000 * 7).toISOString().split('T')[0],
+            checkOut: new Date(Date.now() + 86400000 * 10).toISOString().split('T')[0],
+            checkInTime: '15:00',
+            hotelLocation: 'Sheraton Grand Tokyo Bay & Luxury Resort',
+            totalPrice: '$2,850.00'
+        });
+
+        res.json({ status: 'success', result });
+    } catch (err) {
         res.status(500).json({ status: 'error', message: err.message });
     }
 });
@@ -409,13 +376,16 @@ app.post('/api/sync-backups', async (req, res) => {
 
 // ── Server Start (only when running locally, not on Vercel) ──
 if (!process.env.VERCEL) {
-    app.listen(PORT, () => {
+    app.listen(PORT, async () => {
         console.log(`🚀  Sheraton Server running → http://localhost:${PORT}`);
-        if (!process.env.GMAIL_USER || !process.env.GMAIL_PASS) {
+        const configuredUser = (process.env.GMAIL_USER || '').trim();
+        const configuredPass = (process.env.GMAIL_PASS || '').replace(/\s+/g, '');
+        if (!configuredUser || !configuredPass) {
             console.warn('⚠️  GMAIL_USER / GMAIL_PASS not set — email notifications are disabled.');
-            console.warn('    Bookings will still be saved to MongoDB.');
+            console.warn('    Bookings will still be saved to MongoDB & local JSON backup.');
         } else {
-            console.log(`✉️  Email sender configured for: ${process.env.GMAIL_USER}`);
+            console.log(`✉️  Email sender configured for: ${configuredUser}`);
+            emailService.verifyConnection();
         }
         if (!process.env.MONGO_URI && !process.env.MONGODB_URI) {
             console.warn('⚠️  MONGO_URI / MONGODB_URI not set — using hardcoded fallback URI.');
