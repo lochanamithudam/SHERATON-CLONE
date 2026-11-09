@@ -1,0 +1,11 @@
+node_modules
+npm-debug.log
+.git
+.gitignore
+.env
+.env.local
+.vercel
+preview-luxury-email.html
+generate-preview.js
+test-e2e-booking.js
+test-email-service.js
